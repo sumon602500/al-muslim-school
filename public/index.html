@@ -14,7 +14,7 @@
 </head>
 <body class="bg-gray-50 text-gray-800">
 
-  <!-- Top Bar (Dynamic) -->
+  <!-- Top Bar -->
   <div class="bg-emerald-950 text-white text-xs py-2 px-4">
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-2">
@@ -34,8 +34,8 @@
       <div class="flex items-center space-x-3">
         <div class="w-12 h-12 bg-emerald-800 text-white rounded-full flex items-center justify-center font-bold text-2xl shadow">M</div>
         <div>
-          <h1 id="publicInstName" class="text-xl md:text-2xl font-bold text-emerald-950">AL MUSLIM SCHOOL & COLLEGE</h1>
-          <p class="text-xs text-gray-500">স্মার্ট সেন্ট্রাল ম্যানেজমেন্ট প্ল্যাটফর্ম</p>
+          <h1 class="text-xl md:text-2xl font-bold text-emerald-950">AL MUSLIM SCHOOL & COLLEGE</h1>
+          <p class="text-xs text-gray-500">স্মার্ট সেন্ট্রাল অটোমেশন পোর্টাল</p>
         </div>
       </div>
 
@@ -56,43 +56,34 @@
   <!-- Hero Section -->
   <section id="home" class="bg-gradient-to-r from-emerald-950 via-emerald-800 to-teal-900 text-white py-14 px-4 text-center">
     <div class="max-w-4xl mx-auto space-y-3">
-      <span class="bg-emerald-700/60 border border-emerald-400 px-3 py-1 rounded-full text-xs font-semibold">ডিজিটাল শিক্ষাঙ্গন ২০২৬</span>
+      <span class="bg-emerald-700/60 border border-emerald-400 px-3 py-1 rounded-full text-xs font-semibold">ডিজিটাল ক্যাম্পাস ২০২৬</span>
       <h2 class="text-3xl md:text-5xl font-extrabold leading-tight">AL MUSLIM SCHOOL & COLLEGE</h2>
       <p class="text-sm md:text-base text-gray-200 max-w-2xl mx-auto">
-        শ্রেণি নির্বাচন করলেই নির্ধারিত ভর্তি ফি ও মাসিক বেতন সরাসরি ভেসে উঠবে। bKash বা Nagad পেমেন্ট প্রুফ দিয়ে আবেদন সম্পন্ন করুন।
+        শ্রেণি নির্বাচন করলেই নির্ধারিত ফি শো করবে। bKash বা Nagad পেমেন্ট প্রুফ দিয়ে আবেদন নিশ্চিত করুন।
       </p>
       <div class="flex justify-center gap-3 pt-2">
         <a href="#admission-sec" class="bg-amber-500 hover:bg-amber-600 text-gray-900 font-bold px-6 py-2.5 rounded-lg text-sm shadow">
-          <i class="fa-solid fa-file-pen mr-1"></i> সরাসরি ভর্তি আবেদন করুন
+          <i class="fa-solid fa-file-pen mr-1"></i> সরাসরি ভর্তি আবেদন
         </a>
       </div>
     </div>
   </section>
 
-  <!-- ================= ভর্তি আবেদন সেকশন ================= -->
+  <!-- ভর্তি আবেদন সেকশন -->
   <section id="admission-sec" class="max-w-4xl mx-auto px-4 py-12">
     <div class="bg-white rounded-2xl shadow-xl border border-emerald-200 p-6 md:p-8">
       <div class="text-center mb-8">
-        <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full uppercase">অফিসিয়াল ভর্তি ফরম</span>
-        <h3 class="text-2xl md:text-3xl font-extrabold text-emerald-950 mt-2">ডিজিটাল ভর্তি আবেদন ও ফি জমা</h3>
-        <p class="text-xs text-gray-500 mt-1">শ্রেণি নির্বাচন করার সাথে সাথেই অ্যাডমিন কর্তৃক নির্ধারিত ফি দেখাবে</p>
+        <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full uppercase">অনলাইন ভর্তি ফরম</span>
+        <h3 class="text-2xl md:text-3xl font-extrabold text-emerald-950 mt-2">ভর্তি আবেদন ও ফি জমা</h3>
       </div>
 
       <form id="admissionForm" onsubmit="submitAdmissionWithProof(event)" class="space-y-5 text-xs md:text-sm">
-        
-        <!-- ব্যক্তিগত তথ্য -->
-        <div class="bg-gray-50 p-4 rounded-xl border border-gray-200 space-y-3">
-          <h4 class="font-bold text-emerald-900 border-b pb-2 flex items-center">
-            <span class="w-5 h-5 bg-emerald-700 text-white rounded-full inline-flex items-center justify-center text-[10px] mr-2">১</span>
-            শিক্ষার্থীর ব্যক্তিগত তথ্য
-          </h4>
-          
+        <div class="bg-gray-50 p-4 rounded-xl border space-y-3">
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block font-bold text-gray-700 mb-1">শিক্ষার্থীর পূর্ণ নাম *</label>
-              <input type="text" id="stdName" required placeholder="যেমন: আব্দুল্লাহ আল মামুন" class="w-full border p-2.5 rounded-lg">
+              <input type="text" id="stdName" required placeholder="নাম লিখুন" class="w-full border p-2.5 rounded-lg">
             </div>
-
             <div>
               <label class="block font-bold text-emerald-900 mb-1">ভর্তি হতে ইচ্ছুক শ্রেণি *</label>
               <select id="stdClass" required onchange="handleClassFeeChange()" class="w-full border-2 border-emerald-600 bg-white p-2.5 rounded-lg font-bold text-emerald-900">
@@ -106,7 +97,7 @@
             </div>
           </div>
 
-          <!-- স্বয়ংক্রিয় ফি ডিসপ্লে -->
+          <!-- স্বয়ংক্রিয় ফি কার্ড -->
           <div id="feeDisplayCard" class="hidden bg-emerald-50 border-2 border-emerald-500 rounded-xl p-4 text-emerald-950 shadow-sm">
             <div class="flex flex-col sm:flex-row justify-between items-center gap-3">
               <div>
@@ -136,72 +127,53 @@
               <input type="tel" id="stdGuardianPhone" required placeholder="017xxxxxxxx" class="w-full border p-2.5 rounded-lg">
             </div>
           </div>
-
-          <div>
-            <label class="block font-bold text-gray-700 mb-1">পূর্ণাঙ্গ ঠিকানা *</label>
-            <textarea id="stdAddress" rows="2" required placeholder="গ্রাম/রোড, থানা, জেলা" class="w-full border p-2 rounded-lg"></textarea>
-          </div>
         </div>
 
         <!-- পেমেন্ট প্রুফ -->
         <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-300 space-y-3">
-          <h4 class="font-bold text-amber-950 border-b border-amber-200 pb-2 flex items-center">
-            <span class="w-5 h-5 bg-amber-600 text-white rounded-full inline-flex items-center justify-center text-[10px] mr-2">২</span>
-            ভর্তি ফি পরিশোধ ও পেমেন্ট প্রুফ (বাধ্যতামূলক)
-          </h4>
+          <p class="font-bold text-emerald-900 text-xs">টাকা পাঠানোর স্কুলের অফিশিয়াল নম্বর: <strong>bKash:</strong> <span id="publicBkash" class="text-pink-700 font-mono font-bold">01700-000000</span> | <strong>Nagad:</strong> <span id="publicNagad" class="text-amber-700 font-mono font-bold">01800-000000</span></p>
 
-          <div class="bg-white p-3 rounded-lg border border-amber-200 text-xs text-gray-700 space-y-1">
-            <p class="font-bold text-emerald-900">টাকা পাঠানোর স্কুলের অফিশিয়াল অ্যাকাউন্ট:</p>
-            <p>📱 <strong>bKash:</strong> <span id="publicBkash" class="font-mono font-bold text-pink-700 select-all">01700-000000</span> | 📱 <strong>Nagad:</strong> <span id="publicNagad" class="font-mono font-bold text-amber-700 select-all">01800-000000</span></p>
-            <p class="text-[11px] text-gray-500">* নির্ধারিত ফি পাঠিয়ে নিচের তথ্য দিয়ে আবেদন সাবমিট করুন।</p>
-          </div>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
             <div>
-              <label class="block font-bold text-gray-800 mb-1">পেমেন্ট মাধ্যম *</label>
-              <select id="payMethod" required class="w-full border p-2.5 rounded-lg font-bold">
+              <label class="block font-bold mb-1">পেমেন্ট মাধ্যম *</label>
+              <select id="payMethod" required class="w-full border p-2 rounded-lg font-bold">
                 <option value="bKash">bKash (বিকাশ)</option>
                 <option value="Nagad">Nagad (নগদ)</option>
               </select>
             </div>
             <div>
-              <label class="block font-bold text-gray-800 mb-1">যে নম্বর থেকে টাকা পাঠিয়েছেন *</label>
-              <input type="tel" id="paySenderPhone" required placeholder="01XXXXXXXXX" class="w-full border p-2.5 rounded-lg font-mono">
+              <label class="block font-bold mb-1">প্রেরক মোবাইল নম্বর *</label>
+              <input type="tel" id="paySenderPhone" required placeholder="01XXXXXXXXX" class="w-full border p-2 rounded-lg font-mono">
             </div>
             <div>
-              <label class="block font-bold text-gray-800 mb-1">ট্রানজেকশন আইডি (TrxID) *</label>
-              <input type="text" id="payTrxId" required placeholder="যেমন: BL892K12M" class="w-full border-2 border-pink-500 p-2.5 rounded-lg font-mono font-bold uppercase">
+              <label class="block font-bold mb-1">ট্রানজেকশন আইডি (TrxID) *</label>
+              <input type="text" id="payTrxId" required placeholder="BL892K12M" class="w-full border-2 border-pink-500 p-2 rounded-lg font-mono font-bold uppercase">
             </div>
           </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold py-3.5 rounded-xl shadow-lg transition flex items-center justify-center text-sm md:text-base">
-          <i class="fa-solid fa-circle-check mr-2"></i> ভর্তি আবেদন ও পেমেন্ট প্রুফ জমা দিন
+        <button type="submit" id="submitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold py-3 rounded-xl shadow transition">
+          ভর্তি আবেদন ও পেমেন্ট প্রুফ জমা দিন
         </button>
       </form>
 
-      <!-- রসিদ স্লিপ -->
-      <div id="receiptModal" class="hidden mt-6 bg-white border-2 border-emerald-500 rounded-2xl p-6 shadow-2xl">
-        <div class="text-center border-b pb-4">
-          <div class="w-14 h-14 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center text-3xl mx-auto mb-2"><i class="fa-solid fa-receipt"></i></div>
-          <h4 class="text-xl font-black text-emerald-950">ভর্তি আবেদন ও পেমেন্ট স্লিপ</h4>
-          <p class="text-xs text-gray-500">AL MUSLIM SCHOOL & COLLEGE — অনলাইন কপি</p>
-        </div>
-        <div id="receiptContent" class="py-4 space-y-2 text-xs md:text-sm"></div>
-        <div class="mt-4 flex gap-2 justify-end">
-          <button onclick="window.print()" class="bg-emerald-800 text-white text-xs font-bold px-5 py-2.5 rounded-lg"><i class="fa-solid fa-print mr-1.5"></i> রসিদ প্রিন্ট</button>
-          <button onclick="resetAdmissionForm()" class="bg-gray-700 text-white text-xs font-bold px-4 py-2.5 rounded-lg">নতুন আবেদন</button>
+      <div id="receiptModal" class="hidden mt-6 bg-white border-2 border-emerald-500 rounded-2xl p-6 shadow-xl">
+        <h4 class="text-xl font-black text-center text-emerald-950">ভর্তি আবেদন ও পেমেন্ট স্লিপ</h4>
+        <div id="receiptContent" class="py-4 space-y-2 text-xs"></div>
+        <div class="flex gap-2 justify-end">
+          <button onclick="window.print()" class="bg-emerald-800 text-white text-xs font-bold px-4 py-2 rounded">প্রিন্ট</button>
+          <button onclick="resetAdmissionForm()" class="bg-gray-700 text-white text-xs font-bold px-4 py-2 rounded">নতুন আবেদন</button>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ================= রেজাল্ট অনুসন্ধান ================= -->
+  <!-- রেজাল্ট অনুসন্ধান সেকশন -->
   <section id="result-sec" class="max-w-4xl mx-auto px-4 py-10">
     <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
       <div class="text-center mb-6">
         <span class="text-xs bg-blue-100 text-blue-800 font-bold px-3 py-1 rounded-full">একাডেমিক ফলাফল</span>
-        <h3 class="text-2xl font-bold text-gray-800 mt-2">অনলাইন রেজাল্ট ও মার্কশিট</h3>
+        <h3 class="text-2xl font-bold text-gray-800 mt-2">অনলাইন রেজাল্ট ও গ্রেডশিট</h3>
       </div>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg mx-auto">
@@ -212,6 +184,7 @@
             <option value="Class 6 - Class 8">৬ষ্ঠ থেকে ৮ম শ্রেণি</option>
             <option value="Class 1 - Class 5">১ম থেকে ৫ম শ্রেণি</option>
             <option value="Class 11 - Class 12 (College)">একাদশ ও দ্বাদশ (কলেজ)</option>
+            <option value="Play / Nursery">প্লে / নার্সারি / কেজি</option>
           </select>
         </div>
         <div>
@@ -224,36 +197,7 @@
     </div>
   </section>
 
-  <!-- ================= মাসভিত্তিক ফি ট্র্যাকিং ================= -->
-  <section id="fee-sec" class="max-w-4xl mx-auto px-4 py-8">
-    <div class="bg-white rounded-2xl shadow border border-gray-200 p-6">
-      <div class="text-center mb-6">
-        <span class="text-xs bg-pink-100 text-pink-800 font-bold px-3 py-1 rounded-full">মাসিক বেতন</span>
-        <h3 class="text-2xl font-bold text-gray-800 mt-2">মাসভিত্তিক ফি ও বকেয়া হিসাব</h3>
-      </div>
-
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-lg mx-auto">
-        <div>
-          <label class="block text-xs font-bold text-gray-600 mb-1">শ্রেণি</label>
-          <select id="feeClass" class="w-full border p-2 rounded text-sm">
-            <option value="Play / Nursery">প্লে / নার্সারি / কেজি</option>
-            <option value="Class 1 - Class 5">১ম থেকে ৫ম শ্রেণি</option>
-            <option value="Class 6 - Class 8">৬ষ্ঠ থেকে ৮ম শ্রেণি</option>
-            <option value="Class 9 - Class 10">৯ম ও ১০ম শ্রেণি</option>
-            <option value="Class 11 - Class 12 (College)">একাদশ ও দ্বাদশ শ্রেণি</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-bold text-gray-600 mb-1">রোল নম্বর</label>
-          <input type="text" id="feeRoll" value="01" class="w-full border p-2 rounded text-sm">
-        </div>
-      </div>
-      <button onclick="checkMonthlyFees()" class="w-full max-w-lg mx-auto block mt-4 bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 rounded text-sm">ফি বিবরণী দেখুন</button>
-      <div id="feeBox" class="hidden mt-6 border rounded-xl overflow-hidden text-xs"></div>
-    </div>
-  </section>
-
-  <!-- ================= শিক্ষক তালিকা ================= -->
+  <!-- শিক্ষক তালিকা (ছবি সহ) -->
   <section id="teachers-sec" class="max-w-6xl mx-auto px-4 py-12">
     <div class="text-center mb-8">
       <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full">অনুষদ</span>
@@ -262,14 +206,11 @@
     <div id="teacherList" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4"></div>
   </section>
 
-  <!-- ========================================================================= -->
-  <!--                 👑 সেন্ট্রাল অ্যাডমিন কন্ট্রোল সেন্টার મોડাল                -->
-  <!-- ========================================================================= -->
+  <!-- ================= অ্যাডমিন কন্ট্রোল সেন্টার মোডাল ================= -->
   <div id="adminLoginModal" class="fixed inset-0 z-50 hidden modal-backdrop flex items-center justify-center p-4 overflow-y-auto">
     <div class="bg-white rounded-2xl max-w-5xl w-full p-6 shadow-2xl relative my-8">
       <button onclick="closeModal('adminLoginModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-xl"><i class="fa-solid fa-xmark"></i></button>
 
-      <!-- অ্যাডমিন লগইন ফর্ম -->
       <div id="adminLoginBox">
         <h3 class="text-xl font-bold text-center text-emerald-950 mb-4">👑 সেন্ট্রাল অ্যাডমিন লগইন</h3>
         <form onsubmit="handleAdminLogin(event)" class="space-y-3 max-w-sm mx-auto text-sm">
@@ -279,104 +220,90 @@
         </form>
       </div>
 
-      <!-- অ্যাডমিনের মূল কন্ট্রোল ড্যাশবোর্ড -->
       <div id="adminDashboardBox" class="hidden space-y-4">
         <div class="flex justify-between items-center border-b pb-3">
           <div>
             <h4 class="font-black text-emerald-950 text-lg">👑 সেন্ট্রাল অ্যাডমিন কন্ট্রোল সেন্টার</h4>
-            <p class="text-xs text-gray-500">AL MUSLIM SCHOOL & COLLEGE Management</p>
+            <p class="text-xs text-gray-500">AL MUSLIM SCHOOL & COLLEGE</p>
           </div>
           <button onclick="logoutAdmin()" class="bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded text-xs font-bold">লগআউট</button>
         </div>
 
-        <!-- অ্যাডমিন মেনু ট্যাব -->
         <div class="flex border-b text-xs font-bold gap-2 overflow-x-auto pb-1">
-          <button id="tabSettingBtn" onclick="switchAdminTab('settings')" class="py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 whitespace-nowrap">⚙️ সাইট ও পেমেন্ট নম্বর</button>
+          <button id="tabTchBtn" onclick="switchAdminTab('teachers')" class="py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 whitespace-nowrap">👨‍🏫 শিক্ষক ম্যানেজমেন্ট (ছবি ও ডিলিট)</button>
+          <button id="tabResBtn" onclick="switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap">📊 রেজাল্ট এন্ট্রি (সকল সরকারি বিষয়)</button>
           <button id="tabFeeBtn" onclick="switchAdminTab('fees')" class="py-2 px-3 text-gray-500 whitespace-nowrap">💰 শ্রেণিভিত্তিক ফি</button>
           <button id="tabAdmBtn" onclick="switchAdminTab('admissions')" class="py-2 px-3 text-gray-500 whitespace-nowrap">📝 ভর্তি আবেদন ও TrxID</button>
-          <button id="tabResBtn" onclick="switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap">📊 রেজাল্ট এন্ট্রি</button>
-          <button id="tabTchBtn" onclick="switchAdminTab('teachers')" class="py-2 px-3 text-gray-500 whitespace-nowrap">👨‍🏫 শিক্ষক ম্যানেজমেন্ট</button>
+          <button id="tabSettingBtn" onclick="switchAdminTab('settings')" class="py-2 px-3 text-gray-500 whitespace-nowrap">⚙️ সাইট ও পেমেন্ট নম্বর</button>
         </div>
 
-        <!-- ট্যাব ১: সাইট সেটিংস ও bKash/Nagad কন্ট্রোল -->
-        <div id="adminSettingSection" class="space-y-4 text-xs">
-          <div class="bg-blue-50 border border-blue-200 p-3 rounded-xl text-blue-900">
-            <p class="font-bold">এখানে যে ফোন, বিকাশ ও নগদ নম্বর দিবেন—ওয়েবসাইটে সেটাই শো করবে এবং অভিভাবকরা সেই নম্বরেই টাকা পাঠাবে।</p>
+        <!-- ১. শিক্ষক ম্যানেজমেন্ট (ছবি যোগ ও আগের শিক্ষক ডিলিট) -->
+        <div id="adminTeacherSection" class="space-y-4 text-xs">
+          <div class="bg-emerald-50 border border-emerald-300 p-3 rounded-xl text-emerald-900">
+            <p class="font-bold">শিক্ষক যোগ ও পরিচালনা: নতুন শিক্ষক যোগ করার সময় তার ছবি দিতে পারবেন এবং আগের যেকোনো শিক্ষককে নিচের লাল "ডিলিট" বাটনে চেপে মুছে ফেলতে পারবেন।</p>
           </div>
-          <form onsubmit="saveSiteSettings(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label class="block font-bold mb-1">হেল্পলাইন ফোন নম্বর</label>
-              <input type="text" id="admSetPhone" class="w-full border p-2 rounded">
+
+          <!-- শিক্ষক যোগ করার ফর্ম -->
+          <form onsubmit="addTeacherFromAdmin(event)" class="bg-gray-50 p-4 rounded-xl border space-y-3">
+            <h5 class="font-bold text-gray-800 text-sm border-b pb-1">+ নতুন শিক্ষক যুক্ত করুন</h5>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <input type="text" id="ntName" placeholder="শিক্ষকের নাম *" required class="border p-2 rounded">
+              <input type="text" id="ntDesig" placeholder="পদবি (যেমন: সহকারী প্রধান শিক্ষক) *" required class="border p-2 rounded">
+              <input type="text" id="ntSub" placeholder="বিষয় (যেমন: উচ্চতর গণিত) *" required class="border p-2 rounded">
+              <input type="text" id="ntPhone" placeholder="মোবাইল নম্বর *" required class="border p-2 rounded">
+              <input type="url" id="ntPhoto" placeholder="ছবির লিংক (Image URL - যেমন: https://...)" class="border p-2 rounded sm:col-span-2">
             </div>
-            <div>
-              <label class="block font-bold mb-1">অফিশিয়াল ইমেইল</label>
-              <input type="text" id="admSetEmail" class="w-full border p-2 rounded">
-            </div>
-            <div>
-              <label class="block font-bold mb-1 text-pink-700">বিকাশ (bKash) নম্বর</label>
-              <input type="text" id="admSetBkash" class="w-full border-2 border-pink-400 p-2 rounded font-bold">
-            </div>
-            <div>
-              <label class="block font-bold mb-1 text-amber-700">নগদ (Nagad) নম্বর</label>
-              <input type="text" id="admSetNagad" class="w-full border-2 border-amber-400 p-2 rounded font-bold">
-            </div>
-            <div class="sm:col-span-2">
-              <label class="block font-bold mb-1">উপরে চলমান জরুরি নোটিশ (Marquee Notice)</label>
-              <input type="text" id="admSetNotice" class="w-full border p-2 rounded">
-            </div>
-            <div class="sm:col-span-2">
-              <button type="submit" class="bg-emerald-800 hover:bg-emerald-900 text-white font-bold px-6 py-2.5 rounded-lg shadow">
-                <i class="fa-solid fa-floppy-disk mr-1"></i> সেটিংস ও পেমেন্ট নম্বর সংরক্ষণ করুন
+            <div class="flex items-center gap-2">
+              <button type="submit" class="bg-emerald-800 text-white font-bold px-5 py-2 rounded">
+                <i class="fa-solid fa-user-plus mr-1"></i> শিক্ষক সংরক্ষণ করুন
               </button>
+              <span class="text-[11px] text-gray-500">(ছবি লিংক খালি রাখলে স্বয়ংক্রিয় প্রফেশনাল ছবি বসে যাবে)</span>
             </div>
           </form>
-        </div>
 
-        <!-- ট্যাব ২: শ্রেণিভিত্তিক ফি -->
-        <div id="adminFeeSection" class="hidden space-y-3 text-xs">
+          <!-- শিক্ষকদের তালিকা ও ডিলিট টেবিল -->
           <div class="overflow-x-auto border rounded-xl">
             <table class="w-full text-left">
-              <thead class="bg-emerald-900 text-white">
+              <thead class="bg-emerald-950 text-white">
                 <tr>
-                  <th class="p-2.5">শ্রেণি</th>
-                  <th class="p-2.5">ভর্তি ফি (৳)</th>
-                  <th class="p-2.5">মাসিক বেতন (৳)</th>
+                  <th class="p-2.5">ছবি</th>
+                  <th class="p-2.5">আইডি ও নাম</th>
+                  <th class="p-2.5">পদবি ও বিষয়</th>
+                  <th class="p-2.5">মোবাইল</th>
                   <th class="p-2.5 text-center">অ্যাকশন</th>
                 </tr>
               </thead>
-              <tbody id="adminFeeTableBody" class="divide-y"></tbody>
+              <tbody id="adminTeacherTableBody" class="divide-y"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- ট্যাব ৩: ভর্তি আবেদন ও TrxID -->
-        <div id="adminAdmissionSection" class="hidden text-xs">
-          <div id="adminAdmissionTable" class="overflow-x-auto border rounded-lg"></div>
-        </div>
-
-        <!-- ট্যাব ৪: রেজাল্ট এন্ট্রি প্যানেল -->
+        <!-- ২. রেজাল্ট এন্ট্রি (ক্লাস অনুযায়ী সকল সরকারি বিষয় স্বয়ংক্রিয় সারি) -->
         <div id="adminResultSection" class="hidden space-y-4 text-xs">
-          <div class="bg-emerald-50 border border-emerald-300 p-3 rounded-xl text-emerald-900">
-            <p class="font-bold">শিক্ষার্থীর পরীক্ষার রেজাল্ট ইনপুট দিন (ইনপুট দিলে ছাত্রছাত্রীরা সরাসরি রোল দিয়ে দেখতে পাবে):</p>
+          <div class="bg-blue-50 border border-blue-200 p-3 rounded-xl text-blue-900">
+            <p class="font-bold">সরকারি সিলেবাস অনুযায়ী রেজাল্ট এন্ট্রি:</p>
+            <p>নিচের ড্রপডাউন থেকে যে শ্রেণি সিলেক্ট করবেন, সেই শ্রেণির <strong>সকল সরকারি বিষয় সারি অনুযায়ী (Row)</strong> তৈরি হবে। শুধু নম্বর লিখলেই গ্রেড ও জিপিএ স্বয়ংক্রিয়ভাবে হিসাব হবে।</p>
           </div>
-          <form onsubmit="saveStudentResult(event)" class="space-y-3 bg-gray-50 p-4 rounded-xl border">
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+
+          <form onsubmit="saveStudentResult(event)" class="space-y-4 bg-gray-50 p-4 rounded-xl border">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 border-b pb-3">
               <div>
-                <label class="block font-bold mb-1">শ্রেণি *</label>
-                <select id="resInpClass" class="w-full border p-2 rounded">
-                  <option value="Class 9 - Class 10">৯ম ও ১০ম শ্রেণি</option>
-                  <option value="Class 6 - Class 8">৬ষ্ঠ থেকে ৮ম শ্রেণি</option>
-                  <option value="Class 1 - Class 5">১ম থেকে ৫ম শ্রেণি</option>
-                  <option value="Class 11 - Class 12 (College)">একাদশ ও দ্বাদশ</option>
+                <label class="block font-bold mb-1 text-emerald-900">শ্রেণি নির্বাচন করুন *</label>
+                <select id="resInpClass" onchange="renderGovtSubjectsForClass()" class="w-full border-2 border-emerald-600 p-2 rounded font-bold">
+                  <option value="Class 9 - Class 10">৯ম ও ১০ম শ্রেণি (মাধ্যমিক)</option>
+                  <option value="Class 6 - Class 8">৬ষ্ঠ থেকে ৮ম শ্রেণি (জুনিয়র)</option>
+                  <option value="Class 1 - Class 5">১ম থেকে ৫ম শ্রেণি (প্রাথমিক)</option>
+                  <option value="Class 11 - Class 12 (College)">একাদশ ও দ্বাদশ (কলেজ শাখা)</option>
+                  <option value="Play / Nursery">প্লে / নার্সারি / কেজি</option>
                 </select>
               </div>
               <div>
                 <label class="block font-bold mb-1">রোল নম্বর *</label>
-                <input type="text" id="resInpRoll" placeholder="যেমন: 02" required class="w-full border p-2 rounded">
+                <input type="text" id="resInpRoll" placeholder="যেমন: 01" required class="w-full border p-2 rounded font-bold">
               </div>
               <div>
                 <label class="block font-bold mb-1">শিক্ষার্থীর নাম *</label>
-                <input type="text" id="resInpName" placeholder="নাম" required class="w-full border p-2 rounded">
+                <input type="text" id="resInpName" placeholder="যেমন: আব্দুল্লাহ আল মামুন" required class="w-full border p-2 rounded">
               </div>
               <div>
                 <label class="block font-bold mb-1">পরীক্ষার নাম</label>
@@ -384,51 +311,103 @@
               </div>
             </div>
 
-            <p class="font-bold pt-2">বিষয় ও নম্বরসমূহ:</p>
-            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-              <input type="number" id="m_bangla" placeholder="বাংলা (নম্বর)" required class="border p-2 rounded">
-              <input type="number" id="m_english" placeholder="ইংরেজি (নম্বর)" required class="border p-2 rounded">
-              <input type="number" id="m_math" placeholder="গণিত (নম্বর)" required class="border p-2 rounded">
-              <input type="number" id="m_science" placeholder="বিজ্ঞান (নম্বর)" required class="border p-2 rounded">
+            <!-- সরকারি বিষয় ও নম্বর ইনপুট সারি -->
+            <div>
+              <div class="flex justify-between items-center mb-2">
+                <span class="font-bold text-gray-800 text-sm">সিলেবাসের বিষয়সমূহ ও প্রাপ্ত নম্বর:</span>
+                <button type="button" onclick="addNewCustomSubjectRow()" class="bg-blue-600 text-white px-2.5 py-1 rounded text-[11px] font-bold">
+                  + অতিরিক্ত বিষয় যোগ করুন
+                </button>
+              </div>
+
+              <div class="overflow-x-auto border rounded-xl bg-white">
+                <table class="w-full text-left">
+                  <thead class="bg-gray-100 border-b text-[11px]">
+                    <tr>
+                      <th class="p-2 w-12">ক্র.</th>
+                      <th class="p-2">বিষয় (Subject)</th>
+                      <th class="p-2 w-28">পূর্ণমান</th>
+                      <th class="p-2 w-36">প্রাপ্ত নম্বর (Marks)</th>
+                      <th class="p-2 w-20">অ্যাকশন</th>
+                    </tr>
+                  </thead>
+                  <tbody id="subjectRowsContainer" class="divide-y">
+                    <!-- ক্লাসের সরকারি বিষয়গুলো জাভাস্ক্রিপ্ট দিয়ে এখানে লোড হবে -->
+                  </tbody>
+                </table>
+              </div>
             </div>
 
-            <button type="submit" class="bg-emerald-800 text-white font-bold px-6 py-2 rounded">
-              <i class="fa-solid fa-cloud-arrow-up mr-1"></i> রেজাল্ট ডেটাবেজে আপলোড করুন
+            <button type="submit" class="bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold px-6 py-2.5 rounded-lg shadow text-sm">
+              <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i> রেজাল্ট ডেটাবেজে আপলোড করুন
             </button>
           </form>
         </div>
 
-        <!-- ট্যাব ৫: শিক্ষক ম্যানেজমেন্ট -->
-        <div id="adminTeacherSection" class="hidden space-y-3 text-xs">
-          <form onsubmit="addTeacherFromAdmin(event)" class="bg-gray-50 p-3 rounded-xl border flex flex-wrap gap-2 items-center">
-            <input type="text" id="ntName" placeholder="শিক্ষকের নাম *" required class="border p-2 rounded flex-1">
-            <input type="text" id="ntDesig" placeholder="পদবি *" required class="border p-2 rounded flex-1">
-            <input type="text" id="ntSub" placeholder="বিষয় *" required class="border p-2 rounded flex-1">
-            <input type="text" id="ntPhone" placeholder="মোবাইল *" required class="border p-2 rounded flex-1">
-            <button type="submit" class="bg-emerald-800 text-white font-bold px-4 py-2 rounded">+ যোগ করুন</button>
+        <!-- ৩. শ্রেণিভিত্তিক ফি -->
+        <div id="adminFeeSection" class="hidden space-y-3 text-xs">
+          <div class="overflow-x-auto border rounded-xl">
+            <table class="w-full text-left">
+              <thead class="bg-emerald-900 text-white">
+                <tr><th class="p-2.5">শ্রেণি</th><th class="p-2.5">ভর্তি ফি</th><th class="p-2.5">মাসিক বেতন</th><th class="p-2.5 text-center">অ্যাকশন</th></tr>
+              </thead>
+              <tbody id="adminFeeTableBody" class="divide-y"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- ৪. ভর্তি আবেদন -->
+        <div id="adminAdmissionSection" class="hidden text-xs">
+          <div id="adminAdmissionTable" class="overflow-x-auto border rounded-lg"></div>
+        </div>
+
+        <!-- ৫. সাইট সেটিংস -->
+        <div id="adminSettingSection" class="hidden space-y-4 text-xs">
+          <form onsubmit="saveSiteSettings(event)" class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div><label class="block font-bold mb-1">ফোন</label><input type="text" id="admSetPhone" class="w-full border p-2 rounded"></div>
+            <div><label class="block font-bold mb-1">ইমেইল</label><input type="text" id="admSetEmail" class="w-full border p-2 rounded"></div>
+            <div><label class="block font-bold mb-1 text-pink-700">বিকাশ</label><input type="text" id="admSetBkash" class="w-full border-2 border-pink-400 p-2 rounded font-bold"></div>
+            <div><label class="block font-bold mb-1 text-amber-700">নগদ</label><input type="text" id="admSetNagad" class="w-full border-2 border-amber-400 p-2 rounded font-bold"></div>
+            <div class="sm:col-span-2"><label class="block font-bold mb-1">নোটিশ</label><input type="text" id="admSetNotice" class="w-full border p-2 rounded"></div>
+            <div class="sm:col-span-2"><button type="submit" class="bg-emerald-800 text-white font-bold px-6 py-2 rounded">সেভ করুন</button></div>
           </form>
-          <div id="adminTeacherTable" class="overflow-x-auto border rounded-lg"></div>
         </div>
 
       </div>
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript লজিক -->
   <script>
+    // সরকারি সিলেবাস অনুযায়ী সকল শ্রেণির অফিশিয়াল বিষয়সমূহ (NCTB Approved)
+    const GOVT_SUBJECTS_BY_CLASS = {
+      'Play / Nursery': [
+        'বাংলা ও ছড়া', 'ইংরেজি (ABC ও Rhymes)', 'মৌখিক গণিত ও সংখ্যা', 'ইসলামিয়াত ও সাধারণ জ্ঞান', 'ড্রয়িং ও হাতের কাজ'
+      ],
+      'Class 1 - Class 5': [
+        'বাংলা', 'ইংরেজি (English For Today)', 'প্রাথমিক গণিত', 'বাংলাদেশ ও বিশ্বপরিচয়', 'প্রাথমিক বিজ্ঞান', 'ইসলাম ও নৈতিক শিক্ষা'
+      ],
+      'Class 6 - Class 8': [
+        'বাংলা ১ম পত্র', 'বাংলা ২য় পত্র', 'ইংরেজি ১ম পত্র', 'ইংরেজি ২য় পত্র', 'গণিত', 'বিজ্ঞান', 'বাংলাদেশ ও বিশ্বপরিচয়', 'ইসলাম ও নৈতিক শিক্ষা', 'তথ্য ও যোগাযোগ প্রযুক্তি (ICT)'
+      ],
+      'Class 9 - Class 10': [
+        'বাংলা ১ম পত্র', 'বাংলা ২য় পত্র', 'ইংরেজি ১ম পত্র', 'ইংরেজি ২য় পত্র', 'গণিত', 'তথ্য ও যোগাযোগ প্রযুক্তি (ICT)', 'ইসলাম ও নৈতিক শিক্ষা', 'পদার্থবিজ্ঞান / ইতিহাস', 'রসায়ন / ভূগোল', 'জীববিজ্ঞান / পৌরনীতি', 'উচ্চতর গণিত / অর্থনীতি'
+      ],
+      'Class 11 - Class 12 (College)': [
+        'বাংলা ১ম পত্র', 'বাংলা ২য় পত্র', 'ইংরেজি ১ম পত্র', 'ইংরেজি ২য় পত্র', 'তথ্য ও যোগাযোগ প্রযুক্তি (ICT)', 'আবশ্যিক বিষয়-১ (পদার্থ/হিসাববিজ্ঞান/যুক্তিবিদ্যা)', 'আবশ্যিক বিষয়-২ (রসায়ন/ব্যবসায় সংগঠন/অর্থনীতি)', 'আবশ্যিক বিষয়-৩ (জীববিজ্ঞান/ফিন্যান্স/সমাজবিজ্ঞান)', '৪র্থ ঐচ্ছিক বিষয় (উচ্চতর গণিত/পরিসংখ্যান)'
+      ]
+    };
+
     let currentFeesMap = {};
     let siteSettings = {};
 
     function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
     function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
 
-    // ১. লাইভ সেটিংস ও ফি লোড
     async function loadInitialData() {
       try {
         const setRes = await fetch('/api/settings');
         siteSettings = await setRes.json();
-        
-        // ওয়েবসাইটে মানগুলো বসানো
         document.getElementById('publicPhone').innerText = siteSettings.phone;
         document.getElementById('publicEmail').innerText = siteSettings.email;
         document.getElementById('publicMarquee').innerText = siteSettings.marquee_notice;
@@ -437,16 +416,14 @@
 
         const feeRes = await fetch('/api/class-fees');
         currentFeesMap = await feeRes.json();
-      } catch (e) { console.error(e); }
+      } catch (e) {}
     }
     loadInitialData();
 
-    // ২. শ্রেণি সিলেক্ট করলে ফি দেখানো
     function handleClassFeeChange() {
       const cls = document.getElementById('stdClass').value;
       const card = document.getElementById('feeDisplayCard');
       if (!cls || !currentFeesMap[cls]) return card.classList.add('hidden');
-
       const f = currentFeesMap[cls];
       document.getElementById('cardClassName').innerText = cls;
       document.getElementById('cardAdmissionFee').innerText = f.admission + ' ৳';
@@ -454,242 +431,55 @@
       card.classList.remove('hidden');
     }
 
-    // ৩. ভর্তি আবেদন সাবমিট
-    async function submitAdmissionWithProof(e) {
-      e.preventDefault();
-      const payload = {
-        name: document.getElementById('stdName').value.trim(),
-        class_name: document.getElementById('stdClass').value,
-        father_name: document.getElementById('stdFather').value.trim(),
-        guardian_phone: document.getElementById('stdGuardianPhone').value.trim(),
-        address: document.getElementById('stdAddress').value.trim(),
-        payment_method: document.getElementById('payMethod').value,
-        sender_phone: document.getElementById('paySenderPhone').value.trim(),
-        trx_id: document.getElementById('payTrxId').value.trim()
-      };
-
-      const btn = document.getElementById('submitBtn');
-      btn.disabled = true;
-      btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> যাচাই করা হচ্ছে...';
-
-      try {
-        const res = await fetch('/api/admission/apply', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const result = await res.json();
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> ভর্তি আবেদন ও পেমেন্ট প্রুফ জমা দিন';
-
-        if (!res.ok) throw new Error(result.error);
-
-        document.getElementById('admissionForm').classList.add('hidden');
-        document.getElementById('receiptModal').classList.remove('hidden');
-
-        const d = result.data;
-        document.getElementById('receiptContent').innerHTML = `
-          <div class="bg-gray-50 p-3 rounded-lg border flex justify-between items-center">
-            <div>
-              <p class="text-xs text-gray-500">ইউনিক স্টুডেন্ট আইডি:</p>
-              <p class="text-base font-black text-emerald-800 font-mono">${d.student_uid}</p>
-            </div>
-            <span class="bg-amber-100 text-amber-900 border border-amber-300 font-bold px-2.5 py-1 rounded text-xs">
-              ${d.status}
-            </span>
-          </div>
-          <div class="grid grid-cols-2 gap-2 pt-2">
-            <div><strong>শিক্ষার্থীর নাম:</strong> ${d.name}</div>
-            <div><strong>শ্রেণি:</strong> ${d.class_name}</div>
-            <div class="text-pink-700"><strong>পরিশোধিত ভর্তি ফি:</strong> ${d.admission_fee} ৳</div>
-            <div class="text-emerald-700"><strong>মাসিক বেতন:</strong> ${d.monthly_fee} ৳</div>
-          </div>
-          <div class="border-t pt-2 mt-2 bg-emerald-50 p-2 rounded">
-            <p><strong>পেমেন্ট মাধ্যম:</strong> ${d.payment_method} | <strong>প্রেরক:</strong> ${d.sender_phone}</p>
-            <p><strong>ট্রানজেকশন আইডি:</strong> <span class="font-mono font-bold text-pink-700">${d.trx_id}</span></p>
-          </div>
-        `;
-      } catch (err) {
-        btn.disabled = false;
-        btn.innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i> ভর্তি আবেদন ও পেমেন্ট প্রুফ জমা দিন';
-        alert('আবেদন ব্যর্থ: ' + err.message);
-      }
-    }
-
-    function resetAdmissionForm() {
-      document.getElementById('receiptModal').classList.add('hidden');
-      document.getElementById('admissionForm').reset();
-      document.getElementById('feeDisplayCard').classList.add('hidden');
-      document.getElementById('admissionForm').classList.remove('hidden');
-    }
-
-    // ৪. অ্যাডমিন লগইন ও ট্যাব হ্যান্ডলিং
-    async function handleAdminLogin(e) {
-      e.preventDefault();
-      const u = document.getElementById('admUser').value;
-      const p = document.getElementById('admPass').value;
-
-      const res = await fetch('/api/admin/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: u, password: p })
-      });
-      const data = await res.json();
-      if(data.success) {
-        document.getElementById('adminLoginBox').classList.add('hidden');
-        document.getElementById('adminDashboardBox').classList.remove('hidden');
-        populateAdminSettingsForm();
-      } else {
-        alert(data.error);
-      }
-    }
-
-    function logoutAdmin() {
-      document.getElementById('adminDashboardBox').classList.add('hidden');
-      document.getElementById('adminLoginBox').classList.remove('hidden');
-    }
-
-    function switchAdminTab(tab) {
-      ['adminSettingSection', 'adminFeeSection', 'adminAdmissionSection', 'adminResultSection', 'adminTeacherSection'].forEach(id => {
-        document.getElementById(id).classList.add('hidden');
-      });
-      ['tabSettingBtn', 'tabFeeBtn', 'tabAdmBtn', 'tabResBtn', 'tabTchBtn'].forEach(id => {
-        document.getElementById(id).className = 'py-2 px-3 text-gray-500 whitespace-nowrap';
-      });
-
-      if(tab === 'settings') {
-        document.getElementById('adminSettingSection').classList.remove('hidden');
-        document.getElementById('tabSettingBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
-        populateAdminSettingsForm();
-      } else if(tab === 'fees') {
-        document.getElementById('adminFeeSection').classList.remove('hidden');
-        document.getElementById('tabFeeBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
-        renderAdminFeeTable();
-      } else if(tab === 'admissions') {
-        document.getElementById('adminAdmissionSection').classList.remove('hidden');
-        document.getElementById('tabAdmBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
-        loadAdminAdmissions();
-      } else if(tab === 'results') {
-        document.getElementById('adminResultSection').classList.remove('hidden');
-        document.getElementById('tabResBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
-      } else {
-        document.getElementById('adminTeacherSection').classList.remove('hidden');
-        document.getElementById('tabTchBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
-        loadAdminTeachers();
-      }
-    }
-
-    // অ্যাডমিন সেটিংস ফর্ম পূরণ ও সেভ
-    function populateAdminSettingsForm() {
-      document.getElementById('admSetPhone').value = siteSettings.phone || '';
-      document.getElementById('admSetEmail').value = siteSettings.email || '';
-      document.getElementById('admSetBkash').value = siteSettings.bkash_number || '';
-      document.getElementById('admSetNagad').value = siteSettings.nagad_number || '';
-      document.getElementById('admSetNotice').value = siteSettings.marquee_notice || '';
-    }
-
-    async function saveSiteSettings(e) {
-      e.preventDefault();
-      const payload = {
-        phone: document.getElementById('admSetPhone').value,
-        email: document.getElementById('admSetEmail').value,
-        bkash_number: document.getElementById('admSetBkash').value,
-        nagad_number: document.getElementById('admSetNagad').value,
-        marquee_notice: document.getElementById('admSetNotice').value
-      };
-
-      const res = await fetch('/api/admin/settings', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if(data.success) {
-        alert(data.message);
-        loadInitialData(); // মূল সাইট রিফ্রেশ ছাড়া সাথে সাথে আপডেট হবে
-      }
-    }
-
-    // অ্যাডমিন ফি এডিট টেবিল
-    async function renderAdminFeeTable() {
-      const tbody = document.getElementById('adminFeeTableBody');
+    // ================= রেজাল্ট এন্ট্রি: সরকারি বিষয় সারি তৈরি =================
+    function renderGovtSubjectsForClass() {
+      const cls = document.getElementById('resInpClass').value;
+      const subjects = GOVT_SUBJECTS_BY_CLASS[cls] || GOVT_SUBJECTS_BY_CLASS['Class 9 - Class 10'];
+      const tbody = document.getElementById('subjectRowsContainer');
       tbody.innerHTML = '';
-      let idx = 0;
-      for (const [cls, fees] of Object.entries(currentFeesMap)) {
-        idx++;
+
+      subjects.forEach((sub, i) => {
+        const isIctOrShort = sub.includes('ICT') || sub.includes('তথ্য') || sub.includes('ড্রয়িং');
+        const fullMarks = isIctOrShort ? 50 : 100;
         tbody.innerHTML += `
           <tr class="hover:bg-gray-50">
-            <td class="p-2.5 font-bold text-emerald-950">${cls}</td>
-            <td class="p-2.5"><input type="number" id="admF_${idx}" value="${fees.admission}" class="w-24 border p-1 rounded font-bold text-pink-700"> ৳</td>
-            <td class="p-2.5"><input type="number" id="monF_${idx}" value="${fees.monthly}" class="w-24 border p-1 rounded font-bold text-emerald-800"> ৳</td>
-            <td class="p-2.5 text-center">
-              <button onclick="saveUpdatedFee('${cls}', ${idx})" class="bg-emerald-800 text-white px-3 py-1 rounded font-bold">আপডেট</button>
+            <td class="p-2 font-mono font-bold text-gray-500">${i + 1}</td>
+            <td class="p-2">
+              <input type="text" value="${sub}" class="w-full border px-2 py-1 rounded text-xs font-bold text-gray-800 bg-gray-50">
+            </td>
+            <td class="p-2 text-gray-600 font-bold">${fullMarks}</td>
+            <td class="p-2">
+              <input type="number" max="${fullMarks}" placeholder="নম্বর" required class="w-full border-2 border-emerald-400 px-2 py-1 rounded text-xs font-bold text-emerald-950 text-center sub-mark-input">
+            </td>
+            <td class="p-2 text-center">
+              <button type="button" onclick="this.closest('tr').remove()" class="text-red-500 hover:text-red-700 text-xs font-bold" title="বাদ দিন"><i class="fa-solid fa-trash"></i></button>
             </td>
           </tr>
         `;
-      }
-    }
-
-    async function saveUpdatedFee(className, idx) {
-      const newAdm = document.getElementById(`admF_${idx}`).value;
-      const newMon = document.getElementById(`monF_${idx}`).value;
-      const res = await fetch('/api/admin/update-fee', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ class_name: className, admission_fee: newAdm, monthly_fee: newMon })
       });
-      const data = await res.json();
-      if(data.success) {
-        alert(data.message);
-        currentFeesMap = data.currentFees;
-        handleClassFeeChange();
-      }
     }
 
-    // অ্যাডমিন আবেদন দেখা ও অনুমোদন
-    async function loadAdminAdmissions() {
-      const res = await fetch('/api/admin/admissions');
-      const list = await res.json();
-      let html = `
-        <table class="w-full text-left">
-          <thead class="bg-gray-100 border-b"><tr><th class="p-2">আইডি ও নাম</th><th class="p-2">শ্রেণি ও ফি</th><th class="p-2">প্রেরক ও TrxID</th><th class="p-2">স্ট্যাটাস</th><th class="p-2">সিদ্ধান্ত</th></tr></thead>
-          <tbody>
+    // অতিরিক্ত বিষয় সারি যুক্ত করার ফাংশন
+    function addNewCustomSubjectRow() {
+      const tbody = document.getElementById('subjectRowsContainer');
+      const rowCount = tbody.children.length + 1;
+      const tr = document.createElement('tr');
+      tr.className = 'hover:bg-gray-50 bg-amber-50/50';
+      tr.innerHTML = `
+        <td class="p-2 font-mono font-bold text-amber-700">${rowCount}</td>
+        <td class="p-2"><input type="text" placeholder="বিষয়ের নাম লিখুন" required class="w-full border px-2 py-1 rounded text-xs font-bold"></td>
+        <td class="p-2 text-gray-600 font-bold">১০০</td>
+        <td class="p-2"><input type="number" placeholder="নম্বর" required class="w-full border-2 border-emerald-400 px-2 py-1 rounded text-xs font-bold text-center sub-mark-input"></td>
+        <td class="p-2 text-center"><button type="button" onclick="this.closest('tr').remove()" class="text-red-500 text-xs font-bold"><i class="fa-solid fa-trash"></i></button></td>
       `;
-      list.forEach(a => {
-        html += `
-          <tr class="border-b">
-            <td class="p-2"><span class="font-mono font-bold text-emerald-800">${a.student_uid}</span><br><strong>${a.name}</strong></td>
-            <td class="p-2">${a.class_name}<br><strong class="text-pink-700">${a.admission_fee} ৳ (${a.payment_method})</strong></td>
-            <td class="p-2 font-mono">📱 ${a.sender_phone}<br>🔑 ${a.trx_id}</td>
-            <td class="p-2"><span class="bg-amber-100 text-amber-900 px-2 py-0.5 rounded font-bold">${a.status}</span></td>
-            <td class="p-2 space-x-1">
-              <button onclick="updateAdmStatus(${a.id}, 'Approved (অনুমোদিত)')" class="bg-emerald-700 text-white px-2 py-1 rounded font-bold">অনুমোদন</button>
-              <button onclick="updateAdmStatus(${a.id}, 'Rejected (বাতিল)')" class="bg-red-600 text-white px-2 py-1 rounded font-bold">বাতিল</button>
-            </td>
-          </tr>
-        `;
-      });
-      html += `</tbody></table>`;
-      document.getElementById('adminAdmissionTable').innerHTML = html;
+      tbody.appendChild(tr);
     }
 
-    async function updateAdmStatus(id, status) {
-      await fetch('/api/admin/admission-status', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id, status })
-      });
-      alert(`আবেদনটি ${status} করা হয়েছে!`);
-      loadAdminAdmissions();
-    }
-
-    // অ্যাডমিন রেজাল্ট এন্ট্রি
+    // রেজাল্ট সেভ
     async function saveStudentResult(e) {
       e.preventDefault();
-      const b = parseInt(document.getElementById('m_bangla').value);
-      const en = parseInt(document.getElementById('m_english').value);
-      const m = parseInt(document.getElementById('m_math').value);
-      const s = parseInt(document.getElementById('m_science').value);
+      const rows = document.querySelectorAll('#subjectRowsContainer tr');
+      const marksList = [];
 
       function calcGrade(mark) {
         if(mark >= 80) return 'A+';
@@ -701,17 +491,22 @@
         return 'F';
       }
 
+      rows.forEach(r => {
+        const subName = r.querySelector('td:nth-child(2) input').value.trim();
+        const markVal = parseInt(r.querySelector('.sub-mark-input').value) || 0;
+        marksList.push({
+          subject: subName,
+          marks: markVal,
+          grade: calcGrade(markVal)
+        });
+      });
+
       const payload = {
         class_name: document.getElementById('resInpClass').value,
         roll_no: document.getElementById('resInpRoll').value.trim(),
         name: document.getElementById('resInpName').value.trim(),
         exam_name: document.getElementById('resInpExam').value.trim(),
-        marks_list: [
-          { subject: 'বাংলা ১ম পত্র', marks: b, grade: calcGrade(b) },
-          { subject: 'ইংরেজি ১ম পত্র', marks: en, grade: calcGrade(en) },
-          { subject: 'গণিত', marks: m, grade: calcGrade(m) },
-          { subject: 'বিজ্ঞান', marks: s, grade: calcGrade(s) }
-        ]
+        marks_list: marksList
       };
 
       const res = await fetch('/api/admin/add-result', {
@@ -722,85 +517,85 @@
       const data = await res.json();
       if(data.success) {
         alert(data.message);
+      } else {
+        alert('সমস্যা: ' + data.error);
       }
     }
 
-    // অ্যাডমিন শিক্ষক যোগ
+    // ================= শিক্ষক ম্যানেজমেন্ট (ছবি ও ডিলিট) =================
     async function addTeacherFromAdmin(e) {
       e.preventDefault();
       const payload = {
         name: document.getElementById('ntName').value,
         designation: document.getElementById('ntDesig').value,
         subject: document.getElementById('ntSub').value,
-        phone: document.getElementById('ntPhone').value
+        phone: document.getElementById('ntPhone').value,
+        photo: document.getElementById('ntPhoto').value
       };
-      await fetch('/api/admin/add-teacher', {
+
+      const res = await fetch('/api/admin/add-teacher', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
       });
-      alert('নতুন শিক্ষক যুক্ত হয়েছেন!');
-      loadAdminTeachers();
-      loadTeachers();
+      const data = await res.json();
+      if(data.success) {
+        alert('শিক্ষক সফলভাবে যুক্ত হয়েছেন!');
+        document.getElementById('ntName').value = '';
+        document.getElementById('ntDesig').value = '';
+        document.getElementById('ntSub').value = '';
+        document.getElementById('ntPhone').value = '';
+        document.getElementById('ntPhoto').value = '';
+        loadAdminTeachers();
+        loadTeachers();
+      }
+    }
+
+    // আগের শিক্ষক ডিলিট করার ফাংশন
+    async function deleteTeacher(id, name) {
+      if(!confirm(`আপনি কি নিশ্চিতভাবে শিক্ষক "${name}" কে তালিকা থেকে মুছে ফেলতে চান?`)) return;
+
+      const res = await fetch('/api/admin/delete-teacher', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id: id })
+      });
+      const data = await res.json();
+      if(data.success) {
+        alert(data.message);
+        loadAdminTeachers();
+        loadTeachers();
+      }
     }
 
     async function loadAdminTeachers() {
       const res = await fetch('/api/teachers');
       const list = await res.json();
-      let html = `<table class="w-full text-left"><thead><tr class="bg-gray-100 border-b"><th class="p-2">আইডি</th><th class="p-2">নাম</th><th class="p-2">পদবি ও বিষয়</th><th class="p-2">ফোন</th></tr></thead><tbody>`;
+      const tbody = document.getElementById('adminTeacherTableBody');
+      tbody.innerHTML = '';
       list.forEach(t => {
-        html += `<tr class="border-b"><td class="p-2 font-mono">${t.teacher_id}</td><td class="p-2 font-bold">${t.name}</td><td class="p-2">${t.designation} (${t.subject})</td><td class="p-2">${t.phone}</td></tr>`;
+        tbody.innerHTML += `
+          <tr class="hover:bg-gray-50">
+            <td class="p-2.5">
+              <img src="${t.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop'}" class="w-10 h-10 object-cover rounded-full border shadow-sm">
+            </td>
+            <td class="p-2.5">
+              <span class="font-mono text-[10px] text-gray-500">${t.teacher_id}</span><br>
+              <strong class="text-gray-900">${t.name}</strong>
+            </td>
+            <td class="p-2.5">${t.designation} (${t.subject})</td>
+            <td class="p-2.5">${t.phone}</td>
+            <td class="p-2.5 text-center">
+              <button onclick="deleteTeacher(${t.id}, '${t.name}')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-xs font-bold shadow flex items-center mx-auto">
+                <i class="fa-solid fa-trash mr-1"></i> ডিলিট
+              </button>
+            </td>
+          </tr>
+        `;
       });
-      html += `</tbody></table>`;
-      document.getElementById('adminTeacherTable').innerHTML = html;
     }
 
-    // পাবলিক রেজাল্ট সার্চ
-    async function checkResult() {
-      const cls = document.getElementById('resClass').value;
-      const roll = document.getElementById('resRoll').value.trim();
-      const box = document.getElementById('resBox');
-      box.classList.remove('hidden');
-      box.innerHTML = 'লোড হচ্ছে...';
-
-      try {
-        const res = await fetch(`/api/student/check-result?class_name=${encodeURIComponent(cls)}&roll_no=${encodeURIComponent(roll)}`);
-        const data = await res.json();
-        if(!res.ok) throw new Error(data.error);
-
-        let html = `<div class="border-b pb-2 mb-2 font-bold text-emerald-900">${data.student.name} (${data.student.class_name}, রোল: ${data.student.roll_no}) — ${data.exam_name}</div>`;
-        html += `<table class="w-full text-xs text-left"><thead><tr class="border-b"><th>বিষয়</th><th>নম্বর</th><th>গ্রেড</th></tr></thead><tbody>`;
-        data.results.forEach(r => {
-          html += `<tr class="border-b py-1"><td>${r.subject}</td><td class="font-bold">${r.marks}</td><td class="font-bold text-emerald-700">${r.grade}</td></tr>`;
-        });
-        html += `</tbody></table>`;
-        box.innerHTML = html;
-      } catch (e) {
-        box.innerHTML = `<p class="text-red-600 text-xs">${e.message}</p>`;
-      }
-    }
-
-    // পাবলিক ফি সার্চ
-    async function checkMonthlyFees() {
-      const cls = document.getElementById('feeClass').value;
-      const roll = document.getElementById('feeRoll').value.trim();
-      const box = document.getElementById('feeBox');
-      box.classList.remove('hidden');
-      box.innerHTML = 'লোড হচ্ছে...';
-
-      const res = await fetch(`/api/student/check-fees?class_name=${encodeURIComponent(cls)}&roll_no=${encodeURIComponent(roll)}`);
-      const data = await res.json();
-
-      let html = `<div class="bg-gray-100 p-2.5 font-bold text-gray-800">${data.student.name} — মাসিক ফি হার: ${data.monthly_rate} ৳</div><table class="w-full text-left"><thead><tr class="bg-gray-50 border-b p-2"><th>মাস</th><th>টাকা</th><th>অবস্থা</th></tr></thead><tbody>`;
-      data.fees.forEach(f => {
-        const isPaid = f.status === 'Paid';
-        html += `<tr class="border-b p-2"><td class="p-2">${f.month}</td><td class="p-2">${f.amount} ৳</td><td class="p-2"><span class="${isPaid ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'} px-2 py-0.5 rounded font-bold">${isPaid ? 'পরিশোধিত ✔' : 'বকেয়া'}</span></td></tr>`;
-      });
-      html += `</tbody></table>`;
-      box.innerHTML = html;
-    }
-
-    // পাবলিক শিক্ষক তালিকা
+    // পাবলিক শিক্ষক কার্ড লোড (আসল ছবি সহ)
     async function loadTeachers() {
       const res = await fetch('/api/teachers');
       const data = await res.json();
@@ -808,16 +603,140 @@
       box.innerHTML = '';
       data.forEach(t => {
         box.innerHTML += `
-          <div class="bg-white p-4 rounded-xl border text-center shadow-sm">
-            <div class="w-12 h-12 bg-emerald-100 text-emerald-800 rounded-full flex items-center justify-center text-xl mx-auto mb-2"><i class="fa-solid fa-user-tie"></i></div>
-            <h5 class="font-bold text-sm">${t.name}</h5>
+          <div class="bg-white p-4 rounded-xl border text-center shadow-sm hover:shadow-md transition">
+            <img src="${t.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop'}" class="w-20 h-20 object-cover rounded-full mx-auto mb-3 border-2 border-emerald-600 shadow">
+            <h5 class="font-bold text-sm text-gray-900">${t.name}</h5>
             <p class="text-xs text-emerald-700 font-semibold">${t.designation}</p>
-            <p class="text-[11px] text-gray-500">${t.subject}</p>
+            <p class="text-[11px] text-gray-500 mt-1">বিষয়: ${t.subject}</p>
+            <p class="text-[11px] text-gray-400 mt-1"><i class="fa-solid fa-phone mr-1"></i>${t.phone}</p>
           </div>
         `;
       });
     }
     loadTeachers();
+
+    // অ্যাডমিন লগইন ও সুইচ
+    async function handleAdminLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('admUser').value;
+      const p = document.getElementById('admPass').value;
+      const res = await fetch('/api/admin/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: u, password: p })
+      });
+      const data = await res.json();
+      if(data.success) {
+        document.getElementById('adminLoginBox').classList.add('hidden');
+        document.getElementById('adminDashboardBox').classList.remove('hidden');
+        loadAdminTeachers();
+        renderGovtSubjectsForClass();
+      } else { alert(data.error); }
+    }
+
+    function logoutAdmin() {
+      document.getElementById('adminDashboardBox').classList.add('hidden');
+      document.getElementById('adminLoginBox').classList.remove('hidden');
+    }
+
+    function switchAdminTab(tab) {
+      ['adminTeacherSection', 'adminResultSection', 'adminFeeSection', 'adminAdmissionSection', 'adminSettingSection'].forEach(id => document.getElementById(id).classList.add('hidden'));
+      ['tabTchBtn', 'tabResBtn', 'tabFeeBtn', 'tabAdmBtn', 'tabSettingBtn'].forEach(id => document.getElementById(id).className = 'py-2 px-3 text-gray-500 whitespace-nowrap');
+
+      if(tab === 'teachers') {
+        document.getElementById('adminTeacherSection').classList.remove('hidden');
+        document.getElementById('tabTchBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
+        loadAdminTeachers();
+      } else if(tab === 'results') {
+        document.getElementById('adminResultSection').classList.remove('hidden');
+        document.getElementById('tabResBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
+        renderGovtSubjectsForClass();
+      } else if(tab === 'fees') {
+        document.getElementById('adminFeeSection').classList.remove('hidden');
+        document.getElementById('tabFeeBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
+      } else if(tab === 'admissions') {
+        document.getElementById('adminAdmissionSection').classList.remove('hidden');
+        document.getElementById('tabAdmBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
+      } else {
+        document.getElementById('adminSettingSection').classList.remove('hidden');
+        document.getElementById('tabSettingBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap';
+      }
+    }
+
+    // পাবলিক রেজাল্ট চেক
+    async function checkResult() {
+      const cls = document.getElementById('resClass').value;
+      const roll = document.getElementById('resRoll').value.trim();
+      const box = document.getElementById('resBox');
+      box.classList.remove('hidden');
+      box.innerHTML = 'খোঁজা হচ্ছে...';
+
+      try {
+        const res = await fetch(`/api/student/check-result?class_name=${encodeURIComponent(cls)}&roll_no=${encodeURIComponent(roll)}`);
+        const data = await res.json();
+        if(!res.ok) throw new Error(data.error);
+
+        let html = `
+          <div class="border-b pb-3 mb-3 flex justify-between items-center">
+            <div>
+              <h4 class="font-bold text-emerald-950 text-base">${data.student.name}</h4>
+              <p class="text-xs text-gray-500">${data.student.class_name} | রোল: ${data.student.roll_no}</p>
+            </div>
+            <div class="text-right">
+              <span class="text-xs text-gray-500">সার্বিক ফলাফল:</span>
+              <p class="text-lg font-black text-emerald-700">GPA: ${data.gpa}</p>
+            </div>
+          </div>
+          <table class="w-full text-xs text-left">
+            <thead class="bg-emerald-100/70 border-b"><tr><th class="p-2">বিষয়</th><th class="p-2">নম্বর</th><th class="p-2">লেটার গ্রেড</th></tr></thead>
+            <tbody>
+        `;
+        data.results.forEach(r => {
+          html += `<tr class="border-b py-1.5"><td class="p-2 font-medium">${r.subject}</td><td class="p-2 font-bold">${r.marks}</td><td class="p-2 font-black text-emerald-800">${r.grade}</td></tr>`;
+        });
+        html += `</tbody></table>`;
+        box.innerHTML = html;
+      } catch (e) {
+        box.innerHTML = `<p class="text-red-600 text-xs py-2">${e.message}</p>`;
+      }
+    }
+
+    // ভর্তি আবেদন সাবমিট
+    async function submitAdmissionWithProof(e) {
+      e.preventDefault();
+      const payload = {
+        name: document.getElementById('stdName').value.trim(),
+        class_name: document.getElementById('stdClass').value,
+        father_name: document.getElementById('stdFather').value.trim(),
+        guardian_phone: document.getElementById('stdGuardianPhone').value.trim(),
+        payment_method: document.getElementById('payMethod').value,
+        sender_phone: document.getElementById('paySenderPhone').value.trim(),
+        trx_id: document.getElementById('payTrxId').value.trim()
+      };
+      const res = await fetch('/api/admission/apply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      const data = await res.json();
+      if(res.ok) {
+        document.getElementById('admissionForm').classList.add('hidden');
+        document.getElementById('receiptModal').classList.remove('hidden');
+        document.getElementById('receiptContent').innerHTML = `
+          <p><strong>আইডি:</strong> ${data.data.student_uid}</p>
+          <p><strong>শিক্ষার্থী:</strong> ${data.data.name} (${data.data.class_name})</p>
+          <p><strong>ভর্তি ফি:</strong> ${data.data.admission_fee} ৳ | <strong>মাসিক বেতন:</strong> ${data.data.monthly_fee} ৳</p>
+          <p><strong>TrxID:</strong> ${data.data.trx_id}</p>
+        `;
+      } else { alert(data.error); }
+    }
+
+    function resetAdmissionForm() {
+      document.getElementById('receiptModal').classList.add('hidden');
+      document.getElementById('admissionForm').reset();
+      document.getElementById('feeDisplayCard').classList.add('hidden');
+      document.getElementById('admissionForm').classList.remove('hidden');
+    }
   </script>
 </body>
 </html>
