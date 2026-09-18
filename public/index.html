@@ -7,10 +7,61 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
   <style>
     body { font-family: 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
-    .modal-backdrop-custom { background-color: rgba(0, 0, 0, 0.75); }
+    .custom-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.75);
+      z-index: 99999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
   </style>
+
+  <!-- বাটন খোলার মূল ফাংশন (সরাসরি হেডারে রাখা হয়েছে যেন কখনোই ফেইল না করে) -->
+  <script>
+    function openStudentPortalModal() {
+      var m = document.getElementById('studentModal');
+      var loginView = document.getElementById('studentLoginFormView');
+      var dashView = document.getElementById('studentDashboardView');
+      if (loginView) loginView.style.display = 'block';
+      if (dashView) dashView.style.display = 'none';
+      if (m) m.style.display = 'flex';
+    }
+
+    function closeStudentPortalModal() {
+      var m = document.getElementById('studentModal');
+      if (m) m.style.display = 'none';
+    }
+
+    function openAdminPortalModal() {
+      var m = document.getElementById('adminLoginModal');
+      var loginBox = document.getElementById('adminLoginBox');
+      var dashBox = document.getElementById('adminDashboardBox');
+      if (loginBox) loginBox.style.display = 'block';
+      if (dashBox) dashBox.style.display = 'none';
+      var u = document.getElementById('admUser');
+      var p = document.getElementById('admPass');
+      if (u) u.value = '';
+      if (p) p.value = '';
+      if (m) m.style.display = 'flex';
+    }
+
+    function closeAdminPortalModal() {
+      var m = document.getElementById('adminLoginModal');
+      if (m) m.style.display = 'none';
+    }
+
+    function scrollToAdmissionSec() {
+      var el = document.getElementById('admission-sec');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
+  </script>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -19,7 +70,8 @@
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <span class="bg-amber-500 text-gray-900 px-2 py-0.5 rounded font-bold uppercase">ঘোষণা</span>
-        <marquee id="publicMarquee" class="w-64 md:w-96" behavior="scroll">২০২৬ শিক্ষাবর্ষে ভর্তি চলছে • নাম, শ্রেণি ও রোল দিয়ে নিজের ফি ড্যাশবোর্ড দেখুন</marquee>
+        <span class="bg-emerald-600 text-white text-[10px] px-2 py-0.5 rounded font-mono font-bold">v3.5 LIVE</span>
+        <marquee id="publicMarquee" class="w-56 md:w-96" behavior="scroll">২০২৬ শিক্ষাবর্ষে ভর্তি চলছে • নাম ও রোল দিয়ে শিক্ষার্থী পোর্টালে ১২ মাসের বেতন দেখুন</marquee>
       </div>
       <div class="space-x-3 hidden sm:block">
         <span><i class="fa-solid fa-phone"></i> <span id="publicPhone">+880 1700-000000</span></span>
@@ -41,19 +93,19 @@
 
       <nav class="hidden lg:flex space-x-6 text-sm font-semibold text-gray-700">
         <a href="#home" class="hover:text-emerald-700">হোম</a>
-        <a href="javascript:void(0)" onclick="scrollToAdmission()" class="hover:text-emerald-700 font-bold text-emerald-800">অনলাইন ভর্তি</a>
+        <a href="javascript:void(0)" onclick="scrollToAdmissionSec()" class="hover:text-emerald-700 font-bold text-emerald-800">অনলাইন ভর্তি</a>
         <a href="#result-sec" class="hover:text-emerald-700">ফলাফল যাচাই</a>
         <a href="#teachers-sec" class="hover:text-emerald-700">শিক্ষক তালিকা</a>
       </nav>
 
       <div class="flex items-center space-x-2">
         <!-- ১. শিক্ষার্থী পোর্টাল বাটন -->
-        <button type="button" onclick="openStudentLoginModal()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 px-3.5 py-2 rounded-lg text-xs font-black shadow flex items-center transition cursor-pointer">
+        <button type="button" onclick="openStudentPortalModal()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 px-3.5 py-2.5 rounded-lg text-xs font-black shadow flex items-center transition cursor-pointer">
           <i class="fa-solid fa-user-graduate mr-1.5"></i> শিক্ষার্থী পোর্টাল
         </button>
 
         <!-- ২. অ্যাডমিন লগইন বাটন -->
-        <button type="button" onclick="openAdminLoginModal()" class="bg-emerald-800 hover:bg-emerald-900 text-white px-3.5 py-2 rounded-lg text-xs font-bold shadow flex items-center transition cursor-pointer">
+        <button type="button" onclick="openAdminPortalModal()" class="bg-emerald-800 hover:bg-emerald-900 text-white px-3.5 py-2.5 rounded-lg text-xs font-bold shadow flex items-center transition cursor-pointer">
           <i class="fa-solid fa-user-shield mr-1.5"></i> অ্যাডমিন লগইন
         </button>
       </div>
@@ -63,18 +115,18 @@
   <!-- Hero Section -->
   <section id="home" class="bg-gradient-to-r from-emerald-950 via-emerald-800 to-teal-900 text-white py-16 px-4 text-center">
     <div class="max-w-4xl mx-auto space-y-4">
-      <span class="bg-emerald-700/60 border border-emerald-400 px-3 py-1 rounded-full text-xs font-semibold tracking-wide">ডিজিটাল শিক্ষাঙ্গন ২০২৬</span>
+      <span class="bg-emerald-700/60 border border-emerald-400 px-3 py-1 rounded-full text-xs font-semibold">ডিজিটাল শিক্ষাঙ্গন ২০২৬</span>
       <h2 class="text-3xl md:text-5xl font-extrabold leading-tight">AL MUSLIM SCHOOL & COLLEGE</h2>
       <p class="text-sm md:text-base text-gray-200 max-w-2xl mx-auto leading-relaxed">
         শিক্ষার্থীরা নাম, শ্রেণি ও রোল নম্বর দিয়ে লগইন করে ১২ মাসের বেতন বাকি ও পরিশোধ দেখতে পারবেন।
       </p>
       <div class="flex flex-wrap justify-center gap-3 pt-2">
         <!-- নিজের ফি ড্যাশবোর্ড দেখুন বাটন -->
-        <button type="button" onclick="openStudentLoginModal()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-black px-6 py-3 rounded-xl text-sm shadow-lg flex items-center transition cursor-pointer">
+        <button type="button" onclick="openStudentPortalModal()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-black px-6 py-3.5 rounded-xl text-sm shadow-lg flex items-center transition cursor-pointer">
           <i class="fa-solid fa-graduation-cap mr-2"></i> নিজের ফি ড্যাশবোর্ড দেখুন
         </button>
         <!-- অনলাইন ভর্তি আবেদন বাটন -->
-        <button type="button" onclick="scrollToAdmission()" class="bg-white/10 hover:bg-white hover:text-gray-900 border border-white px-6 py-3 rounded-xl text-sm font-semibold transition cursor-pointer">
+        <button type="button" onclick="scrollToAdmissionSec()" class="bg-white/10 hover:bg-white hover:text-gray-900 border border-white px-6 py-3.5 rounded-xl text-sm font-semibold transition cursor-pointer">
           অনলাইন ভর্তি আবেদন
         </button>
       </div>
@@ -87,7 +139,6 @@
       <div class="text-center mb-8">
         <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full uppercase">অনলাইন ভর্তি ফরম</span>
         <h3 class="text-2xl md:text-3xl font-extrabold text-emerald-950 mt-2">ভর্তি আবেদন ও ভর্তি ফি জমা</h3>
-        <p class="text-xs text-gray-500 mt-1">ভর্তির সময় শুধুমাত্র নির্ধারিত এককালীন ভর্তি ফি জমা দিতে হবে</p>
       </div>
 
       <form id="admissionForm" onsubmit="submitAdmissionWithProof(event)" class="space-y-4 text-xs md:text-sm">
@@ -135,7 +186,7 @@
               <input type="text" id="stdFather" required placeholder="পিতার নাম" class="w-full border p-2 rounded-lg bg-white">
             </div>
             <div>
-              <label class="block font-bold text-gray-700 mb-1">অভিভাবকের মোবাইল নম্বর (প্রতি মাসের ১ তারিখ SMS যাবে) *</label>
+              <label class="block font-bold text-gray-700 mb-1">অভিভাবকের মোবাইল নম্বর *</label>
               <input type="tel" id="stdGuardianPhone" required placeholder="017xxxxxxxx" class="w-full border-2 border-emerald-500 p-2.5 rounded-lg font-bold bg-white">
             </div>
           </div>
@@ -162,7 +213,7 @@
           </div>
         </div>
 
-        <button type="submit" id="submitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold py-3 rounded-xl shadow transition cursor-pointer">
+        <button type="submit" id="submitBtn" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-extrabold py-3.5 rounded-xl shadow transition cursor-pointer">
           ভর্তি আবেদন ও ভর্তি ফি জমা দিন
         </button>
       </form>
@@ -171,8 +222,8 @@
         <h4 class="text-lg font-black text-center text-emerald-950">ভর্তি আবেদন ও পেমেন্ট স্লিপ</h4>
         <div id="receiptContent" class="py-3 space-y-1.5"></div>
         <div class="flex gap-2 justify-end pt-2">
-          <button onclick="window.print()" class="bg-emerald-800 text-white font-bold px-4 py-2 rounded">প্রিন্ট</button>
-          <button onclick="resetAdmissionForm()" class="bg-gray-700 text-white font-bold px-4 py-2 rounded">নতুন আবেদন</button>
+          <button onclick="window.print()" class="bg-emerald-800 text-white font-bold px-4 py-2 rounded cursor-pointer">প্রিন্ট</button>
+          <button onclick="resetAdmissionForm()" class="bg-gray-700 text-white font-bold px-4 py-2 rounded cursor-pointer">নতুন আবেদন</button>
         </div>
       </div>
     </div>
@@ -213,9 +264,9 @@
   <!-- ========================================================================= -->
   <!--                 👨‍🎓 ১. শিক্ষার্থী পোর্টাল মোডাল                             -->
   <!-- ========================================================================= -->
-  <div id="studentModal" style="display: none;" class="fixed inset-0 z-50 modal-backdrop-custom items-center justify-center p-4 overflow-y-auto">
+  <div id="studentModal" class="custom-modal-overlay">
     <div class="bg-white rounded-2xl max-w-3xl w-full p-6 shadow-2xl relative my-8">
-      <button type="button" onclick="closeModal('studentModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold cursor-pointer">&times;</button>
+      <button type="button" onclick="closeStudentPortalModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold cursor-pointer leading-none">&times;</button>
 
       <!-- লগইন ফর্ম -->
       <div id="studentLoginFormView">
@@ -285,9 +336,9 @@
   </div>
 
   <!-- ফি প্রদানের পপ-আপ -->
-  <div id="paySpecificFeeModal" style="display: none;" class="fixed inset-0 z-50 modal-backdrop-custom items-center justify-center p-4">
+  <div id="paySpecificFeeModal" class="custom-modal-overlay">
     <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl relative text-xs">
-      <button type="button" onclick="closeModal('paySpecificFeeModal')" class="absolute top-3 right-3 text-gray-400 text-xl font-bold cursor-pointer">&times;</button>
+      <button type="button" onclick="document.getElementById('paySpecificFeeModal').style.display='none'" class="absolute top-3 right-3 text-gray-400 text-2xl font-bold cursor-pointer leading-none">&times;</button>
       <h4 class="font-bold text-base text-pink-700 mb-1">মাসিক ফি পরিশোধ</h4>
       <p id="payModalMonthLabel" class="text-gray-600 mb-3"></p>
       <div class="space-y-2">
@@ -305,9 +356,9 @@
   <!-- ========================================================================= -->
   <!--                 👑 ২. অ্যাডমিন কন্ট্রোল সেন্টার মোডাল                       -->
   <!-- ========================================================================= -->
-  <div id="adminLoginModal" style="display: none;" class="fixed inset-0 z-50 modal-backdrop-custom items-center justify-center p-4 overflow-y-auto">
+  <div id="adminLoginModal" class="custom-modal-overlay">
     <div class="bg-white rounded-2xl max-w-5xl w-full p-6 shadow-2xl relative my-8">
-      <button type="button" onclick="closeModal('adminLoginModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold cursor-pointer">&times;</button>
+      <button type="button" onclick="closeAdminPortalModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold cursor-pointer leading-none">&times;</button>
 
       <!-- অ্যাডমিন লগইন বক্স -->
       <div id="adminLoginBox">
@@ -485,51 +536,8 @@
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT CONTROLLERS ================= -->
+  <!-- জাভাস্ক্রিপ্ট কন্ট্রোলার লজিক -->
   <script>
-    // ১. গ্লোবাল মোডাল ওপেন/ক্লোজ (১০০% কার্যকর)
-    function openModal(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.style.setProperty('display', 'flex', 'important');
-      }
-    }
-
-    function closeModal(id) {
-      const el = document.getElementById(id);
-      if (el) {
-        el.style.setProperty('display', 'none', 'important');
-      }
-    }
-
-    function scrollToAdmission() {
-      const sec = document.getElementById('admission-sec');
-      if (sec) {
-        sec.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-
-    function openStudentLoginModal() {
-      const loginView = document.getElementById('studentLoginFormView');
-      const dashView = document.getElementById('studentDashboardView');
-      if (loginView) loginView.style.setProperty('display', 'block', 'important');
-      if (dashView) dashView.style.setProperty('display', 'none', 'important');
-      openModal('studentModal');
-    }
-
-    function openAdminLoginModal() {
-      const loginBox = document.getElementById('adminLoginBox');
-      const dashBox = document.getElementById('adminDashboardBox');
-      if (loginBox) loginBox.style.setProperty('display', 'block', 'important');
-      if (dashBox) dashBox.style.setProperty('display', 'none', 'important');
-      const u = document.getElementById('admUser');
-      const p = document.getElementById('admPass');
-      if (u) u.value = '';
-      if (p) p.value = '';
-      openModal('adminLoginModal');
-    }
-
-    // ২. ডেটা ভ্যারিয়েবল
     let activeStudent = null;
     let payingMonth = null;
     let uploadedTeacherPhotoBase64 = '';
@@ -578,7 +586,6 @@
       card.classList.remove('hidden');
     }
 
-    // ৩. শিক্ষার্থী পোর্টাল হ্যান্ডলার
     async function handleStudentLogin(e) {
       e.preventDefault();
       const name = document.getElementById('stdLogName').value.trim();
@@ -602,8 +609,8 @@
     }
 
     function renderStudentDashboard(std) {
-      document.getElementById('studentLoginFormView').style.setProperty('display', 'none', 'important');
-      document.getElementById('studentDashboardView').style.setProperty('display', 'block', 'important');
+      document.getElementById('studentLoginFormView').style.display = 'none';
+      document.getElementById('studentDashboardView').style.display = 'block';
 
       document.getElementById('dashStudentName').innerText = std.name;
       document.getElementById('dashStudentMeta').innerText = `${std.class_name} | রোল: ${std.roll_no} | মাসিক ফি: ${std.monthly_fee} ৳`;
@@ -641,7 +648,7 @@
     function openPayFeeModal(month, amount) {
       payingMonth = month;
       document.getElementById('payModalMonthLabel').innerText = `${month} মাসের প্রদেয় ফি: ${amount} ৳`;
-      openModal('paySpecificFeeModal');
+      document.getElementById('paySpecificFeeModal').style.display = 'flex';
     }
 
     async function submitStudentFeePayment() {
@@ -664,7 +671,7 @@
       const data = await res.json();
       if(data.success) {
         alert(data.message);
-        closeModal('paySpecificFeeModal');
+        document.getElementById('paySpecificFeeModal').style.display = 'none';
         const rec = activeStudent.fees_records.find(f => f.month === payingMonth);
         if(rec) {
           rec.status = 'Paid';
@@ -677,11 +684,10 @@
 
     function logoutStudent() {
       activeStudent = null;
-      document.getElementById('studentDashboardView').style.setProperty('display', 'none', 'important');
-      document.getElementById('studentLoginFormView').style.setProperty('display', 'block', 'important');
+      document.getElementById('studentDashboardView').style.display = 'none';
+      document.getElementById('studentLoginFormView').style.display = 'block';
     }
 
-    // ৪. অ্যাডমিন লগইন ও ড্যাশবোর্ড কন্ট্রোল
     async function handleAdminLogin(e) {
       e.preventDefault();
       const u = document.getElementById('admUser').value.trim();
@@ -694,8 +700,8 @@
       });
       const data = await res.json();
       if(data.success) {
-        document.getElementById('adminLoginBox').style.setProperty('display', 'none', 'important');
-        document.getElementById('adminDashboardBox').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminLoginBox').style.display = 'none';
+        document.getElementById('adminDashboardBox').style.display = 'block';
         loadAdminStudentsList();
       } else {
         alert(data.error);
@@ -703,8 +709,8 @@
     }
 
     function logoutAdmin() {
-      document.getElementById('adminDashboardBox').style.setProperty('display', 'none', 'important');
-      document.getElementById('adminLoginBox').style.setProperty('display', 'block', 'important');
+      document.getElementById('adminDashboardBox').style.display = 'none';
+      document.getElementById('adminLoginBox').style.display = 'block';
     }
 
     function switchAdminTab(tab) {
@@ -712,40 +718,39 @@
       const buttons = ['tabManualBtn', 'tabStudentListBtn', 'tabFeeBtn', 'tabSmsBtn', 'tabTchBtn', 'tabResBtn'];
 
       sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.setProperty('display', 'none', 'important');
+        var el = document.getElementById(id);
+        if (el) el.style.display = 'none';
       });
       buttons.forEach(id => {
-        const el = document.getElementById(id);
+        var el = document.getElementById(id);
         if (el) el.className = 'py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer';
       });
 
       if (tab === 'manual_entry') {
-        document.getElementById('adminManualEntrySection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminManualEntrySection').style.display = 'block';
         document.getElementById('tabManualBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
       } else if (tab === 'all_students') {
-        document.getElementById('adminStudentListSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminStudentListSection').style.display = 'block';
         document.getElementById('tabStudentListBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
         loadAdminStudentsList();
       } else if (tab === 'fees') {
-        document.getElementById('adminFeeSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminFeeSection').style.display = 'block';
         document.getElementById('tabFeeBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
         renderAdminFeeTable();
       } else if (tab === 'sms_engine') {
-        document.getElementById('adminSmsSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminSmsSection').style.display = 'block';
         document.getElementById('tabSmsBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
       } else if (tab === 'teachers') {
-        document.getElementById('adminTeacherSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminTeacherSection').style.display = 'block';
         document.getElementById('tabTchBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
         loadAdminTeachers();
       } else {
-        document.getElementById('adminResultSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminResultSection').style.display = 'block';
         document.getElementById('tabResBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
         renderGovtSubjectsForClass();
       }
     }
 
-    // ৫. অ্যাডমিন: ম্যানুয়াল শিক্ষার্থী ভর্তি
     async function handleManualStudentSubmit(e) {
       e.preventDefault();
       const checkedMonths = Array.from(document.querySelectorAll('input[name="initMonth"]:checked')).map(c => c.value);
@@ -820,7 +825,6 @@
       }
     }
 
-    // ৬. ফি টেবিল
     async function renderAdminFeeTable() {
       try {
         const res = await fetch('/api/class-fees');
@@ -854,7 +858,6 @@
       alert(`${cls}-এর ফি আপডেট হয়েছে!`);
     }
 
-    // ৭. শিক্ষক ম্যানেজমেন্ট
     function previewTeacherImage(e) {
       const file = e.target.files[0];
       if (file) {
@@ -913,7 +916,6 @@
     }
     loadTeachers();
 
-    // ৮. ১ তারিখের SMS
     async function sendMonthlyFeeSmsToAll() {
       const m = document.getElementById('smsMonthName').value;
       const d = document.getElementById('smsDeadlineDate').value;
@@ -926,14 +928,13 @@
       alert(data.message);
     }
 
-    // ৯. রেজাল্ট এন্ট্রি ও সার্চ
     function renderGovtSubjectsForClass() {
       const cls = document.getElementById('resInpClass').value;
       const list = GOVT_SUBJECTS_BY_CLASS[cls] || GOVT_SUBJECTS_BY_CLASS['Class 9 - Class 10'];
       const tbody = document.getElementById('subjectRowsContainer');
       tbody.innerHTML = '';
       list.forEach(sub => {
-        tbody.innerHTML += `<tr><td class="p-2"><input type="text" value="${sub}" class="w-full border p-1 rounded font-bold bg-white"></td><td class="p-2"><input type="number" placeholder="নম্বর" required class="border-2 border-emerald-400 p-1 rounded font-bold w-24 sub-m bg-white"></td></tr>`;
+        tbody.innerHTML += `<tr><td class="p-2"><input type="text" value="${sub}" class="w-full border p-1 rounded font-bold"></td><td class="p-2"><input type="number" placeholder="নম্বর" required class="border-2 border-emerald-400 p-1 rounded font-bold w-24 sub-m bg-white"></td></tr>`;
       });
     }
 
@@ -974,7 +975,6 @@
       } else { box.innerHTML = `<p class="text-red-600">${data.error}</p>`; }
     }
 
-    // ১০. অনলাইন ভর্তি সাবমিট
     async function submitAdmissionWithProof(e) {
       e.preventDefault();
       const payload = {
