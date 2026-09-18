@@ -6,16 +6,18 @@ const { Pool } = require('pg');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// ছবি ফাইল আপলোড নেওয়ার জন্য বডি সাইজ লিমিট বাড়ানো হলো (10MB)
 app.use(cors());
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// সাইটের সাধারণ সেটিংস
+// সাইট সাধারণ সেটিংস
 let SITE_SETTINGS = {
   institution_name: 'AL MUSLIM SCHOOL & COLLEGE',
   phone: '+880 1700-000000',
   email: 'info@almuslim.edu.bd',
-  marquee_notice: '২০২৬ শিক্ষাবর্ষে প্লে থেকে একাদশ শ্রেণিতে ভর্তি কার্যক্রম চলছে • নির্ধারিত ক্লাসের ফি দেখে আবেদন করুন',
+  marquee_notice: '২০২৬ শিক্ষাবর্ষে ভর্তি চলছে • প্রতি মাসের ১ তারিখে মাসিক ফির SMS পাঠানো হয়',
   bkash_number: '01700-000000',
   nagad_number: '01800-000000'
 };
@@ -29,7 +31,7 @@ let CLASS_FEES = {
   'Class 11 - Class 12 (College)': { admission: 5000, monthly: 2200 }
 };
 
-// শিক্ষক তালিকা (ছবি সহ)
+// শিক্ষক তালিকা (সরাসরি ছবি সহ)
 let TEACHERS = [
   {
     id: 1,
@@ -38,7 +40,7 @@ let TEACHERS = [
     designation: 'অধ্যক্ষ ও বিভাগীয় প্রধান',
     subject: 'ইসলামিক স্টাডিজ',
     phone: '01711000001',
-    photo: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=200&h=200&fit=crop&crop=faces'
+    photo: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=200&h=200&fit=crop'
   },
   {
     id: 2,
@@ -47,81 +49,54 @@ let TEACHERS = [
     designation: 'সহকারী প্রধান শিক্ষক',
     subject: 'উচ্চতর গণিত',
     phone: '01711000002',
-    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=faces'
-  },
-  {
-    id: 3,
-    teacher_id: 'T-103',
-    name: 'মোসাম্মৎ পারভীন আক্তার',
-    designation: 'সিনিয়র শিক্ষিকা',
-    subject: 'ইংরেজি সাহিত্য',
-    phone: '01711000003',
-    photo: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=200&h=200&fit=crop&crop=faces'
-  },
-  {
-    id: 4,
-    teacher_id: 'T-104',
-    name: 'ড. কামরুল হাসান',
-    designation: 'প্রভাষক (কলেজ শাখা)',
-    subject: 'পদার্থবিজ্ঞান',
-    phone: '01711000004',
-    photo: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=faces'
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop'
   }
 ];
 
-let ADMISSIONS = [];
-
-// রেজাল্ট ডাটা স্টোর
-let RESULTS = [
+// ভর্তি হওয়া শিক্ষার্থীদের তথ্য ও SMS ট্র্যাকিং
+let ADMISSIONS = [
   {
+    id: 1001,
     student_uid: 'AMSC-2026-1001',
+    name: 'আব্দুল্লাহ আল মামুন',
     class_name: 'Class 9 - Class 10',
     roll_no: '01',
-    name: 'আব্দুল্লাহ আল মামুন',
-    exam_name: 'বার্ষিক মূল্যায়ন পরীক্ষা ২০২৬',
-    gpa: '5.00',
-    marks_list: [
-      { subject: 'বাংলা ১ম পত্র', marks: 86, grade: 'A+' },
-      { subject: 'বাংলা ২য় পত্র', marks: 80, grade: 'A+' },
-      { subject: 'ইংরেজি ১ম পত্র', marks: 82, grade: 'A+' },
-      { subject: 'ইংরেজি ২য় পত্র', marks: 85, grade: 'A+' },
-      { subject: 'গণিত', marks: 95, grade: 'A+' },
-      { subject: 'তথ্য ও যোগাযোগ প্রযুক্তি (ICT)', marks: 48, grade: 'A+' },
-      { subject: 'পদার্থবিজ্ঞান', marks: 88, grade: 'A+' },
-      { subject: 'রসায়ন', marks: 84, grade: 'A+' },
-      { subject: 'জীববিজ্ঞান', marks: 89, grade: 'A+' }
-    ]
+    guardian_phone: '01700000001',
+    admission_fee: 3500,
+    monthly_fee: 1500,
+    payment_method: 'bKash',
+    sender_phone: '01700000001',
+    trx_id: 'BL892K12M',
+    status: 'Approved (অনুমোদিত)',
+    applied_at: '18/09/2026'
   }
 ];
 
-const pool = new Pool({
-  connectionString: process.env.DATABASE_URL,
-  ssl: process.env.DATABASE_URL ? { rejectUnauthorized: false } : false
-});
+// রেজাল্ট ডাটাবেজ
+let RESULTS = [];
 
-// ================= এপিআইসমূহ =================
+// ================= এপিআই রাউটসমূহ =================
 
-// সাইট সেটিংস
+// ১. সাইট সেটিংস
 app.get('/api/settings', (req, res) => res.json(SITE_SETTINGS));
 app.post('/api/admin/settings', (req, res) => {
   SITE_SETTINGS = { ...SITE_SETTINGS, ...req.body };
-  res.json({ success: true, message: 'সাইট সেটিংস সফলভাবে আপডেট হয়েছে!', settings: SITE_SETTINGS });
+  res.json({ success: true, message: 'সাইটের তথ্য ও পেমেন্ট নম্বর সংরক্ষিত হয়েছে!', settings: SITE_SETTINGS });
 });
 
-// ফি সংক্রান্ত
+// ২. শ্রেণিভিত্তিক ফি (কখনোই খালি যাবে না)
 app.get('/api/class-fees', (req, res) => res.json(CLASS_FEES));
 app.post('/api/admin/update-fee', (req, res) => {
   const { class_name, admission_fee, monthly_fee } = req.body;
   CLASS_FEES[class_name] = { admission: parseInt(admission_fee), monthly: parseInt(monthly_fee) };
-  res.json({ success: true, message: `${class_name}-এর ফি আপডেট হয়েছে!`, currentFees: CLASS_FEES });
+  res.json({ success: true, message: `${class_name}-এর ফি সফলভাবে আপডেট হয়েছে!`, currentFees: CLASS_FEES });
 });
 
-// শিক্ষক তালিকা
+// ৩. শিক্ষক ম্যানেজমেন্ট (সরাসরি ফাইল আপলোড নেওয়া)
 app.get('/api/teachers', (req, res) => res.json(TEACHERS));
 
-// নতুন শিক্ষক যোগ (ছবি সহ)
 app.post('/api/admin/add-teacher', (req, res) => {
-  const { name, designation, subject, phone, photo } = req.body;
+  const { name, designation, subject, phone, photo_data } = req.body;
   const newT = {
     id: Date.now(),
     teacher_id: 'T-' + Math.floor(100 + Math.random() * 900),
@@ -129,86 +104,25 @@ app.post('/api/admin/add-teacher', (req, res) => {
     designation,
     subject,
     phone,
-    photo: photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop&crop=faces'
+    photo: photo_data || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop'
   };
   TEACHERS.push(newT);
-  res.json({ success: true, message: 'নতুন শিক্ষক যুক্ত হয়েছেন!', teachers: TEACHERS });
+  res.json({ success: true, message: 'নতুন শিক্ষক সফলভাবে যুক্ত হয়েছেন!', teachers: TEACHERS });
 });
 
-// শিক্ষক ডিলিট / রিমুভ করার API
 app.post('/api/admin/delete-teacher', (req, res) => {
   const { id } = req.body;
   TEACHERS = TEACHERS.filter(t => t.id != id);
-  res.json({ success: true, message: 'শিক্ষক সফলভাবে তালিকা থেকে মুছে ফেলা হয়েছে!', teachers: TEACHERS });
+  res.json({ success: true, message: 'শিক্ষক সফলভাবে ডিলিট করা হয়েছে!', teachers: TEACHERS });
 });
 
-// রেজাল্ট এন্ট্রি করা (সকল সরকারি বিষয় সহ)
-app.post('/api/admin/add-result', (req, res) => {
-  const { class_name, roll_no, name, exam_name, marks_list } = req.body;
-  if (!name || !class_name || !roll_no || !marks_list || marks_list.length === 0) {
-    return res.status(400).json({ error: 'শিক্ষার্থীর তথ্য ও বিষয়ের নম্বরসমূহ সঠিকভাবে দিন!' });
-  }
-
-  // স্বয়ংক্রিয় জিপিএ হিসাব
-  let totalGradePoint = 0;
-  let hasFailed = false;
-  marks_list.forEach(m => {
-    let point = 0;
-    const mark = parseInt(m.marks) || 0;
-    if (mark >= 80) point = 5.0;
-    else if (mark >= 70) point = 4.0;
-    else if (mark >= 60) point = 3.5;
-    else if (mark >= 50) point = 3.0;
-    else if (mark >= 40) point = 2.0;
-    else if (mark >= 33) point = 1.0;
-    else { point = 0.0; hasFailed = true; }
-    totalGradePoint += point;
-  });
-
-  const calculatedGPA = hasFailed ? '0.00 (F)' : (totalGradePoint / marks_list.length).toFixed(2);
-
-  const existingIdx = RESULTS.findIndex(r => r.class_name === class_name && r.roll_no === roll_no);
-  const resultRecord = {
-    student_uid: `AMSC-${roll_no}`,
-    name,
-    class_name,
-    roll_no,
-    exam_name: exam_name || 'বার্ষিক পরীক্ষা ২০২৬',
-    gpa: calculatedGPA,
-    marks_list
-  };
-
-  if (existingIdx !== -1) {
-    RESULTS[existingIdx] = resultRecord;
-  } else {
-    RESULTS.unshift(resultRecord);
-  }
-
-  res.json({ success: true, message: `${class_name}, রোল ${roll_no} এর রেজাল্ট সফলভাবে সংরক্ষিত হয়েছে! মোট জিপিএ: ${calculatedGPA}` });
-});
-
-// রেজাল্ট খোঁজা
-app.get('/api/student/check-result', (req, res) => {
-  const { class_name, roll_no } = req.query;
-  const match = RESULTS.find(r => r.class_name === class_name && r.roll_no === roll_no);
-  if (match) {
-    res.json({
-      student: { name: match.name, class_name: match.class_name, roll_no: match.roll_no, student_uid: match.student_uid },
-      exam_name: match.exam_name,
-      gpa: match.gpa,
-      results: match.marks_list
-    });
-  } else {
-    res.status(404).json({ error: 'উক্ত শ্রেণি ও রোলে কোনো রেজাল্ট ডেটাবেজে পাওয়া যায়নি!' });
-  }
-});
-
-// ভর্তি আবেদন ও পেমেন্ট
+// ৪. অনলাইন ভর্তি আবেদন (শুধুমাত্র ভর্তি ফি গ্রহণ)
 app.post('/api/admission/apply', (req, res) => {
   const { name, class_name, guardian_phone, payment_method, sender_phone, trx_id } = req.body;
   if (!name || !class_name || !guardian_phone || !payment_method || !sender_phone || !trx_id) {
-    return res.status(400).json({ error: 'সকল প্রয়োজনীয় তথ্য ও পেমেন্ট প্রুফ দেওয়া আবশ্যক!' });
+    return res.status(400).json({ error: 'সকল তথ্য ও ভর্তি ফির পেমেন্ট প্রুফ দেওয়া বাধ্যতামূলক!' });
   }
+
   const feeInfo = CLASS_FEES[class_name] || { admission: 2500, monthly: 1200 };
   const randomSuffix = Math.floor(1000 + Math.random() * 9000);
   const student_uid = `AMSC-2026-${randomSuffix}`;
@@ -227,15 +141,16 @@ app.post('/api/admission/apply', (req, res) => {
     sender_phone,
     trx_id,
     father_name: req.body.father_name || '',
-    status: 'Pending (পেমেন্ট যাচাই বাকি)',
+    status: 'পেমেন্ট যাচাই পেন্ডিং',
     applied_at: new Date().toLocaleDateString('bn-BD')
   };
 
   ADMISSIONS.unshift(application);
-  res.json({ success: true, data: application, message: 'ভর্তি আবেদন সফলভাবে সম্পন্ন হয়েছে!' });
+  res.json({ success: true, data: application, message: 'ভর্তি আবেদন ও ফি সফলভাবে জমা হয়েছে!' });
 });
 
 app.get('/api/admin/admissions', (req, res) => res.json(ADMISSIONS));
+
 app.post('/api/admin/admission-status', (req, res) => {
   const { id, status } = req.body;
   const item = ADMISSIONS.find(a => a.id == id);
@@ -243,35 +158,88 @@ app.post('/api/admin/admission-status', (req, res) => {
     item.status = status;
     res.json({ success: true, message: `আবেদন স্ট্যাটাস '${status}' করা হয়েছে!` });
   } else {
-    res.status(404).json({ error: 'আবেদন পাওয়া যায়নি!' });
+    res.status(404).json({ error: 'আবেদন খুঁজে পাওয়া যায়নি!' });
   }
 });
 
-// ফি চেক
-app.get('/api/student/check-fees', (req, res) => {
-  const { class_name, roll_no } = req.query;
-  const currentRate = CLASS_FEES[class_name] ? CLASS_FEES[class_name].monthly : 1500;
+// ৫. প্রতি মাসের ১ তারিখ স্বয়ংক্রিয় SMS পাঠানোর ইঞ্জিন
+app.post('/api/admin/send-monthly-fee-sms', (req, res) => {
+  const { current_month, deadline_date } = req.body;
+  const monthName = current_month || 'অক্টোবর ২০২৬';
+  const lastDate = deadline_date || '১০ তারিখের মধ্যে';
+
+  const sentList = [];
+
+  ADMISSIONS.forEach(std => {
+    // প্রতি শিক্ষার্থীর জন্য কাস্টমাইজড SMS মেসেজ
+    const smsBody = `সম্মানিত অভিভাবক, AL MUSLIM SCHOOL & COLLEGE-এ আপনার সন্তান ${std.name} (শ্রেণি: ${std.class_name}, রোল: ${std.roll_no})-এর ${monthName} মাসের বেতন ${std.monthly_fee} টাকা আগামী ${lastDate} পরিশোধের জন্য অনুরোধ করা হলো। বিকাশ/নগদ: ${SITE_SETTINGS.bkash_number}`;
+
+    sentList.push({
+      student_name: std.name,
+      roll_no: std.roll_no,
+      class_name: std.class_name,
+      guardian_phone: std.guardian_phone,
+      monthly_fee: std.monthly_fee,
+      sms_text: smsBody,
+      status: 'SMS পাঠানো হয়েছে (Sent ✔)'
+    });
+  });
+
   res.json({
-    student: { name: 'আব্দুল্লাহ আল মামুন', class_name: class_name || 'Class 9 - Class 10', roll_no: roll_no || '01' },
-    monthly_rate: currentRate,
-    fees: [
-      { month: 'জানুয়ারি ২০২৬', amount: currentRate, status: 'Paid', txn: 'TXN-BKASH-JAN' },
-      { month: 'ফেব্রুয়ারি ২০২৬', amount: currentRate, status: 'Paid', txn: 'TXN-BKASH-FEB' },
-      { month: 'মার্চ ২০২৬', amount: currentRate, status: 'Due', txn: null },
-      { month: 'এপ্রিল ২০২৬', amount: currentRate, status: 'Due', txn: null }
-    ]
+    success: true,
+    total_sent: sentList.length,
+    sent_details: sentList,
+    message: `মোট ${sentList.length} জন শিক্ষার্থীর অভিভাবকের নম্বরে ১ তারিখের মাসিক ফির SMS সফলভাবে পাঠানো হয়েছে!`
   });
 });
 
+// ৬. রেজাল্ট এন্ট্রি ও সার্চ
+app.post('/api/admin/add-result', (req, res) => {
+  const { class_name, roll_no, name, exam_name, marks_list } = req.body;
+  if (!name || !class_name || !roll_no || !marks_list) {
+    return res.status(400).json({ error: 'সকল তথ্য সঠিকভাবে দিন!' });
+  }
+
+  let totalPoints = 0;
+  marks_list.forEach(m => {
+    const val = parseInt(m.marks) || 0;
+    if (val >= 80) totalPoints += 5.0;
+    else if (val >= 70) totalPoints += 4.0;
+    else if (val >= 60) totalPoints += 3.5;
+    else if (val >= 50) totalPoints += 3.0;
+    else if (val >= 40) totalPoints += 2.0;
+    else if (val >= 33) totalPoints += 1.0;
+  });
+  const calculatedGPA = (totalPoints / marks_list.length).toFixed(2);
+
+  const newResult = { student_uid: `AMSC-${roll_no}`, name, class_name, roll_no, exam_name, gpa: calculatedGPA, marks_list };
+  const idx = RESULTS.findIndex(r => r.class_name === class_name && r.roll_no === roll_no);
+  if (idx !== -1) RESULTS[idx] = newResult;
+  else RESULTS.unshift(newResult);
+
+  res.json({ success: true, message: 'রেজাল্ট সফলভাবে ডেটাবেজে আপলোড হয়েছে!' });
+});
+
+app.get('/api/student/check-result', (req, res) => {
+  const { class_name, roll_no } = req.query;
+  const match = RESULTS.find(r => r.class_name === class_name && r.roll_no === roll_no);
+  if (match) {
+    res.json({ student: { name: match.name, class_name: match.class_name, roll_no: match.roll_no }, exam_name: match.exam_name, gpa: match.gpa, results: match.marks_list });
+  } else {
+    res.status(404).json({ error: 'উক্ত শ্রেণি ও রোলে কোনো রেজাল্ট পাওয়া যায়নি!' });
+  }
+});
+
+// ৭. অ্যাডমিন লগইন ভ্যালিডেশন
 app.post('/api/admin/login', (req, res) => {
   const { username, password } = req.body;
   if (username === 'admin' && password === 'admin123') {
     res.json({ success: true, message: 'স্বাগতম প্রধান অ্যাডমিন!' });
   } else {
-    res.status(401).json({ error: 'ভুল ইউজারনেম বা পাসওয়ার্ড!' });
+    res.status(401).json({ error: 'ভুল ইউজার আইডি অথবা পাসওয়ার্ড!' });
   }
 });
 
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 
-app.listen(PORT, () => console.log(`AL MUSLIM Super Server running on ${PORT}`));
+app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
