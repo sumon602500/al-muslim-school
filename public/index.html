@@ -10,38 +10,18 @@
   
   <style>
     body { font-family: 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
+    .custom-modal-overlay {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(0, 0, 0, 0.82);
+      z-index: 999999;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      overflow-y: auto;
+    }
   </style>
-
-  <!-- Instant Modal Engine (100% Bulletproof) -->
-  <script>
-    function showModalBox(id) {
-      var el = document.getElementById(id);
-      if (el) {
-        el.style.setProperty('display', 'flex', 'important');
-      }
-    }
-
-    function hideModalBox(id) {
-      var el = document.getElementById(id);
-      if (el) {
-        el.style.setProperty('display', 'none', 'important');
-      }
-    }
-
-    function triggerStudentPortal() {
-      document.getElementById('studentLoginFormView').style.setProperty('display', 'block', 'important');
-      document.getElementById('studentDashboardView').style.setProperty('display', 'none', 'important');
-      document.getElementById('studentLoginError').style.display = 'none';
-      showModalBox('studentModal');
-    }
-
-    function triggerAdminPortal() {
-      document.getElementById('adminLoginBox').style.setProperty('display', 'block', 'important');
-      document.getElementById('adminDashboardBox').style.setProperty('display', 'none', 'important');
-      document.getElementById('adminLoginError').style.display = 'none';
-      showModalBox('adminLoginModal');
-    }
-  </script>
 </head>
 <body class="bg-gray-50 text-gray-800">
 
@@ -50,7 +30,7 @@
     <div class="max-w-7xl mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-2">
         <span class="bg-amber-500 text-gray-900 px-2 py-0.5 rounded font-bold uppercase">ঘোষণা</span>
-        <span class="bg-emerald-600 text-white text-[10px] px-2 py-0.5 rounded font-mono font-bold">v6.0 FINAL</span>
+        <span class="bg-emerald-600 text-white text-[10px] px-2 py-0.5 rounded font-mono font-bold">v7.0 FIXED</span>
         <marquee class="w-56 md:w-96" behavior="scroll">২০২৬ শিক্ষাবর্ষে ভর্তি চলছে • নাম ও রোল দিয়ে শিক্ষার্থী পোর্টালে ১২ মাসের বেতন দেখুন</marquee>
       </div>
       <div class="space-x-3 hidden sm:block">
@@ -67,7 +47,7 @@
         <div class="w-12 h-12 bg-emerald-800 text-white rounded-full flex items-center justify-center font-bold text-2xl shadow">M</div>
         <div>
           <h1 class="text-xl md:text-2xl font-bold text-emerald-950 leading-tight">AL MUSLIM SCHOOL & COLLEGE</h1>
-          <p class="text-xs text-gray-500">স্মার্ট অটোমেশন ও সেন্ট্রাল ইআরপি</p>
+          <p class="text-xs text-gray-500">স্মার্ট সেন্ট্রাল অটোমেশন পোর্টাল</p>
         </div>
       </div>
 
@@ -79,11 +59,11 @@
       </nav>
 
       <div class="flex items-center space-x-2">
-        <button type="button" onclick="triggerStudentPortal()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 px-3.5 py-2.5 rounded-lg text-xs font-black shadow flex items-center transition cursor-pointer">
+        <button type="button" onclick="openStudentModalDirect()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 px-3.5 py-2.5 rounded-lg text-xs font-black shadow flex items-center transition cursor-pointer">
           <i class="fa-solid fa-user-graduate mr-1.5"></i> শিক্ষার্থী পোর্টাল
         </button>
 
-        <button type="button" onclick="triggerAdminPortal()" class="bg-emerald-800 hover:bg-emerald-900 text-white px-3.5 py-2.5 rounded-lg text-xs font-bold shadow flex items-center transition cursor-pointer">
+        <button type="button" onclick="openAdminModalDirect()" class="bg-emerald-800 hover:bg-emerald-900 text-white px-3.5 py-2.5 rounded-lg text-xs font-bold shadow flex items-center transition cursor-pointer">
           <i class="fa-solid fa-user-shield mr-1.5"></i> অ্যাডমিন লগইন
         </button>
       </div>
@@ -99,7 +79,7 @@
         শিক্ষার্থীরা নাম, শ্রেণি ও রোল নম্বর দিয়ে লগইন করে ১২ মাসের বেতন বাকি ও পরিশোধ সরাসরি দেখতে পারবেন।
       </p>
       <div class="flex flex-wrap justify-center gap-3 pt-2">
-        <button type="button" onclick="triggerStudentPortal()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-black px-6 py-3.5 rounded-xl text-sm shadow-lg flex items-center transition cursor-pointer">
+        <button type="button" onclick="openStudentModalDirect()" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-black px-6 py-3.5 rounded-xl text-sm shadow-lg flex items-center transition cursor-pointer">
           <i class="fa-solid fa-graduation-cap mr-2"></i> নিজের ফি ড্যাশবোর্ড দেখুন
         </button>
         <button type="button" onclick="document.getElementById('admission-sec').scrollIntoView({behavior:'smooth'})" class="bg-white/10 hover:bg-white hover:text-gray-900 border border-white px-6 py-3.5 rounded-xl text-sm font-semibold transition cursor-pointer">
@@ -240,11 +220,11 @@
   <!-- ========================================================================= -->
   <!--                 👨‍🎓 ১. শিক্ষার্থী পোর্টাল মোডাল                             -->
   <!-- ========================================================================= -->
-  <div id="studentModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999999; align-items:center; justify-content:center; padding:16px; overflow-y:auto;">
+  <div id="studentModal" class="custom-modal-overlay">
     <div class="bg-white rounded-2xl max-w-3xl w-full p-6 shadow-2xl relative my-8">
-      <button type="button" onclick="hideModalBox('studentModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold cursor-pointer leading-none">&times;</button>
+      <button type="button" onclick="closeStudentModalDirect()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold cursor-pointer leading-none">&times;</button>
 
-      <!-- লগইন ফর্ম ভিউ -->
+      <!-- লগইন ভিউ -->
       <div id="studentLoginFormView">
         <div class="text-center mb-5">
           <div class="w-14 h-14 bg-amber-100 text-amber-800 rounded-full flex items-center justify-center text-2xl mx-auto mb-2 shadow">
@@ -274,7 +254,7 @@
             <input type="text" id="stdLogRoll" value="01" class="w-full border p-2.5 rounded-lg font-mono font-bold text-center bg-white">
           </div>
 
-          <div id="studentLoginError" style="display:none;" class="text-red-600 font-bold text-xs text-center py-1"></div>
+          <div id="studentLoginError" class="hidden text-red-600 font-bold text-xs text-center py-1"></div>
 
           <button type="button" onclick="performStudentLogin()" class="w-full bg-amber-500 hover:bg-amber-600 text-gray-950 font-black py-3 rounded-lg shadow mt-2 cursor-pointer transition">
             পোর্টালে প্রবেশ করুন
@@ -283,14 +263,14 @@
       </div>
 
       <!-- ১২ মাসের ফি ড্যাশবোর্ড ভিউ -->
-      <div id="studentDashboardView" style="display:none;" class="space-y-4 text-xs">
+      <div id="studentDashboardView" style="display: none;" class="space-y-4 text-xs">
         <div class="flex justify-between items-center border-b pb-3 bg-amber-50 p-4 rounded-xl border border-amber-200">
           <div>
             <h4 id="dashStudentName" class="font-black text-lg text-gray-900"></h4>
             <p id="dashStudentMeta" class="text-xs text-gray-600"></p>
             <p id="dashStudentId" class="text-[11px] font-mono text-emerald-800 font-bold"></p>
           </div>
-          <button type="button" onclick="logoutStudentAction()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-3 py-1.5 rounded cursor-pointer">লগআউট</button>
+          <button type="button" onclick="logoutStudentDirect()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-3 py-1.5 rounded cursor-pointer">লগআউট</button>
         </div>
 
         <div>
@@ -315,9 +295,9 @@
   </div>
 
   <!-- ফি প্রদানের পপ-আপ -->
-  <div id="paySpecificFeeModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:9999999; align-items:center; justify-content:center; padding:16px;">
+  <div id="paySpecificFeeModal" class="custom-modal-overlay">
     <div class="bg-white rounded-2xl max-w-sm w-full p-5 shadow-2xl relative text-xs">
-      <button type="button" onclick="hideModalBox('paySpecificFeeModal')" class="absolute top-3 right-3 text-gray-400 text-2xl font-bold cursor-pointer leading-none">&times;</button>
+      <button type="button" onclick="document.getElementById('paySpecificFeeModal').style.display='none'" class="absolute top-3 right-3 text-gray-400 text-2xl font-bold cursor-pointer leading-none">&times;</button>
       <h4 class="font-bold text-base text-pink-700 mb-1">মাসিক ফি পরিশোধ</h4>
       <p id="payModalMonthLabel" class="text-gray-600 mb-3"></p>
       <div class="space-y-2">
@@ -327,7 +307,7 @@
         </select>
         <input type="tel" id="paySpecPhone" placeholder="যে নম্বর থেকে টাকা পাঠিয়েছেন" class="w-full border p-2 rounded bg-white">
         <input type="text" id="paySpecTrx" placeholder="ট্রানজেকশন আইডি (TrxID)" class="w-full border-2 border-pink-400 p-2 rounded uppercase font-bold font-mono bg-white">
-        <button type="button" onclick="submitStudentFeePaymentAction()" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 rounded mt-2 cursor-pointer">পেমেন্ট নিশ্চিত করুন</button>
+        <button type="button" onclick="submitStudentFeePaymentDirect()" class="w-full bg-pink-600 hover:bg-pink-700 text-white font-bold py-2 rounded mt-2 cursor-pointer">পেমেন্ট নিশ্চিত করুন</button>
       </div>
     </div>
   </div>
@@ -335,9 +315,9 @@
   <!-- ========================================================================= -->
   <!--                 👑 ২. অ্যাডমিন কন্ট্রোল সেন্টার মোডাল                       -->
   <!-- ========================================================================= -->
-  <div id="adminLoginModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.85); z-index:999999; align-items:center; justify-content:center; padding:16px; overflow-y:auto;">
+  <div id="adminLoginModal" class="custom-modal-overlay">
     <div class="bg-white rounded-2xl max-w-5xl w-full p-6 shadow-2xl relative my-8">
-      <button type="button" onclick="hideModalBox('adminLoginModal')" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold cursor-pointer leading-none">&times;</button>
+      <button type="button" onclick="closeAdminModalDirect()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-3xl font-bold cursor-pointer leading-none">&times;</button>
 
       <!-- অ্যাডমিন লগইন বক্স -->
       <div id="adminLoginBox">
@@ -354,7 +334,7 @@
             <input type="password" id="admPass" value="admin123" placeholder="পাসওয়ার্ড লিখুন" class="w-full border p-2.5 rounded-lg bg-white">
           </div>
 
-          <div id="adminLoginError" style="display:none;" class="text-red-600 font-bold text-xs text-center py-1"></div>
+          <div id="adminLoginError" class="hidden text-red-600 font-bold text-xs text-center py-1"></div>
 
           <button type="button" onclick="performAdminLogin()" class="w-full bg-emerald-800 hover:bg-emerald-900 text-white font-bold py-2.5 rounded-lg shadow cursor-pointer transition">
             লগইন করুন
@@ -363,13 +343,13 @@
       </div>
 
       <!-- অ্যাডমিনের মূল ড্যাশবোর্ড -->
-      <div id="adminDashboardBox" style="display:none;" class="space-y-4 text-xs">
+      <div id="adminDashboardBox" style="display: none;" class="space-y-4 text-xs">
         <div class="flex justify-between items-center border-b pb-3">
           <div>
             <h4 class="font-black text-emerald-950 text-lg">👑 সেন্ট্রাল অ্যাডমিন কন্ট্রোল সেন্টার</h4>
             <p class="text-xs text-gray-500">AL MUSLIM SCHOOL & COLLEGE Management</p>
           </div>
-          <button type="button" onclick="logoutAdminAction()" class="bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded font-bold cursor-pointer">লগআউট</button>
+          <button type="button" onclick="logoutAdminDirect()" class="bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded font-bold cursor-pointer">লগআউট</button>
         </div>
 
         <div class="flex border-b font-bold gap-2 overflow-x-auto pb-1">
@@ -427,7 +407,7 @@
         </div>
 
         <!-- সকল শিক্ষার্থী তালিকা -->
-        <div id="adminStudentListSection" style="display:none;" class="space-y-4">
+        <div id="adminStudentListSection" style="display: none;" class="space-y-4">
           <div class="overflow-x-auto border rounded-xl">
             <table class="w-full text-left">
               <thead class="bg-emerald-950 text-white">
@@ -445,7 +425,7 @@
         </div>
 
         <!-- শ্রেণিভিত্তিক ফি -->
-        <div id="adminFeeSection" style="display:none;" class="space-y-3">
+        <div id="adminFeeSection" style="display: none;" class="space-y-3">
           <div class="overflow-x-auto border rounded-xl">
             <table class="w-full text-left">
               <thead class="bg-emerald-950 text-white">
@@ -457,7 +437,7 @@
         </div>
 
         <!-- ১ তারিখের SMS -->
-        <div id="adminSmsSection" style="display:none;" class="space-y-4">
+        <div id="adminSmsSection" style="display: none;" class="space-y-4">
           <div class="bg-gray-50 p-4 rounded-xl border flex flex-wrap gap-3 items-center">
             <input type="text" id="smsMonthName" value="অক্টোবর ২০২৬" class="border p-2 rounded font-bold bg-white">
             <input type="text" id="smsDeadlineDate" value="১০ তারিখের মধ্যে" class="border p-2 rounded font-bold bg-white">
@@ -469,7 +449,7 @@
         </div>
 
         <!-- শিক্ষক ম্যানেজমেন্ট -->
-        <div id="adminTeacherSection" style="display:none;" class="space-y-4">
+        <div id="adminTeacherSection" style="display: none;" class="space-y-4">
           <div class="bg-gray-50 p-3 rounded-xl border flex flex-wrap gap-2">
             <input type="text" id="ntName" placeholder="শিক্ষকের নাম" class="border p-2 rounded flex-1 bg-white">
             <input type="text" id="ntDesig" placeholder="পদবি" class="border p-2 rounded flex-1 bg-white">
@@ -486,7 +466,7 @@
         </div>
 
         <!-- রেজাল্ট এন্ট্রি -->
-        <div id="adminResultSection" style="display:none;" class="space-y-4">
+        <div id="adminResultSection" style="display: none;" class="space-y-4">
           <div class="space-y-3 bg-gray-50 p-4 rounded-xl border">
             <div class="grid grid-cols-4 gap-2">
               <select id="resInpClass" class="border p-2 rounded font-bold bg-white">
@@ -508,11 +488,35 @@
 
   <!-- ================= JAVASCRIPT CONTROLLERS ================= -->
   <script>
-    const ALL_MONTHS = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
-    let activeStudent = null;
-    let payingMonth = null;
+    // মোডাল হ্যান্ডলার
+    function openStudentModalDirect() {
+      document.getElementById('studentLoginFormView').style.display = 'block';
+      document.getElementById('studentDashboardView').style.display = 'none';
+      document.getElementById('studentLoginError').classList.add('hidden');
+      document.getElementById('studentModal').style.display = 'flex';
+    }
 
-    let localStudents = [
+    function closeStudentModalDirect() {
+      document.getElementById('studentModal').style.display = 'none';
+    }
+
+    function openAdminModalDirect() {
+      document.getElementById('adminLoginBox').style.display = 'block';
+      document.getElementById('adminDashboardBox').style.display = 'none';
+      document.getElementById('adminLoginError').classList.add('hidden');
+      document.getElementById('adminLoginModal').style.display = 'flex';
+    }
+
+    function closeAdminModalDirect() {
+      document.getElementById('adminLoginModal').style.display = 'none';
+    }
+
+    // ডেটা ভ্যারিয়েবল
+    var ALL_MONTHS = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
+    var activeStudent = null;
+    var payingMonth = null;
+
+    var localStudents = [
       {
         id: 1,
         student_uid: 'AMSC-2026-1001',
@@ -522,17 +526,24 @@
         guardian_phone: '01700000001',
         monthly_fee: 1500,
         admission_type: 'সরাসরি ভর্তি',
-        fees_records: ALL_MONTHS.map((m, idx) => ({
-          month: m,
-          amount: 1500,
-          status: idx < 2 ? 'Paid' : 'Due',
-          paid_at: idx < 2 ? 'অফিস ক্যাশ রসিদ' : null,
-          trx_id: idx < 2 ? 'CASH-REC-001' : null
-        }))
+        fees_records: [
+          { month: 'জানুয়ারি', amount: 1500, status: 'Paid', paid_at: 'অফিস ক্যাশ', trx_id: 'CASH-REC-001' },
+          { month: 'ফেব্রুয়ারি', amount: 1500, status: 'Paid', paid_at: 'অফিস ক্যাশ', trx_id: 'CASH-REC-002' },
+          { month: 'মার্চ', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'এপ্রিল', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'মে', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'জুন', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'জুলাই', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'আগস্ট', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'সেপ্টেম্বর', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'অক্টোবর', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'নভেম্বর', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
+          { month: 'ডিসেম্বর', amount: 1500, status: 'Due', paid_at: null, trx_id: null }
+        ]
       }
     ];
 
-    let currentFeesMap = {
+    var currentFeesMap = {
       'Play / Nursery': { admission: 1500, monthly: 800 },
       'Class 1 - Class 5': { admission: 2000, monthly: 1000 },
       'Class 6 - Class 8': { admission: 2500, monthly: 1200 },
@@ -540,39 +551,49 @@
       'Class 11 - Class 12 (College)': { admission: 5000, monthly: 2200 }
     };
 
-    // শিক্ষার্থী পোর্টাল লগইন
+    // ১. শিক্ষার্থী পোর্টাল লগইন ফাংশন (কোনো টেমপ্লেট লিটারাল এরর ছাড়া)
     function performStudentLogin() {
-      const name = document.getElementById('stdLogName').value.trim();
-      const cls = document.getElementById('stdLogClass').value;
-      const roll = document.getElementById('stdLogRoll').value.trim();
-      const errBox = document.getElementById('studentLoginError');
+      var name = document.getElementById('stdLogName').value.trim();
+      var cls = document.getElementById('stdLogClass').value;
+      var roll = document.getElementById('stdLogRoll').value.trim();
+      var errBox = document.getElementById('studentLoginError');
 
       if (!name || !roll) {
         errBox.innerText = 'শিক্ষার্থীর নাম ও রোল নম্বর লিখুন!';
-        errBox.style.display = 'block';
+        errBox.classList.remove('hidden');
         return;
       }
 
-      errBox.style.display = 'none';
+      errBox.classList.add('hidden');
 
-      let matched = localStudents.find(s => s.class_name === cls && s.roll_no === roll);
+      var matched = null;
+      for (var i = 0; i < localStudents.length; i++) {
+        if (localStudents[i].class_name === cls && localStudents[i].roll_no === roll) {
+          matched = localStudents[i];
+          break;
+        }
+      }
+
       if (!matched) {
         matched = {
           id: Date.now(),
-          student_uid: `AMSC-${roll}`,
+          student_uid: 'AMSC-' + roll,
           name: name,
           class_name: cls,
           roll_no: roll,
           monthly_fee: currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1500,
           admission_type: 'অনলাইন পোর্টাল',
-          fees_records: ALL_MONTHS.map((m, idx) => ({
-            month: m,
-            amount: currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1500,
-            status: idx < 1 ? 'Paid' : 'Due',
-            paid_at: idx < 1 ? 'অনলাইন' : null,
-            trx_id: idx < 1 ? 'TXN-ONLINE' : null
-          }))
+          fees_records: []
         };
+        for (var j = 0; j < ALL_MONTHS.length; j++) {
+          matched.fees_records.push({
+            month: ALL_MONTHS[j],
+            amount: matched.monthly_fee,
+            status: j === 0 ? 'Paid' : 'Due',
+            paid_at: j === 0 ? 'অনলাইন' : null,
+            trx_id: j === 0 ? 'ONLINE-AUTO' : null
+          });
+        }
         localStudents.push(matched);
       }
 
@@ -581,154 +602,161 @@
     }
 
     function renderStudentDashboardView(std) {
-      document.getElementById('studentLoginFormView').style.setProperty('display', 'none', 'important');
-      document.getElementById('studentDashboardView').style.setProperty('display', 'block', 'important');
+      document.getElementById('studentLoginFormView').style.display = 'none';
+      document.getElementById('studentDashboardView').style.display = 'block';
 
       document.getElementById('dashStudentName').innerText = std.name;
-      document.getElementById('dashStudentMeta').innerText = `${std.class_name} | রোল: ${std.roll_no} | মাসিক ফি: ${std.monthly_fee} ৳`;
-      document.getElementById('dashStudentId').innerText = `ইউনিক আইডি: ${std.student_uid} (${std.admission_type})`;
+      document.getElementById('dashStudentMeta').innerText = std.class_name + ' | রোল: ' + std.roll_no + ' | মাসিক ফি: ' + std.monthly_fee + ' ৳';
+      document.getElementById('dashStudentId').innerText = 'ইউনিক আইডি: ' + std.student_uid + ' (' + std.admission_type + ')';
 
-      const tbody = document.getElementById('studentFeeRecordsTable');
+      var tbody = document.getElementById('studentFeeRecordsTable');
       tbody.innerHTML = '';
 
-      std.fees_records.forEach(f => {
-        const isPaid = f.status === 'Paid';
-        tbody.innerHTML += `
-          <tr class="hover:bg-gray-50">
-            <td class="p-2.5 font-bold">${f.month} ২০২৬</td>
-            <td class="p-2.5 font-bold text-gray-700">${f.amount} ৳</td>
-            <td class="p-2.5">
-              <span class="${isPaid ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700'} px-2.5 py-1 rounded-full font-bold text-[11px]">
-                ${isPaid ? 'পরিশোধিত ✔' : 'বকেয়া (Due) ⚠️'}
-              </span>
-            </td>
-            <td class="p-2.5 text-gray-500 font-mono text-[11px]">
-              ${isPaid ? `${f.paid_at \vert{}\vert{} 'ক্যাশ'} (${f.trx_id || 'N/A'})` : 'পরিশোধ বাকি রয়েছে'}
-            </td>
-            <td class="p-2.5 text-center">
-              ${isPaid ? `<span class="text-emerald-700 font-bold">পরিশোধ সম্পন্ন</span>` : `
-                <button type="button" onclick="openPayFeeModal('${f.month}',${f.amount})" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-3 py-1.5 rounded shadow cursor-pointer">
-                  ফি দিন
-                </button>
-              `}
-            </td>
-          </tr>
-        `;
-      });
+      for (var i = 0; i < std.fees_records.length; i++) {
+        var f = std.fees_records[i];
+        var isPaid = f.status === 'Paid';
+        var badgeClass = isPaid ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700';
+        var badgeText = isPaid ? 'পরিশোধিত ✔' : 'বকেয়া (Due) ⚠️';
+        var detailText = isPaid ? (f.paid_at || 'ক্যাশ') + ' (' + (f.trx_id || 'N/A') + ')' : 'পরিশোধ বাকি রয়েছে';
+        var actionHtml = isPaid ? '<span class="text-emerald-700 font-bold">পরিশোধ সম্পন্ন</span>' : '<button type="button" onclick="openPayFeeModal(\'' + f.month + '\', ' + f.amount + ')" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-3 py-1.5 rounded shadow cursor-pointer">ফি দিন</button>';
+
+        var row = document.createElement('tr');
+        row.className = 'hover:bg-gray-50';
+        row.innerHTML = '<td class="p-2.5 font-bold">' + f.month + ' ২০২৬</td>' +
+                        '<td class="p-2.5 font-bold text-gray-700">' + f.amount + ' ৳</td>' +
+                        '<td class="p-2.5"><span class="' + badgeClass + ' px-2.5 py-1 rounded-full font-bold text-[11px]">' + badgeText + '</span></td>' +
+                        '<td class="p-2.5 text-gray-500 font-mono text-[11px]">' + detailText + '</td>' +
+                        '<td class="p-2.5 text-center">' + actionHtml + '</td>';
+        tbody.appendChild(row);
+      }
     }
 
-    function logoutStudentAction() {
+    function logoutStudentDirect() {
       activeStudent = null;
-      document.getElementById('studentDashboardView').style.setProperty('display', 'none', 'important');
-      document.getElementById('studentLoginFormView').style.setProperty('display', 'block', 'important');
+      document.getElementById('studentDashboardView').style.display = 'none';
+      document.getElementById('studentLoginFormView').style.display = 'block';
     }
 
     function openPayFeeModal(month, amount) {
       payingMonth = month;
-      document.getElementById('payModalMonthLabel').innerText = `${month} মাসের প্রদেয় ফি: ${amount} ৳`;
-      showModalBox('paySpecificFeeModal');
+      document.getElementById('payModalMonthLabel').innerText = month + ' মাসের প্রদেয় ফি: ' + amount + ' ৳';
+      document.getElementById('paySpecificFeeModal').style.display = 'flex';
     }
 
-    function submitStudentFeePaymentAction() {
-      const ph = document.getElementById('paySpecPhone').value.trim();
-      const trx = document.getElementById('paySpecTrx').value.trim();
-      const m = document.getElementById('paySpecMethod').value;
-      if (!ph || !trx) return alert('প্রেরক নম্বর ও TrxID দিন!');
-
-      const rec = activeStudent.fees_records.find(f => f.month === payingMonth);
-      if (rec) {
-        rec.status = 'Paid';
-        rec.paid_at = m;
-        rec.trx_id = trx;
+    function submitStudentFeePaymentDirect() {
+      var ph = document.getElementById('paySpecPhone').value.trim();
+      var trx = document.getElementById('paySpecTrx').value.trim();
+      var m = document.getElementById('paySpecMethod').value;
+      if (!ph || !trx) {
+        alert('প্রেরক নম্বর ও TrxID দিন!');
+        return;
       }
-      alert(`${payingMonth} মাসের ফি সফলভাবে পরিশোধিত হয়েছে!`);
-      hideModalBox('paySpecificFeeModal');
+
+      for (var i = 0; i < activeStudent.fees_records.length; i++) {
+        if (activeStudent.fees_records[i].month === payingMonth) {
+          activeStudent.fees_records[i].status = 'Paid';
+          activeStudent.fees_records[i].paid_at = m;
+          activeStudent.fees_records[i].trx_id = trx;
+          break;
+        }
+      }
+
+      alert(payingMonth + ' মাসের ফি সফলভাবে পরিশোধিত হয়েছে!');
+      document.getElementById('paySpecificFeeModal').style.display = 'none';
       renderStudentDashboardView(activeStudent);
     }
 
-    // অ্যাডমিন লগইন
+    // ২. অ্যাডমিন লগইন ফাংশন
     function performAdminLogin() {
-      const u = document.getElementById('admUser').value.trim();
-      const p = document.getElementById('admPass').value.trim();
-      const errBox = document.getElementById('adminLoginError');
+      var u = document.getElementById('admUser').value.trim();
+      var p = document.getElementById('admPass').value.trim();
+      var errBox = document.getElementById('adminLoginError');
 
       if (u === 'admin' && p === 'admin123') {
-        errBox.style.display = 'none';
-        document.getElementById('adminLoginBox').style.setProperty('display', 'none', 'important');
-        document.getElementById('adminDashboardBox').style.setProperty('display', 'block', 'important');
+        errBox.classList.add('hidden');
+        document.getElementById('adminLoginBox').style.display = 'none';
+        document.getElementById('adminDashboardBox').style.display = 'block';
         loadAdminStudentsList();
         renderAdminFeeTable();
       } else {
         errBox.innerText = 'ভুল অ্যাডমিন আইডি বা পাসওয়ার্ড!';
-        errBox.style.display = 'block';
+        errBox.classList.remove('hidden');
       }
     }
 
-    function logoutAdminAction() {
-      document.getElementById('adminDashboardBox').style.setProperty('display', 'none', 'important');
-      document.getElementById('adminLoginBox').style.setProperty('display', 'block', 'important');
+    function logoutAdminDirect() {
+      document.getElementById('adminDashboardBox').style.display = 'none';
+      document.getElementById('adminLoginBox').style.display = 'block';
     }
 
     function switchAdminTab(tab) {
-      const sections = ['adminManualEntrySection', 'adminStudentListSection', 'adminFeeSection', 'adminSmsSection', 'adminTeacherSection', 'adminResultSection'];
-      const buttons = ['tabManualBtn', 'tabStudentListBtn', 'tabFeeBtn', 'tabSmsBtn', 'tabTchBtn', 'tabResBtn'];
+      var sections = ['adminManualEntrySection', 'adminStudentListSection', 'adminFeeSection', 'adminSmsSection', 'adminTeacherSection', 'adminResultSection'];
+      var buttons = ['tabManualBtn', 'tabStudentListBtn', 'tabFeeBtn', 'tabSmsBtn', 'tabTchBtn', 'tabResBtn'];
 
-      sections.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.style.setProperty('display', 'none', 'important');
-      });
-      buttons.forEach(id => {
-        const el = document.getElementById(id);
-        if (el) el.className = 'py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer';
-      });
+      for (var i = 0; i < sections.length; i++) {
+        var el = document.getElementById(sections[i]);
+        if (el) el.style.display = 'none';
+      }
+      for (var j = 0; j < buttons.length; j++) {
+        var btn = document.getElementById(buttons[j]);
+        if (btn) btn.className = 'py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer';
+      }
 
       if (tab === 'manual_entry') {
-        document.getElementById('adminManualEntrySection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminManualEntrySection').style.display = 'block';
         document.getElementById('tabManualBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
       } else if (tab === 'all_students') {
-        document.getElementById('adminStudentListSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminStudentListSection').style.display = 'block';
         document.getElementById('tabStudentListBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
         loadAdminStudentsList();
       } else if (tab === 'fees') {
-        document.getElementById('adminFeeSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminFeeSection').style.display = 'block';
         document.getElementById('tabFeeBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
         renderAdminFeeTable();
       } else if (tab === 'sms_engine') {
-        document.getElementById('adminSmsSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminSmsSection').style.display = 'block';
         document.getElementById('tabSmsBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
       } else if (tab === 'teachers') {
-        document.getElementById('adminTeacherSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminTeacherSection').style.display = 'block';
         document.getElementById('tabTchBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
         loadAdminTeachers();
       } else {
-        document.getElementById('adminResultSection').style.setProperty('display', 'block', 'important');
+        document.getElementById('adminResultSection').style.display = 'block';
         document.getElementById('tabResBtn').className = 'py-2 px-3 border-b-2 border-emerald-800 text-emerald-800 font-bold whitespace-nowrap cursor-pointer';
       }
     }
 
     function executeManualStudentAdd() {
-      const name = document.getElementById('manName').value.trim();
-      const cls = document.getElementById('manClass').value;
-      const roll = document.getElementById('manRoll').value.trim();
-      const phone = document.getElementById('manPhone').value.trim();
-      const fee = parseInt(document.getElementById('manMonthlyFee').value) || 1500;
+      var name = document.getElementById('manName').value.trim();
+      var cls = document.getElementById('manClass').value;
+      var roll = document.getElementById('manRoll').value.trim();
+      var phone = document.getElementById('manPhone').value.trim();
+      var fee = parseInt(document.getElementById('manMonthlyFee').value) || 1500;
 
-      if (!name || !roll || !phone) return alert('শিক্ষার্থীর নাম, শ্রেণি, রোল ও মোবাইল দিন!');
+      if (!name || !roll || !phone) {
+        alert('শিক্ষার্থীর নাম, শ্রেণি, রোল ও মোবাইল দিন!');
+        return;
+      }
 
-      const newStudent = {
+      var recs = [];
+      for (var i = 0; i < ALL_MONTHS.length; i++) {
+        recs.push({ month: ALL_MONTHS[i], amount: fee, status: 'Due', paid_at: null, trx_id: null });
+      }
+
+      var newStd = {
         id: Date.now(),
-        student_uid: `AMSC-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+        student_uid: 'AMSC-2026-' + Math.floor(1000 + Math.random() * 9000),
         name: name,
         class_name: cls,
         roll_no: roll,
         guardian_phone: phone,
         monthly_fee: fee,
         admission_type: 'অফিস / সরাসরি ভর্তি',
-        fees_records: ALL_MONTHS.map(m => ({ month: m, amount: fee, status: 'Due', paid_at: null, trx_id: null }))
+        fees_records: recs
       };
 
-      localStudents.unshift(newStudent);
-      alert(`শিক্ষার্থী "${name}" সফলভাবে ডেটাবেজে সংরক্ষিত হয়েছে!`);
+      localStudents.unshift(newStd);
+      alert('শিক্ষার্থী "' + name + '" সফলভাবে ডেটাবেজে সংরক্ষিত হয়েছে!');
       document.getElementById('manName').value = '';
       document.getElementById('manRoll').value = '';
       document.getElementById('manPhone').value = '';
@@ -736,75 +764,81 @@
     }
 
     function loadAdminStudentsList() {
-      const tbody = document.getElementById('adminStudentTableBody');
+      var tbody = document.getElementById('adminStudentTableBody');
       tbody.innerHTML = '';
-      localStudents.forEach(s => {
-        let monthsHtml = `<div class="flex flex-wrap gap-1">`;
-        s.fees_records.forEach(f => {
-          const isPaid = f.status === 'Paid';
-          monthsHtml += `
-            <button type="button" onclick="toggleFeeStatusLocal(${s.id}, '${f.month}')" 
-              class="${isPaid ? 'bg-emerald-600 text-white' : 'bg-red-100 text-red-700 border border-red-300'} px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer" title="ক্লিক করে Paid/Due করুন">
-              ${f.month}: ${isPaid ? '✔' : 'বাকি'}
-            </button>
-          `;
-        });
-        monthsHtml += `</div>`;
 
-        tbody.innerHTML += `
-          <tr class="hover:bg-gray-50">
-            <td class="p-2.5 font-bold font-mono text-emerald-800">${s.student_uid}<br><span class="text-gray-900 font-bold">রোল: ${s.roll_no}</span></td>
-            <td class="p-2.5 font-bold text-gray-800">${s.name}<br><span class="text-[10px] text-gray-500">${s.class_name}</span></td>
-            <td class="p-2.5 font-mono">${s.guardian_phone}</td>
-            <td class="p-2.5"><span class="bg-gray-100 px-2 py-0.5 rounded font-bold">${s.admission_type}</span></td>
-            <td class="p-2.5">${monthsHtml}</td>
-          </tr>
-        `;
-      });
-    }
-
-    function toggleFeeStatusLocal(studentId, month) {
-      const std = localStudents.find(s => s.id == studentId);
-      if (std) {
-        const rec = std.fees_records.find(f => f.month === month);
-        if (rec) {
-          rec.status = rec.status === 'Paid' ? 'Due' : 'Paid';
-          rec.paid_at = rec.status === 'Paid' ? 'অফিস ক্যাশ' : null;
-          rec.trx_id = rec.status === 'Paid' ? 'OFFICE-CASH' : null;
-          loadAdminStudentsList();
+      for (var i = 0; i < localStudents.length; i++) {
+        var s = localStudents[i];
+        var monthsHtml = '<div class="flex flex-wrap gap-1">';
+        for (var j = 0; j < s.fees_records.length; j++) {
+          var f = s.fees_records[j];
+          var isPaid = f.status === 'Paid';
+          var btnColor = isPaid ? 'bg-emerald-600 text-white' : 'bg-red-100 text-red-700 border border-red-300';
+          var btnLabel = isPaid ? '✔' : 'বাকি';
+          monthsHtml += '<button type="button" onclick="toggleFeeStatusLocal(' + s.id + ', \'' + f.month + '\')" class="' + btnColor + ' px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">' + f.month + ': ' + btnLabel + '</button>';
         }
+        monthsHtml += '</div>';
+
+        var tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50';
+        tr.innerHTML = '<td class="p-2.5 font-bold font-mono text-emerald-800">' + s.student_uid + '<br><span class="text-gray-900 font-bold">রোল: ' + s.roll_no + '</span></td>' +
+                       '<td class="p-2.5 font-bold text-gray-800">' + s.name + '<br><span class="text-[10px] text-gray-500">' + s.class_name + '</span></td>' +
+                       '<td class="p-2.5 font-mono">' + s.guardian_phone + '</td>' +
+                       '<td class="p-2.5"><span class="bg-gray-100 px-2 py-0.5 rounded font-bold">' + s.admission_type + '</span></td>' +
+                       '<td class="p-2.5">' + monthsHtml + '</td>';
+        tbody.appendChild(tr);
       }
     }
 
+    function toggleFeeStatusLocal(studentId, month) {
+      for (var i = 0; i < localStudents.length; i++) {
+        if (localStudents[i].id === studentId) {
+          for (var j = 0; j < localStudents[i].fees_records.length; j++) {
+            if (localStudents[i].fees_records[j].month === month) {
+              var curr = localStudents[i].fees_records[j].status;
+              localStudents[i].fees_records[j].status = curr === 'Paid' ? 'Due' : 'Paid';
+              localStudents[i].fees_records[j].paid_at = curr === 'Paid' ? null : 'অফিস ক্যাশ';
+              break;
+            }
+          }
+          break;
+        }
+      }
+      loadAdminStudentsList();
+    }
+
     function renderAdminFeeTable() {
-      const tbody = document.getElementById('adminFeeTableBody');
+      var tbody = document.getElementById('adminFeeTableBody');
       tbody.innerHTML = '';
-      let idx = 0;
-      for (const [cls, fees] of Object.entries(currentFeesMap)) {
+      var idx = 0;
+      for (var cls in currentFeesMap) {
         idx++;
-        tbody.innerHTML += `
-          <tr class="hover:bg-gray-50">
-            <td class="p-2.5 font-bold">${cls}</td>
-            <td class="p-2.5"><input type="number" id="admF_${idx}" value="${fees.admission}" class="w-20 border p-1 rounded font-bold text-pink-700 bg-white"> ৳</td>
-            <td class="p-2.5"><input type="number" id="monF_${idx}" value="${fees.monthly}" class="w-20 border p-1 rounded font-bold text-emerald-800 bg-white"> ৳</td>
-            <td class="p-2.5 text-center"><button type="button" onclick="saveUpdatedFee('${cls}', ${idx})" class="bg-emerald-800 text-white px-2.5 py-1 rounded font-bold cursor-pointer">আপডেট</button></td>
-          </tr>
-        `;
+        var f = currentFeesMap[cls];
+        var tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50';
+        tr.innerHTML = '<td class="p-2.5 font-bold">' + cls + '</td>' +
+                       '<td class="p-2.5"><input type="number" id="admF_' + idx + '" value="' + f.admission + '" class="w-20 border p-1 rounded font-bold text-pink-700 bg-white"> ৳</td>' +
+                       '<td class="p-2.5"><input type="number" id="monF_' + idx + '" value="' + f.monthly + '" class="w-20 border p-1 rounded font-bold text-emerald-800 bg-white"> ৳</td>' +
+                       '<td class="p-2.5 text-center"><button type="button" onclick="saveUpdatedFee(\'' + cls + '\', ' + idx + ')" class="bg-emerald-800 text-white px-2.5 py-1 rounded font-bold cursor-pointer">আপডেট</button></td>';
+        tbody.appendChild(tr);
       }
     }
 
     function saveUpdatedFee(cls, idx) {
-      const a = parseInt(document.getElementById(`admF_${idx}`).value);
-      const m = parseInt(document.getElementById(`monF_${idx}`).value);
+      var a = parseInt(document.getElementById('admF_' + idx).value);
+      var m = parseInt(document.getElementById('monF_' + idx).value);
       currentFeesMap[cls] = { admission: a, monthly: m };
-      alert(`${cls}-এর ফি আপডেট হয়েছে!`);
+      alert(cls + '-এর ফি আপডেট হয়েছে!');
     }
 
     function handleClassFeeChange() {
-      const cls = document.getElementById('stdClass').value;
-      const card = document.getElementById('feeDisplayCard');
-      if (!cls || !currentFeesMap[cls]) return card.classList.add('hidden');
-      const f = currentFeesMap[cls];
+      var cls = document.getElementById('stdClass').value;
+      var card = document.getElementById('feeDisplayCard');
+      if (!cls || !currentFeesMap[cls]) {
+        card.classList.add('hidden');
+        return;
+      }
+      var f = currentFeesMap[cls];
       document.getElementById('cardClassName').innerText = cls;
       document.getElementById('cardAdmissionFee').innerText = f.admission + ' ৳';
       document.getElementById('cardMonthlyFee').innerText = f.monthly + ' ৳';
@@ -812,77 +846,93 @@
     }
 
     function submitAdmissionAction() {
-      const name = document.getElementById('stdName').value.trim();
-      const cls = document.getElementById('stdClass').value;
-      const phone = document.getElementById('stdGuardianPhone').value.trim();
-      const trx = document.getElementById('payTrxId').value.trim();
-      if (!name || !cls || !phone || !trx) return alert('সকল তথ্য ও TrxID দেওয়া বাধ্যতামূলক!');
+      var name = document.getElementById('stdName').value.trim();
+      var cls = document.getElementById('stdClass').value;
+      var phone = document.getElementById('stdGuardianPhone').value.trim();
+      var trx = document.getElementById('payTrxId').value.trim();
+      if (!name || !cls || !phone || !trx) {
+        alert('সকল তথ্য ও TrxID দেওয়া বাধ্যতামূলক!');
+        return;
+      }
 
-      const fee = currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1500;
-      const newStd = {
+      var fee = currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1500;
+      var recs = [];
+      for (var i = 0; i < ALL_MONTHS.length; i++) {
+        recs.push({ month: ALL_MONTHS[i], amount: fee, status: 'Due', paid_at: null, trx_id: null });
+      }
+
+      var newStd = {
         id: Date.now(),
-        student_uid: `AMSC-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+        student_uid: 'AMSC-2026-' + Math.floor(1000 + Math.random() * 9000),
         name: name,
         class_name: cls,
         roll_no: Math.floor(1 + Math.random() * 45).toString().padStart(2, '0'),
         guardian_phone: phone,
         monthly_fee: fee,
         admission_type: 'অনলাইন ভর্তি',
-        fees_records: ALL_MONTHS.map(m => ({ month: m, amount: fee, status: 'Due', paid_at: null, trx_id: null }))
+        fees_records: recs
       };
       localStudents.unshift(newStd);
 
-      const receipt = document.getElementById('receiptModal');
-      receipt.classList.remove('hidden');
-      document.getElementById('receiptContent').innerHTML = `
-        <p><strong>আইডি:</strong> ${newStd.student_uid}</p>
-        <p><strong>শিক্ষার্থী:</strong> ${newStd.name} (${newStd.class_name})</p>
-        <p><strong>মাসিক বেতন:</strong> ${newStd.monthly_fee} ৳</p>
-        <p><strong>TrxID:</strong> ${trx}</p>
-      `;
+      document.getElementById('receiptModal').classList.remove('hidden');
+      document.getElementById('receiptContent').innerHTML = '<p><strong>আইডি:</strong> ' + newStd.student_uid + '</p>' +
+                                                            '<p><strong>শিক্ষার্থী:</strong> ' + newStd.name + ' (' + newStd.class_name + ')</p>' +
+                                                            '<p><strong>মাসিক বেতন:</strong> ' + newStd.monthly_fee + ' ৳</p>' +
+                                                            '<p><strong>TrxID:</strong> ' + trx + '</p>';
     }
 
     function checkResultAction() {
-      const roll = document.getElementById('resRoll').value.trim();
-      const box = document.getElementById('resBox');
+      var roll = document.getElementById('resRoll').value.trim();
+      var box = document.getElementById('resBox');
       box.classList.remove('hidden');
-      box.innerHTML = `<div class="font-bold mb-2 text-emerald-900">আব্দুল্লাহ আল মামুন (রোল: ${roll}) — বার্ষিক পরীক্ষা ২০২৬ | GPA: 5.00</div><table class="w-full text-left"><tr><td>বাংলা</td><td class="font-bold">88 (A+)</td></tr><tr><td>গণিত</td><td class="font-bold">95 (A+)</td></tr><tr><td>ইংরেজি</td><td class="font-bold">82 (A+)</td></tr></table>`;
+      box.innerHTML = '<div class="font-bold mb-2 text-emerald-900">আব্দুল্লাহ আল মামুন (রোল: ' + roll + ') — বার্ষিক পরীক্ষা ২০২৬ | GPA: 5.00</div>' +
+                      '<table class="w-full text-left"><tr><td>বাংলা</td><td class="font-bold">88 (A+)</td></tr><tr><td>গণিত</td><td class="font-bold">95 (A+)</td></tr><tr><td>ইংরেজি</td><td class="font-bold">82 (A+)</td></tr></table>';
     }
 
     function sendMonthlyFeeSmsToAll() {
-      const m = document.getElementById('smsMonthName').value;
-      alert(`মোট ${localStudents.length} জন অভিভাবকের ফোনে ${m} মাসের ফি পরিশোধের SMS পাঠানো হয়েছে!`);
+      var m = document.getElementById('smsMonthName').value;
+      alert('মোট ' + localStudents.length + ' জন অভিভাবকের ফোনে ' + m + ' মাসের ফি পরিশোধের SMS পাঠানো হয়েছে!');
     }
 
-    let teachers = [
+    var teachers = [
       { name: 'মাওলানা আব্দুর রহমান', designation: 'অধ্যক্ষ ও বিভাগীয় প্রধান', subject: 'ইসলামিক স্টাডিজ', photo: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=200&h=200&fit=crop' },
       { name: 'মোঃ রফিকুল ইসলাম', designation: 'সহকারী প্রধান শিক্ষক', subject: 'উচ্চতর গণিত', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop' }
     ];
 
     function loadTeachers() {
-      const box = document.getElementById('teacherList');
+      var box = document.getElementById('teacherList');
       if (!box) return;
       box.innerHTML = '';
-      teachers.forEach(t => {
-        box.innerHTML += `<div class="bg-white p-4 rounded-xl border text-center shadow-sm"><img src="${t.photo}" class="w-20 h-20 object-cover rounded-full mx-auto mb-2 border-2 border-emerald-600"><h5 class="font-bold text-sm">${t.name}</h5><p class="text-xs text-emerald-700">${t.designation}</p><p class="text-[11px] text-gray-500">${t.subject}</p></div>`;
-      });
+      for (var i = 0; i < teachers.length; i++) {
+        var t = teachers[i];
+        box.innerHTML += '<div class="bg-white p-4 rounded-xl border text-center shadow-sm"><img src="' + t.photo + '" class="w-20 h-20 object-cover rounded-full mx-auto mb-2 border-2 border-emerald-600"><h5 class="font-bold text-sm">' + t.name + '</h5><p class="text-xs text-emerald-700">' + t.designation + '</p><p class="text-[11px] text-gray-500">' + t.subject + '</p></div>';
+      }
     }
     loadTeachers();
 
     function loadAdminTeachers() {
-      const tbody = document.getElementById('adminTeacherTableBody');
+      var tbody = document.getElementById('adminTeacherTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
-      teachers.forEach((t, i) => {
-        tbody.innerHTML += `<tr><td class="p-2"><img src="${t.photo}" class="w-8 h-8 rounded-full object-cover"></td><td class="p-2"><strong>${t.name}</strong></td><td class="p-2">${t.designation}</td><td class="p-2 text-center"><button type="button" onclick="teachers.splice(${i},1);loadAdminTeachers();loadTeachers();" class="text-red-600 font-bold cursor-pointer">ডিলিট</button></td></tr>`;
-      });
+      for (var i = 0; i < teachers.length; i++) {
+        var t = teachers[i];
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td class="p-2"><img src="' + t.photo + '" class="w-8 h-8 rounded-full object-cover"></td>' +
+                       '<td class="p-2"><strong>' + t.name + '</strong></td>' +
+                       '<td class="p-2">' + t.designation + '</td>' +
+                       '<td class="p-2 text-center"><button type="button" onclick="teachers.splice(' + i + ',1);loadAdminTeachers();loadTeachers();" class="text-red-600 font-bold cursor-pointer">ডিলিট</button></td>';
+        tbody.appendChild(tr);
+      }
     }
 
     function executeAddTeacher() {
-      const name = document.getElementById('ntName').value.trim();
-      const desig = document.getElementById('ntDesig').value.trim();
-      const sub = document.getElementById('ntSub').value.trim();
-      if (!name || !desig) return alert('শিক্ষকের নাম ও পদবি দিন!');
+      var name = document.getElementById('ntName').value.trim();
+      var desig = document.getElementById('ntDesig').value.trim();
+      var sub = document.getElementById('ntSub').value.trim();
+      if (!name || !desig) {
+        alert('শিক্ষকের নাম ও পদবি দিন!');
+        return;
+      }
       teachers.push({
         name: name,
         designation: desig,
