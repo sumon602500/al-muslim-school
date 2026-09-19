@@ -6,10 +6,10 @@
   <title>আল-মুছিম স্কুল এন্ড কলেজ | AL-MUSIM SCHOOL & COLLEGE</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Anek+Bangla:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600;700&family=Anek+Bangla:wght@400;600;700;800;900&display=swap" rel="stylesheet">
   
   <style>
-    body { font-family: 'Hind Siliguri', sans-serif; scroll-behavior: smooth; }
+    body { font-family: 'Hind Siliguri', sans-serif; scroll-behavior: smooth; background-color: #f3f4f6; }
     .font-anek { font-family: 'Anek Bangla', sans-serif; }
     .custom-modal-overlay {
       position: fixed;
@@ -22,169 +22,180 @@
       padding: 24px 12px;
       overflow-y: auto;
     }
+    /* ছবির হুবহু গোল্ডেন রিবন ও ব্যানার স্টাইল */
+    .banner-royal-box {
+      background: linear-gradient(135deg, #0b1f48 0%, #06122d 100%);
+      border: 4px solid #1e3a8a;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .gold-stripe {
+      background: linear-gradient(90deg, #d4af37, #fef08a, #d4af37);
+      height: 12px;
+    }
+    .stripe-pattern {
+      background: repeating-linear-gradient(45deg, #d4af37, #d4af37 10px, #b45309 10px, #b45309 20px);
+    }
   </style>
 </head>
-<body class="bg-gray-100 text-gray-800">
+<body class="text-gray-800">
 
-  <!-- ================= ১. প্রাতিষ্ঠানিক টপ বার ================= -->
-  <div class="bg-blue-950 text-white text-xs py-2 px-4 border-b border-blue-800">
-    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
-      <div class="flex items-center space-x-2">
-        <span class="bg-amber-500 text-gray-950 font-bold px-2 py-0.5 rounded uppercase text-[10px]">জরুরি ঘোষণা</span>
-        <span class="bg-blue-800 text-blue-200 text-[10px] px-2 py-0.5 rounded font-mono font-bold">ESTD: 2006</span>
-        <marquee id="publicMarquee" class="w-60 sm:w-96 text-gray-200" behavior="scroll">
-          ২০২৬ শিক্ষাবর্ষে প্লে থেকে দ্বাদশ শ্রেণি পর্যন্ত ভর্তি কার্যক্রম চলছে • আল-মুছিম স্কুল এন্ড কলেজে স্বাগতম
-        </marquee>
-      </div>
-      <div class="flex items-center space-x-4 text-gray-300 font-sans">
-        <span><i class="fa-solid fa-phone text-amber-400 mr-1"></i> ০১৭২৬-৫৬৭৯৩৬, ০১৭২২-৩৯৭৬০৭</span>
-        <span class="hidden md:inline"><i class="fa-solid fa-location-dot text-amber-400 mr-1"></i> টেংরা, লালাবাজার, বিশ্বনাথ, সিলেট</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ================= ২. হেডার ও মেনুবার ================= -->
-  <header class="bg-white shadow sticky top-0 z-40 border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 h-22 flex justify-between items-center">
+  <!-- ================= ১. ছবির হুবহু টপ নেভবার (Exact Header) ================= -->
+  <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-200">
+    <div class="max-w-7xl mx-auto px-4 h-20 flex justify-between items-center">
       
+      <!-- বাম পাশে লোগো ও নাম -->
       <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-        <div class="w-14 h-14 relative flex-shrink-0 flex items-center justify-center bg-white rounded-full p-1 shadow-md border-2 border-emerald-600">
-          <svg viewBox="0 0 200 200" class="w-full h-full drop-shadow">
-            <path d="M 30 70 Q 100 20 170 70 L 160 85 Q 100 40 40 85 Z" fill="#047857" stroke="#065f46" stroke-width="2"/>
-            <text x="100" y="58" font-size="12" font-weight="900" fill="#ffffff" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="1">AL-MUSIM SCHOOL & COLLEGE</text>
-            <circle cx="100" cy="108" r="48" fill="#38bdf8" stroke="#0284c7" stroke-width="4"/>
-            <ellipse cx="100" cy="108" rx="48" ry="18" fill="none" stroke="#0369a1" stroke-width="2"/>
-            <ellipse cx="100" cy="108" rx="18" ry="48" fill="none" stroke="#0369a1" stroke-width="2"/>
+        <div class="w-12 h-12 rounded-full p-0.5 bg-white shadow border border-emerald-600 flex items-center justify-center flex-shrink-0">
+          <svg viewBox="0 0 200 200" class="w-full h-full">
+            <path d="M 30 70 Q 100 20 170 70 L 160 85 Q 100 40 40 85 Z" fill="#047857"/>
+            <circle cx="100" cy="108" r="48" fill="#38bdf8"/>
             <polygon points="70,120 100,105 130,120 100,128" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
             <path d="M 100 80 Q 90 95 100 106 Q 110 95 100 80 Z" fill="#ea580c"/>
-            <path d="M 60 160 Q 100 178 140 160 L 135 174 Q 100 190 65 174 Z" fill="#e11d48"/>
-            <text x="100" y="171" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle" font-family="Arial, sans-serif" letter-spacing="1">ESTD-2006</text>
           </svg>
         </div>
-
         <div>
-          <h1 class="text-xl sm:text-2xl font-black text-blue-950 font-anek leading-tight tracking-wide">আল-মুছিম স্কুল এন্ড কলেজ</h1>
-          <p class="text-[11px] font-bold text-emerald-800 tracking-wider font-sans">AL-MUSIM SCHOOL & COLLEGE</p>
-          <p class="text-[10px] text-gray-500 font-medium">টেংরা, লালাবাজার, বিশ্বনাথ, সিলেট • স্থাপিত: ২০০৬</p>
+          <h1 class="text-base sm:text-xl font-black text-blue-950 font-anek leading-tight">আল-মুছিম স্কুল এন্ড কলেজ</h1>
+          <p class="text-[10px] text-gray-500 font-bold uppercase tracking-wider">AL-MUSIM SCHOOL & COLLEGE</p>
         </div>
       </div>
 
-      <nav class="hidden lg:flex space-x-6 text-sm font-semibold text-gray-700">
-        <a href="#home" class="hover:text-blue-900 transition">হোম</a>
-        <a href="#notice-board-sec" class="hover:text-blue-900 transition">নোটিশ বোর্ড</a>
-        <a href="#admission-sec" class="text-blue-900 font-bold hover:text-emerald-700 transition">ভর্তি আবেদন</a>
-        <a href="#result-sec" class="hover:text-blue-900 transition">ফলাফল</a>
-        <a href="#gallery-sec" class="hover:text-blue-900 transition">গ্যালারি</a>
-        <a href="#teachers-sec" class="hover:text-blue-900 transition">শিক্ষকবৃন্দ</a>
+      <!-- ছবি অনুযায়ী মাঝখানের নেভ মেনু -->
+      <nav class="hidden md:flex space-x-5 text-xs font-black text-gray-700 tracking-wider">
+        <a href="#home" class="hover:text-blue-900 transition">ABOUT US</a>
+        <a href="#admission-sec" class="hover:text-blue-900 transition">ACADEMICS</a>
+        <a href="#admission-sec" class="hover:text-blue-900 transition">ADMISSION</a>
+        <a href="javascript:void(0)" onclick="openStudentModalDirect()" class="hover:text-blue-900 transition">STUDENT PORTAL</a>
+        <a href="#notice-board-sec" class="hover:text-blue-900 transition">NOTICE BOARD</a>
+        <a href="#teachers-sec" class="hover:text-blue-900 transition">CONTACT</a>
       </nav>
 
+      <!-- ডান পাশের লগইন বাটন -->
       <div class="flex items-center space-x-2">
-        <button type="button" onclick="openStudentModalDirect()" class="hidden sm:flex bg-amber-500 hover:bg-amber-600 text-gray-950 px-3.5 py-2.5 rounded-xl text-xs font-black shadow flex items-center transition cursor-pointer">
-          <i class="fa-solid fa-user-graduate mr-1.5"></i> শিক্ষার্থী পোর্টাল
-        </button>
-
-        <button type="button" onclick="openAdminModalDirect()" class="bg-blue-900 hover:bg-blue-950 text-white px-3.5 py-2.5 rounded-xl text-xs font-bold shadow flex items-center transition cursor-pointer">
-          <i class="fa-solid fa-user-shield mr-1.5"></i> অ্যাডমিন লগইন
-        </button>
-
-        <button type="button" onclick="toggleMobileMenuDrawer()" class="lg:hidden w-10 h-10 rounded-xl bg-gray-100 hover:bg-gray-200 text-gray-800 flex items-center justify-center text-xl cursor-pointer">
-          <i class="fa-solid fa-bars"></i>
+        <button type="button" onclick="openAdminModalDirect()" class="bg-gray-100 hover:bg-gray-200 text-gray-800 border border-gray-300 px-4 py-2 rounded-lg text-xs font-black shadow-xs cursor-pointer uppercase tracking-wider">
+          LOGIN
         </button>
       </div>
-    </div>
-
-    <!-- মোবাইল মেনু -->
-    <div id="mobileMenuDrawer" style="display: none;" class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 space-y-2 text-xs font-bold shadow-lg">
-      <a href="#home" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">হোম</a>
-      <a href="#notice-board-sec" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">নোটিশ বোর্ড</a>
-      <a href="#admission-sec" onclick="toggleMobileMenuDrawer()" class="block py-2 text-blue-900 font-black border-b">অনলাইন ভর্তি ফরম</a>
-      <a href="#result-sec" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">পরীক্ষার ফলাফল</a>
-      <a href="#gallery-sec" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">ক্যাম্পাস গ্যালারি</a>
-      <a href="#teachers-sec" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">সম্মানিত শিক্ষকবৃন্দ</a>
-      <button type="button" onclick="toggleMobileMenuDrawer(); openStudentModalDirect();" class="w-full text-left py-2.5 text-amber-900 font-black">
-        <i class="fa-solid fa-user-graduate mr-1.5"></i> শিক্ষার্থী পোর্টালে প্রবেশ করুন
-      </button>
     </div>
   </header>
 
-  <!-- ================= ৩. রিয়েল ব্যানার সেকশন ================= -->
-  <section id="home" class="py-6 px-4 max-w-7xl mx-auto">
-    <div class="bg-gradient-to-r from-blue-950 via-blue-900 to-indigo-950 rounded-3xl overflow-hidden shadow-2xl border-4 border-white">
-      <div class="text-center py-2 bg-black/20 border-b border-white/10 text-[11px] sm:text-xs text-amber-300 font-bold tracking-widest">
-        بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ • বিসমিল্লাহির রাহমানির রাহিম
-      </div>
+  <!-- ================= ২. মূল হিরো ব্যানার (১০০% ছবির মতো নিখুঁত ডিজাইন) ================= -->
+  <section id="home" class="py-6 px-4 max-w-6xl mx-auto">
+    <div class="banner-royal-box rounded-2xl overflow-hidden text-center text-white relative">
+      
+      <!-- টপ গোল্ডেন স্ট্রাইপ -->
+      <div class="gold-stripe w-full"></div>
 
-      <div class="p-6 sm:p-10 text-white relative">
-        <div class="flex flex-col md:flex-row justify-between items-center gap-6">
-          <div class="flex flex-col sm:flex-row items-center sm:items-start text-center sm:text-left gap-4 flex-1">
-            <div class="w-24 h-24 sm:w-28 sm:h-28 bg-white p-2 rounded-2xl shadow-xl flex-shrink-0 border-2 border-amber-400">
-              <svg viewBox="0 0 200 200" class="w-full h-full">
-                <path d="M 30 70 Q 100 20 170 70 L 160 85 Q 100 40 40 85 Z" fill="#047857" stroke="#065f46" stroke-width="2"/>
-                <text x="100" y="58" font-size="12" font-weight="900" fill="#ffffff" text-anchor="middle">AL-MUSIM SCHOOL & COLLEGE</text>
-                <circle cx="100" cy="108" r="48" fill="#38bdf8" stroke="#0284c7" stroke-width="4"/>
-                <polygon points="70,120 100,105 130,120 100,128" fill="#ffffff" stroke="#b91c1c" stroke-width="2"/>
-                <path d="M 100 80 Q 90 95 100 106 Q 110 95 100 80 Z" fill="#ea580c"/>
-                <path d="M 60 160 Q 100 178 140 160 L 135 174 Q 100 190 65 174 Z" fill="#e11d48"/>
-                <text x="100" y="171" font-size="11" font-weight="900" fill="#ffffff" text-anchor="middle">ESTD-2006</text>
-              </svg>
-            </div>
+      <div class="p-6 sm:p-10 space-y-6">
+        
+        <!-- প্রতিষ্ঠানের শিরোনাম (ছবি অনুযায়ী) -->
+        <div class="space-y-1">
+          <h2 class="text-3xl sm:text-5xl font-black font-anek text-[#fde047] drop-shadow-md tracking-wide">
+            আল-মুছিম স্কুল এন্ড কলেজ
+          </h2>
+          <p class="text-sm sm:text-lg font-black tracking-wider text-white">
+            AL-MUSIM SCHOOL & COLLEGE
+          </p>
+          <p class="text-xs sm:text-sm text-gray-200 font-bold pt-1">
+            মোবাঃ ০১৭২৬-৫৬৭৯৩৬, ০১৭২২-৩৯৭৬০৭
+          </p>
+        </div>
 
-            <div class="space-y-1.5">
-              <span class="bg-amber-400 text-blue-950 font-black text-[10px] px-2.5 py-0.5 rounded-full uppercase">ডিজিটাল শিক্ষাঙ্গন</span>
-              <h2 class="text-3xl sm:text-5xl font-black font-anek text-yellow-300 drop-shadow-md tracking-wide">আল-মুছিম স্কুল এন্ড কলেজ</h2>
-              <p class="text-sm sm:text-base font-bold text-gray-200">AL-MUSIM SCHOOL & COLLEGE</p>
-              <p class="text-xs sm:text-sm text-amber-200 font-semibold flex items-center justify-center sm:justify-start gap-1">
-                <i class="fa-solid fa-map-location-dot"></i> টেংরা, লালাবাজার, বিশ্বনাথ, সিলেট।
-              </p>
-              <p class="text-xs sm:text-sm font-mono text-emerald-300 font-bold">
-                📱 মোবাইল: ০১৭২৬-৫৬৭৯৩৬, ০১৭২২-৩৯৭৬০৭
-              </p>
-            </div>
+        <!-- গোল্ডেন লরেল বৃত্ত ও ক্যাম্পাস ছবি (ছবি অনুযায়ী) -->
+        <div class="relative max-w-3xl mx-auto">
+          <div class="absolute inset-0 flex items-center justify-center pointer-events-none opacity-40">
+            <!-- গোল্ডেন ওক পাতার লরেল বর্ডার সিমুলেশন -->
+            <div class="w-full h-40 border-4 border-amber-400 rounded-full"></div>
           </div>
-
-          <div class="flex flex-col gap-2.5 w-full sm:w-auto text-center">
-            <div class="bg-white/10 backdrop-blur-md px-5 py-3 rounded-2xl border border-white/20">
-              <p class="text-amber-400 font-black text-xl">প্লে - দ্বাদশ শ্রেণি</p>
-              <p class="text-[11px] text-gray-200 font-medium">ভর্তি ও শিক্ষা কার্যক্রম চলছে</p>
+          
+          <div class="relative z-10 p-3 bg-gradient-to-r from-amber-200 via-yellow-400 to-amber-200 rounded-3xl shadow-2xl inline-block max-w-full">
+            <div class="rounded-2xl overflow-hidden h-56 sm:h-72 w-full sm:w-[650px] border-2 border-amber-500 shadow-inner">
+              <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1000&fit=crop" class="w-full h-full object-cover" alt="Campus Assembly">
             </div>
-            <button type="button" onclick="document.getElementById('admission-sec').scrollIntoView({behavior:'smooth'})" class="bg-amber-500 hover:bg-amber-400 text-gray-950 font-black px-6 py-3 rounded-xl text-sm shadow-xl cursor-pointer transition">
-              <i class="fa-solid fa-file-pen mr-1"></i> সরাসরি ভর্তি আবেদন
-            </button>
-            <button type="button" onclick="openStudentModalDirect()" class="bg-white hover:bg-gray-100 text-blue-950 font-bold px-6 py-2.5 rounded-xl text-xs shadow cursor-pointer transition">
-              <i class="fa-solid fa-receipt mr-1"></i> ১২ মাসের বেতন চেক
-            </button>
           </div>
         </div>
 
-        <div class="mt-8 rounded-2xl overflow-hidden border-2 border-white/30 shadow-2xl relative h-64 sm:h-80">
-          <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&fit=crop" class="w-full h-full object-cover" alt="Assembly & Campus">
-          <div class="absolute inset-0 bg-gradient-to-t from-blue-950/90 via-transparent to-transparent flex items-end p-5">
-            <div>
-              <span class="bg-amber-500 text-gray-950 text-[10px] font-black px-2 py-0.5 rounded">ক্যাম্পাস ডিসিপ্লিন</span>
-              <h4 class="text-white font-black text-lg mt-1">দৈনিক অ্যাসেম্বলি ও সুশৃঙ্খল পাঠদান কার্যক্রম</h4>
-              <p class="text-xs text-gray-300">নিয়মানুবর্তিতা, চরিত্র গঠন ও আধুনিক শিক্ষার প্রাণকেন্দ্র</p>
-            </div>
-          </div>
+        <!-- দুটি বড় অ্যাকশন বাটন (ছবি অনুযায়ী) -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+          <button type="button" onclick="document.getElementById('admission-sec').scrollIntoView({behavior:'smooth'})" class="w-full sm:w-auto bg-gradient-to-r from-blue-700 via-blue-800 to-indigo-900 hover:from-blue-800 hover:to-indigo-950 text-white font-black px-8 py-3.5 rounded-xl text-sm shadow-xl border-2 border-amber-400 cursor-pointer transition uppercase tracking-wide">
+            ONLINE ADMISSION (অনলাইন ভর্তি)
+          </button>
+          
+          <button type="button" onclick="openStudentModalDirect()" class="w-full sm:w-auto bg-gradient-to-r from-blue-800 via-indigo-900 to-blue-950 hover:from-blue-950 hover:to-indigo-950 text-white font-black px-8 py-3.5 rounded-xl text-sm shadow-xl border-2 border-amber-400 cursor-pointer transition uppercase tracking-wide">
+            FEES PAYMENT (ফিস জমা)
+          </button>
         </div>
+
       </div>
+
+      <!-- বটম গোল্ডেন স্ট্রাইপ -->
+      <div class="gold-stripe w-full"></div>
     </div>
   </section>
 
-  <!-- ================= ৪. ডিজিটাল নোটিশ বোর্ড ================= -->
-  <section id="notice-board-sec" class="py-10 px-4 max-w-7xl mx-auto">
-    <div class="bg-white rounded-3xl shadow-lg border border-gray-200 p-6 sm:p-8">
-      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b pb-4 mb-4 gap-2">
-        <div>
-          <span class="text-xs bg-blue-100 text-blue-900 font-bold px-3 py-1 rounded-full uppercase">অফিসিয়াল নোটিশ বোর্ড</span>
-          <h3 class="text-xl sm:text-2xl font-black text-gray-900 mt-1">সাম্প্রতিক নোটিশ ও জরুরি বিজ্ঞপ্তি</h3>
+  <!-- ================= ৩. ছবির নিচের তিনটি কার্ড (Latest News, Upcoming Events, Principal's Message) ================= -->
+  <section class="max-w-6xl mx-auto px-4 pb-12">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      
+      <!-- Latest News -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex flex-col">
+        <div class="bg-gradient-to-r from-blue-900 to-blue-950 text-white px-4 py-3 flex justify-between items-center">
+          <h4 class="font-black text-sm tracking-wide">Latest News</h4>
+          <div class="stripe-pattern w-12 h-4 rounded"></div>
         </div>
-        <span class="text-xs text-emerald-800 font-bold font-mono">AL-MUSIM NOTICE DESK</span>
+        <div class="p-4 flex-1 text-xs space-y-2 text-gray-600">
+          <p class="font-bold text-blue-950">২০২৬ শিক্ষাবর্ষের নতুন ক্লাসের রুটিন প্রকাশ।</p>
+          <p>সকল শিক্ষার্থীকে নির্দিষ্ট সময়ে ক্যাম্পাসে উপস্থিত থাকার নির্দেশ দেওয়া হলো।</p>
+        </div>
+        <div class="p-3 bg-gray-50 border-t text-right">
+          <a href="#notice-board-sec" class="text-blue-900 font-bold text-xs hover:underline">সকল খবর দেখুন →</a>
+        </div>
+      </div>
+
+      <!-- Upcoming Events -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex flex-col">
+        <div class="bg-gradient-to-r from-blue-900 to-blue-950 text-white px-4 py-3 flex justify-between items-center">
+          <h4 class="font-black text-sm tracking-wide">Upcoming Events</h4>
+          <div class="stripe-pattern w-12 h-4 rounded"></div>
+        </div>
+        <div class="p-4 flex-1 text-xs space-y-2 text-gray-600">
+          <p class="font-bold text-blue-950">বার্ষিক ক্রীড়া ও সাংস্কৃতিক প্রতিযোগিতা।</p>
+          <p>আগামী ২৫ সেপ্টেম্বর থেকে খেলাধুলা ও সাংস্কৃতিক অনুষ্ঠান শুরু হবে।</p>
+        </div>
+        <div class="p-3 bg-gray-50 border-t text-right">
+          <a href="#notice-board-sec" class="text-blue-900 font-bold text-xs hover:underline">বিস্তারিত সূচি →</a>
+        </div>
+      </div>
+
+      <!-- Principal's Message -->
+      <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex flex-col">
+        <div class="bg-gradient-to-r from-blue-900 to-blue-950 text-white px-4 py-3 flex justify-between items-center">
+          <h4 class="font-black text-sm tracking-wide">Principal's Message</h4>
+          <div class="stripe-pattern w-12 h-4 rounded"></div>
+        </div>
+        <div class="p-4 flex-1 text-xs space-y-2 text-gray-600">
+          <p class="font-bold text-blue-950">অধ্যক্ষের বাণী:</p>
+          <p>"নৈতিক মূল্যবোধ ও আধুনিক প্রযুক্তির সমন্বয়ে আদর্শ মানুষ গড়াই আমাদের মূল লক্ষ্য।" — মাওলানা আব্দুর রহমান</p>
+        </div>
+        <div class="p-3 bg-gray-50 border-t text-right">
+          <a href="javascript:void(0)" onclick="alert('অধ্যক্ষের পূর্ণাঙ্গ বাণী শীঘ্র প্রকাশিত হবে।')" class="text-blue-900 font-bold text-xs hover:underline">পূর্ণাঙ্গ বাণী পড়ুুন →</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ================= ৪. নোটিশ বোর্ড ================= -->
+  <section id="notice-board-sec" class="py-6 px-4 max-w-6xl mx-auto">
+    <div class="bg-white rounded-2xl shadow-md border border-gray-200 p-6">
+      <div class="flex justify-between items-center border-b pb-3 mb-4">
+        <h3 class="text-lg font-black text-blue-950">অফিসিয়াল নোটিশ বোর্ড</h3>
+        <span class="text-xs text-gray-500 font-bold">AL-MUSIM BULLETIN</span>
       </div>
       <div id="publicNoticeContainer" class="divide-y divide-gray-100 text-xs sm:text-sm"></div>
     </div>
   </section>
 
-  <!-- ================= ৫. ভর্তি আবেদন সেকশন ================= -->
+  <!-- ================= ৫. ভর্তি আবেদন সেকশন (আলাদা আলাদা ক্লাস) ================= -->
   <section id="admission-sec" class="max-w-4xl mx-auto px-4 py-12">
     <div class="bg-white rounded-3xl shadow-xl border border-blue-200 p-6 md:p-10">
       <div class="text-center mb-8">
@@ -200,6 +211,7 @@
               <label class="block font-bold text-gray-700 mb-1">শিক্ষার্থীর পূর্ণ নাম *</label>
               <input type="text" id="stdName" placeholder="যেমন: আব্দুল্লাহ আল মামুন" class="w-full border p-2.5 rounded-xl bg-white font-bold">
             </div>
+            
             <div>
               <label class="block font-bold text-blue-950 mb-1">ভর্তি হতে ইচ্ছুক শ্রেণি নির্বাচন করুন *</label>
               <select id="stdClass" onchange="handleClassFeeChange()" class="w-full border-2 border-blue-600 bg-white p-2.5 rounded-xl font-bold text-blue-950">
@@ -275,7 +287,7 @@
         </div>
 
         <div class="bg-amber-50/60 p-4 rounded-xl border border-amber-300 space-y-2">
-          <p class="font-bold text-blue-950 text-xs">ভর্তি ফি অ্যাকাউন্ট: <strong>bKash:</strong> <span id="pubBkashNum" class="text-pink-700 font-mono font-bold">০১৭২৬-৫৬৭৯৩৬</span> | <strong>Nagad:</strong> <span id="pubNagadNum" class="text-amber-700 font-mono font-bold">০১৭২২-৩৯৭৬০৭</span></p>
+          <p class="font-bold text-blue-950 text-xs">ভর্তি ফি অ্যাকাউন্ট: <strong>bKash:</strong> <span class="text-pink-700 font-mono font-bold">০১৭২৬-৫৬৭৯৩৬</span> | <strong>Nagad:</strong> <span class="text-amber-700 font-mono font-bold">০১৭২২-৩৯৭৬০৭</span></p>
           <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
             <div>
               <label class="block font-bold mb-1">মাধ্যম *</label>
@@ -353,36 +365,7 @@
     </div>
   </section>
 
-  <!-- ================= ৭. ক্যাম্পাস ফটো গ্যালারি ================= -->
-  <section id="gallery-sec" class="py-16 bg-white px-4 border-t border-gray-200">
-    <div class="max-w-7xl mx-auto space-y-8">
-      <div class="text-center max-w-2xl mx-auto space-y-1">
-        <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full uppercase">ফটো গ্যালারি</span>
-        <h3 class="text-2xl md:text-3xl font-black text-gray-900">ক্যাম্পাস জীবন ও সহশিক্ষা কার্যক্রম</h3>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div class="rounded-2xl overflow-hidden shadow group relative h-48">
-          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=600&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-bold">শ্রেণিকক্ষে পাঠদান</div>
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow group relative h-48">
-          <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?w=600&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-bold">বিজ্ঞানাগারে ব্যবহারিক</div>
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow group relative h-48">
-          <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=600&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-bold">বার্ষিক ক্রীড়া প্রতিযোগিতা</div>
-        </div>
-        <div class="rounded-2xl overflow-hidden shadow group relative h-48">
-          <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&fit=crop" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
-          <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition flex items-end p-3 text-white text-xs font-bold">আইসিটি ও কম্পিউটার ল্যাব</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= ৮. শিক্ষক প্যানেল ================= -->
+  <!-- ================= ৭. শিক্ষক প্যানেল ================= -->
   <section id="teachers-sec" class="max-w-7xl mx-auto px-4 py-16">
     <div class="text-center mb-10 space-y-1">
       <span class="text-xs bg-emerald-100 text-emerald-800 font-bold px-3 py-1 rounded-full uppercase">অনুষদ</span>
@@ -397,7 +380,7 @@
       <div class="space-y-3">
         <h4 class="text-white font-black text-base font-anek">আল-মুছিম স্কুল এন্ড কলেজ</h4>
         <p class="text-gray-400 leading-relaxed">টেংরা, লালাবাজার, বিশ্বনাথ, সিলেট। আদর্শ মানবিক ও ডিজিটাল শিক্ষাঙ্গন।</p>
-        <p class="font-mono text-emerald-400 font-bold">ESTD: 2006 | কোড: 4521</p>
+        <p class="font-mono text-amber-400 font-bold">ESTD: 2006 | কোড: 4521</p>
       </div>
       <div>
         <h4 class="text-white font-bold text-sm mb-3">জরুরি লিংক</h4>
@@ -419,7 +402,7 @@
         <p class="text-gray-400">অটোমেটেড ডেটাবেজ, ১২ মাসের ডিজিটাল ফি, রেজাল্ট গ্রেডিং ও শ্রেণি প্রমোশন সিস্টেম।</p>
       </div>
     </div>
-    <div class="max-w-7xl mx-auto mt-8 pt-4 border-t border-gray-800/80 text-center text-gray-500">
+    <div class="max-w-7xl mx-auto mt-8 pt-4 border-t border-gray-800 text-center text-gray-500">
       © ২০২৬ আল-মুছিম স্কুল এন্ড কলেজ (AL-MUSIM SCHOOL & COLLEGE). সর্বস্বত্ব সংরক্ষিত।
     </div>
   </footer>
@@ -481,7 +464,6 @@
         </div>
       </div>
 
-      <!-- শিক্ষার্থীর ড্যাশবোর্ড -->
       <div id="studentDashboardView" style="display: none;" class="space-y-4 text-xs mt-4">
         <div class="bg-gradient-to-r from-amber-50 to-blue-50 p-5 rounded-2xl border-2 border-blue-600/50 shadow-sm">
           <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
@@ -612,20 +594,18 @@
 
         <div class="flex border-b font-bold gap-2 overflow-x-auto pb-1">
           <button type="button" id="tabStudentListBtn" onclick="switchAdminTab('all_students')" class="py-2 px-3 border-b-2 border-blue-900 text-blue-900 whitespace-nowrap cursor-pointer">👥 শিক্ষার্থী তালিকা ও প্রমোশন</button>
-          <button type="button" id="tabResBtn" onclick="switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📊 রেজাল্ট এন্ট্রি (অটো গ্রেড সহ)</button>
+          <button type="button" id="tabResBtn" onclick="switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📊 রেজাল্ট এন্ট্রি (অটো গ্রেড)</button>
           <button type="button" id="tabHomeControlBtn" onclick="switchAdminTab('home_control')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">🌐 নোটিশ ও সেটিংস</button>
           <button type="button" id="tabManualBtn" onclick="switchAdminTab('manual_entry')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">➕ ম্যানুয়ালি শিক্ষার্থী ভর্তি</button>
           <button type="button" id="tabTchBtn" onclick="switchAdminTab('teachers')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">👨‍🏫 শিক্ষক ম্যানেজমেন্ট</button>
           <button type="button" id="tabFeeBtn" onclick="switchAdminTab('fees')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💰 শ্রেণিভিত্তিক ফি</button>
-          <button type="button" id="tabSmsBtn" onclick="switchAdminTab('sms_engine')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📅 ১ তারিখের SMS</button>
         </div>
 
-        <!-- ১. সকল শিক্ষার্থী তালিকা ও প্রমোশন বাটন -->
         <div id="adminStudentListSection" class="space-y-4">
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-blue-50 p-3.5 rounded-2xl border border-blue-200 gap-2">
             <div>
               <span class="font-bold text-blue-950 text-sm">👥 নিবন্ধিত সকল শিক্ষার্থী (ফি নিয়ন্ত্রণ ও প্রমোশন):</span>
-              <p class="text-[11px] text-gray-600">শিক্ষার্থী পরবর্তী ক্লাসে উত্তীর্ণ হলে <strong>"🎓 প্রমোশন / শ্রেণি পরিবর্তন"</strong> বাটনে ক্লিক করুন।</p>
+              <p class="text-[11px] text-gray-600">শিক্ষার্থী পরবর্তী ক্লাসে উত্তীর্ণ হলে <strong>"🎓 শ্রেণি পরিবর্তন"</strong> বাটনে ক্লিক করুন।</p>
             </div>
             <button type="button" onclick="switchAdminTab('manual_entry')" class="bg-blue-900 hover:bg-blue-950 text-white font-bold px-4 py-2 rounded-xl text-xs shadow flex items-center cursor-pointer">
               <i class="fa-solid fa-user-plus mr-1.5"></i> ➕ নতুন শিক্ষার্থী ভর্তি করুন
@@ -640,7 +620,7 @@
                   <th class="p-2.5">আইডি ও রোল</th>
                   <th class="p-2.5">নাম ও শ্রেণি</th>
                   <th class="p-2.5">শ্রেণি পরিবর্তন</th>
-                  <th class="p-2.5">১২ মাসের ফি স্ট্যাটাস (ক্লিক করে ম্যানুয়াল এডিট)</th>
+                  <th class="p-2.5">১২ মাসের ফি স্ট্যাটাস</th>
                 </tr>
               </thead>
               <tbody id="adminStudentTableBody" class="divide-y"></tbody>
@@ -648,17 +628,7 @@
           </div>
         </div>
 
-        <!-- ২. রেজাল্ট এন্ট্রি (অটোমেটিক লেটার গ্রেড ও GPA হিসাব) -->
         <div id="adminResultSection" style="display: none;" class="space-y-4">
-          <div class="bg-emerald-50 border border-emerald-200 p-4 rounded-2xl text-emerald-950">
-            <h5 class="font-bold text-sm mb-1 flex items-center">
-              <i class="fa-solid fa-wand-magic-sparkles mr-2 text-emerald-700"></i> ১০০% স্বয়ংক্রিয় গ্রেড ও জিপিএ হিসাব
-            </h5>
-            <p class="text-[11px] text-emerald-800">
-              আপনি শুধু বিষয়ের ঘরে নম্বর লিখবেন। নম্বর লেখার সাথে সাথেই পাশের ঘরে সরকারি স্কেলে <strong>A+, A, A-, B, C, D, F</strong> গ্রেড এবং নিচে মোট প্রাপ্ত নম্বর ও <strong>GPA</strong> নিজে থেকেই হিসাব হয়ে বসে যাবে।
-            </p>
-          </div>
-
           <div class="bg-gray-50 p-5 rounded-2xl border space-y-4">
             <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
               <div>
@@ -691,27 +661,24 @@
               </div>
               <div>
                 <label class="block font-bold mb-1">পরীক্ষার নাম</label>
-                <input type="text" id="resInpExam" value="বার্ষিক পরীক্ষা ২০২৬" class="w-full border p-2.5 rounded-xl bg-white font-bold">
+                <input type="text" id="resInpExam" value="বার্ষিক পরীক্ষা ২০২৬" class="w-full border p-2.5 rounded-xl bg-white">
               </div>
             </div>
 
-            <!-- সরকারি বিষয়ের টেবিল (অটো গ্রেড কলাম সহ) -->
             <div>
               <div class="flex justify-between items-center mb-2">
                 <span class="font-bold text-gray-800 text-sm">সিলেবাসের বিষয়সমূহ ও প্রাপ্ত নম্বর ইনপুট:</span>
-                <button type="button" onclick="addNewCustomSubjectRow()" class="bg-blue-700 text-white px-3 py-1 rounded-lg text-xs font-bold shadow cursor-pointer">
-                  + অতিরিক্ত বিষয় যোগ
-                </button>
+                <button type="button" onclick="addNewCustomSubjectRow()" class="bg-blue-700 text-white px-3 py-1 rounded-lg text-xs font-bold shadow cursor-pointer">+ অতিরিক্ত বিষয়</button>
               </div>
               <div class="overflow-x-auto border rounded-2xl bg-white shadow-xs">
                 <table class="w-full text-left">
                   <thead class="bg-gray-100 border-b text-[11px] text-gray-700">
                     <tr>
                       <th class="p-2.5 w-10 text-center">ক্র.</th>
-                      <th class="p-2.5">বিষয়ের নাম (Subject)</th>
+                      <th class="p-2.5">বিষয়ের নাম</th>
                       <th class="p-2.5 w-20 text-center">পূর্ণমান</th>
-                      <th class="p-2.5 w-32 text-center">প্রাপ্ত নম্বর (Marks)</th>
-                      <th class="p-2.5 w-28 text-center text-emerald-800 font-black">অটো গ্রেড (Grade)</th>
+                      <th class="p-2.5 w-32 text-center">নম্বর</th>
+                      <th class="p-2.5 w-28 text-center text-emerald-800 font-black">গ্রেড</th>
                       <th class="p-2.5 w-16 text-center">বাদ</th>
                     </tr>
                   </thead>
@@ -720,1193 +687,321 @@
               </div>
             </div>
 
-            <!-- লাইভ জিপিএ সামারি কার্ড -->
-            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl flex flex-col sm:flex-row justify-between items-center gap-3">
-              <div class="flex items-center space-x-4">
-                <p class="text-xs text-gray-700 font-bold">মোট প্রাপ্ত নম্বর: <span id="liveTotalMarks" class="text-base text-blue-950 font-black">০</span></p>
-                <p class="text-xs text-gray-700 font-bold">গড় নম্বর: <span id="liveAvgMarks" class="text-base text-blue-950 font-black">০%</span></p>
-              </div>
-              <div class="flex items-center space-x-2 bg-white px-4 py-2 rounded-xl shadow-xs border border-blue-300">
-                <span class="text-xs font-bold text-gray-600">সার্বিক ফলাফল:</span>
-                <span id="liveCalculatedGPA" class="text-lg font-black text-emerald-700">GPA: 0.00</span>
-              </div>
+            <div class="bg-blue-50 border border-blue-200 p-4 rounded-xl flex justify-between items-center">
+              <p class="text-xs text-gray-700 font-bold">মোট নম্বর: <span id="liveTotalMarks" class="text-base text-blue-950 font-black">০</span></p>
+              <span id="liveCalculatedGPA" class="text-lg font-black text-emerald-700">GPA: 0.00</span>
             </div>
 
-            <button type="button" onclick="saveStudentResultAction()" class="bg-blue-900 hover:bg-blue-950 text-white font-black px-6 py-3 rounded-xl shadow-lg cursor-pointer text-sm transition">
-              <i class="fa-solid fa-cloud-arrow-up mr-1.5"></i> রেজাল্ট ডেটাবেজে সংরক্ষণ করুন
+            <button type="button" onclick="saveStudentResultAction()" class="bg-blue-900 hover:bg-blue-950 text-white font-black px-6 py-3 rounded-xl shadow-lg cursor-pointer text-sm">
+              রেজাল্ট সংরক্ষণ করুন
             </button>
           </div>
         </div>
 
-        <!-- ৩. হোমপেজ ও নোটিশ কন্ট্রোল -->
         <div id="adminHomeControlSection" style="display: none;" class="space-y-6">
           <div class="bg-gray-50 p-5 rounded-2xl border space-y-3">
-            <h5 class="font-bold text-gray-800 text-sm border-b pb-1 flex items-center text-blue-950">
-              <i class="fa-solid fa-bullhorn mr-2 text-blue-700"></i> নোটিশ বোর্ডে নতুন নোটিশ প্রকাশ করুন
-            </h5>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <input type="text" id="admNoticeTitle" placeholder="নোটিশের শিরোনাম *" class="sm:col-span-2 border p-2.5 rounded-xl bg-white font-bold">
-              <input type="text" id="admNoticeDate" value="১৯ সেপ্টেম্বর ২০২৬" class="border p-2.5 rounded-xl bg-white font-bold text-center">
-            </div>
-            <textarea id="admNoticeDesc" rows="2" placeholder="নোটিশের বিস্তারিত বিবরণ..." class="w-full border p-2.5 rounded-xl bg-white"></textarea>
-            <button type="button" onclick="publishNewNoticeAction()" class="bg-blue-900 hover:bg-blue-950 text-white font-bold px-5 py-2.5 rounded-xl shadow cursor-pointer">
-              + নোটিশ প্রকাশ করুন
-            </button>
-          </div>
-
-          <div class="bg-gray-50 p-5 rounded-2xl border space-y-3">
-            <h5 class="font-bold text-gray-800 text-sm border-b pb-1 text-blue-950">
-              <i class="fa-solid fa-sliders mr-2 text-blue-700"></i> হোমপেজ তথ্য ও পেমেন্ট নম্বর এডিট
-            </h5>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <label class="block font-bold mb-1">চলমান জরুরি নোটিশ (Marquee)</label>
-                <input type="text" id="admSetMarquee" class="w-full border p-2 rounded-xl bg-white">
-              </div>
-              <div>
-                <label class="block font-bold mb-1">প্রতিষ্ঠানের নাম</label>
-                <input type="text" id="admSetName" value="আল-মুছিম স্কুল এন্ড কলেজ" class="w-full border p-2 rounded-xl bg-white font-bold">
-              </div>
-              <div>
-                <label class="block font-bold mb-1 text-pink-700">বিকাশ (bKash) নম্বর</label>
-                <input type="text" id="admSetBkash" value="০১৭২৬-৫৬৭৯৩৬" class="w-full border-2 border-pink-400 p-2 rounded-xl font-bold bg-white">
-              </div>
-              <div>
-                <label class="block font-bold mb-1 text-amber-700">নগদ (Nagad) নম্বর</label>
-                <input type="text" id="admSetNagad" value="০১৭২২-৩৯৭৬০৭" class="w-full border-2 border-amber-400 p-2 rounded-xl font-bold bg-white">
-              </div>
-            </div>
-            <button type="button" onclick="saveSiteSettingsAction()" class="bg-blue-900 text-white font-bold px-6 py-2.5 rounded-xl shadow cursor-pointer">
-              সেটিংস সংরক্ষণ করুন
-            </button>
+            <h5 class="font-bold text-gray-800 text-sm border-b pb-1 text-blue-950">নোটিশ প্রকাশ করুন</h5>
+            <input type="text" id="admNoticeTitle" placeholder="নোটিশের শিরোনাম" class="w-full border p-2 rounded bg-white font-bold">
+            <textarea id="admNoticeDesc" rows="2" placeholder="বিস্তারিত বিবরণ..." class="w-full border p-2 rounded bg-white"></textarea>
+            <button type="button" onclick="publishNewNoticeAction()" class="bg-blue-900 text-white font-bold px-4 py-2 rounded">প্রকাশ করুন</button>
           </div>
         </div>
 
-        <!-- ৪. ম্যানুয়ালি শিক্ষার্থী ভর্তি -->
         <div id="adminManualEntrySection" style="display: none;" class="space-y-3">
           <div class="bg-gray-50 p-5 rounded-2xl border space-y-3">
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
-                <label class="block font-bold mb-1">শিক্ষার্থীর নাম *</label>
-                <input type="text" id="manName" placeholder="নাম লিখুন" class="w-full border p-2.5 rounded-xl bg-white font-bold">
-              </div>
-              <div>
-                <label class="block font-bold mb-1 text-blue-950">শ্রেণি নির্বাচন করুন *</label>
-                <select id="manClass" class="w-full border-2 border-blue-600 p-2.5 rounded-xl font-bold bg-white">
-                  <option value="Play">প্লে শ্রেণি (Play)</option>
-                  <option value="Nursery">নার্সারি (Nursery)</option>
-                  <option value="KG">কেজি শ্রেণি (KG)</option>
-                  <option value="Class 1">১ম শ্রেণি (Class 1)</option>
-                  <option value="Class 2">২য় শ্রেণি (Class 2)</option>
-                  <option value="Class 3">৩য় শ্রেণি (Class 3)</option>
-                  <option value="Class 4">৪র্থ শ্রেণি (Class 4)</option>
-                  <option value="Class 5">৫ম শ্রেণি (Class 5)</option>
-                  <option value="Class 6">৬ষ্ঠ শ্রেণি (Class 6)</option>
-                  <option value="Class 7">৭ম শ্রেণি (Class 7)</option>
-                  <option value="Class 8">৮ম শ্রেণি (Class 8)</option>
-                  <option value="Class 9">৯ম শ্রেণি (Class 9)</option>
-                  <option value="Class 10" selected>১০ম শ্রেণি (Class 10)</option>
-                  <option value="Class 11">একাদশ শ্রেণি (Class 11 - College)</option>
-                  <option value="Class 12">দ্বাদশ শ্রেণি (Class 12 - College)</option>
-                </select>
-              </div>
-              <div>
-                <label class="block font-bold mb-1">ক্লাসের রোল নম্বর *</label>
-                <input type="text" id="manRoll" placeholder="যেমন: 02" class="w-full border p-2.5 rounded-xl font-bold text-center bg-white">
-              </div>
+            <div class="grid grid-cols-3 gap-3">
+              <input type="text" id="manName" placeholder="শিক্ষার্থীর নাম" class="border p-2 rounded bg-white font-bold">
+              <select id="manClass" class="border p-2 rounded bg-white font-bold">
+                <option value="Class 10">১০ম শ্রেণি</option>
+                <option value="Class 9">৯ম শ্রেণি</option>
+                <option value="Class 8">৮ম শ্রেণি</option>
+              </select>
+              <input type="text" id="manRoll" placeholder="রোল নম্বর" class="border p-2 rounded bg-white font-bold text-center">
             </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
-                <label class="block font-bold mb-1">অভিভাবকের মোবাইল *</label>
-                <input type="tel" id="manPhone" placeholder="017xxxxxxxx" class="w-full border p-2.5 rounded-xl bg-white">
-              </div>
-              <div>
-                <label class="block font-bold mb-1">পিতার নাম</label>
-                <input type="text" id="manFather" placeholder="পিতার নাম" class="w-full border p-2.5 rounded-xl bg-white">
-              </div>
-              <div>
-                <label class="block font-bold mb-1">নির্ধারিত মাসিক বেতন</label>
-                <input type="number" id="manMonthlyFee" placeholder="যেমন: 1500" class="w-full border p-2.5 rounded-xl font-bold text-pink-700 bg-white">
-              </div>
-            </div>
-
-            <button type="button" onclick="executeManualStudentAdd()" class="bg-blue-900 hover:bg-blue-950 text-white font-bold px-6 py-3 rounded-xl shadow cursor-pointer transition">
-              <i class="fa-solid fa-user-plus mr-1"></i> শিক্ষার্থী সংরক্ষণ করুন
-            </button>
+            <button type="button" onclick="executeManualStudentAdd()" class="bg-blue-900 text-white font-bold px-5 py-2 rounded">সংরক্ষণ করুন</button>
           </div>
         </div>
 
-        <!-- ৫. শিক্ষক ম্যানেজমেন্ট -->
         <div id="adminTeacherSection" style="display: none;" class="space-y-4">
-          <div class="bg-gray-50 p-5 rounded-2xl border space-y-3">
-            <h5 class="font-bold text-gray-800 text-sm border-b pb-1 flex items-center">
-              <i class="fa-solid fa-user-plus mr-2 text-blue-700"></i> নতুন শিক্ষক যুক্ত করুন
-            </h5>
-            
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
-              <input type="text" id="ntName" placeholder="শিক্ষকের নাম *" class="border p-2 rounded-xl bg-white font-bold">
-              <input type="text" id="ntDesig" placeholder="পদবি *" class="border p-2 rounded-xl bg-white">
-              <input type="text" id="ntSub" placeholder="বিষয় *" class="border p-2 rounded-xl bg-white">
-              <input type="text" id="ntPhone" placeholder="মোবাইল নম্বর *" class="border p-2 rounded-xl bg-white">
-            </div>
-
-            <div class="bg-white p-3.5 rounded-xl border flex flex-col sm:flex-row items-center gap-4">
-              <div class="flex-1 w-full">
-                <label class="block font-bold text-gray-700 mb-1">শিক্ষকের ছবি নির্বাচন করুন (Choose File) *</label>
-                <input type="file" id="ntPhotoFile" accept="image/*" onchange="previewTeacherImage(event)" class="w-full border p-1.5 rounded-lg bg-gray-50 text-xs">
-              </div>
-              <div id="teacherPhotoPreviewBox" class="hidden text-center flex-shrink-0">
-                <img id="teacherPhotoPreview" src="" class="w-14 h-14 object-cover rounded-full border-2 border-blue-600 shadow">
-                <span class="text-[10px] text-blue-700 font-bold block mt-0.5">ছবি সিলেক্টেড ✔</span>
-              </div>
-            </div>
-
-            <button type="button" onclick="executeAddTeacher()" class="bg-blue-900 hover:bg-blue-950 text-white font-bold px-6 py-2.5 rounded-xl shadow cursor-pointer transition">
-              + শিক্ষক সংরক্ষণ করুন
-            </button>
-          </div>
-
-          <div class="overflow-x-auto border rounded-2xl shadow-xs">
+          <div class="overflow-x-auto border rounded-xl">
             <table class="w-full text-left">
-              <thead class="bg-blue-950 text-white">
-                <tr>
-                  <th class="p-2.5">ছবি</th>
-                  <th class="p-2.5">নাম</th>
-                  <th class="p-2.5">পদবি ও বিষয়</th>
-                  <th class="p-2.5">মোবাইল</th>
-                  <th class="p-2.5 text-center">অ্যাকশন</th>
-                </tr>
-              </thead>
+              <thead class="bg-blue-950 text-white"><tr><th class="p-2">ছবি</th><th class="p-2">নাম</th><th class="p-2">পদবি</th><th class="p-2 text-center">অ্যাকশন</th></tr></thead>
               <tbody id="adminTeacherTableBody" class="divide-y"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- ৬. শ্রেণিভিত্তিক ফি -->
         <div id="adminFeeSection" style="display: none;" class="space-y-3">
-          <div class="overflow-x-auto border rounded-2xl shadow-xs">
+          <div class="overflow-x-auto border rounded-xl">
             <table class="w-full text-left">
-              <thead class="bg-blue-950 text-white">
-                <tr><th class="p-2.5">শ্রেণি</th><th class="p-2.5">ভর্তি ফি</th><th class="p-2.5">মাসিক বেতন</th><th class="p-2.5 text-center">অ্যাকশন</th></tr>
-              </thead>
+              <thead class="bg-blue-950 text-white"><tr><th class="p-2">শ্রেণি</th><th class="p-2">ভর্তি ফি</th><th class="p-2">মাসিক বেতন</th><th class="p-2 text-center">অ্যাকশন</th></tr></thead>
               <tbody id="adminFeeTableBody" class="divide-y"></tbody>
             </table>
           </div>
         </div>
 
-        <!-- ৭. ১ তারিখের SMS -->
         <div id="adminSmsSection" style="display: none;" class="space-y-4">
-          <div class="bg-gray-50 p-5 rounded-2xl border flex flex-wrap gap-3 items-center">
-            <input type="text" id="smsMonthName" value="অক্টোবর ২০২৬" class="border p-2.5 rounded-xl font-bold bg-white">
-            <input type="text" id="smsDeadlineDate" value="১০ তারিখের মধ্যে" class="border p-2.5 rounded-xl font-bold bg-white">
-            <button type="button" onclick="sendMonthlyFeeSmsToAll()" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-6 py-2.5 rounded-xl shadow cursor-pointer">
-              <i class="fa-solid fa-paper-plane mr-1"></i> সকল অভিভাবককে SMS পাঠান
-            </button>
-          </div>
-          <div id="smsLogTable" class="overflow-x-auto border rounded-2xl"></div>
+          <button type="button" onclick="sendMonthlyFeeSmsAll()" class="bg-pink-600 text-white font-bold px-5 py-2 rounded">১ তারিখের SMS পাঠান</button>
         </div>
 
       </div>
     </div>
   </div>
 
-  <!-- ================= ৩. প্রমোশন ও শ্রেণি পরিবর্তন মোডাল (Promotion Modal) ================= -->
+  <!-- ================= প্রমোশন মোডাল ================= -->
   <div id="adminPromotionModal" class="custom-modal-overlay" onclick="if(event.target===this) document.getElementById('adminPromotionModal').style.display='none'">
-    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative text-xs my-auto border border-gray-100">
-      <button type="button" onclick="document.getElementById('adminPromotionModal').style.display='none'" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold cursor-pointer leading-none">&times;</button>
-      <h4 class="font-bold text-base text-blue-950 mb-1 flex items-center">
-        <i class="fa-solid fa-graduation-cap mr-2 text-amber-600 text-lg"></i> শিক্ষার্থী প্রমোশন / শ্রেণি পরিবর্তন
-      </h4>
+    <div class="bg-white rounded-3xl max-w-md w-full p-6 shadow-2xl relative text-xs my-auto">
+      <button type="button" onclick="document.getElementById('adminPromotionModal').style.display='none'" class="absolute top-4 right-4 text-gray-400 text-2xl font-bold">&times;</button>
+      <h4 class="font-bold text-base text-blue-950 mb-1">শিক্ষার্থী প্রমোশন / শ্রেণি পরিবর্তন</h4>
       <p id="promotionModalStudentInfo" class="text-gray-600 mb-4 font-semibold"></p>
-
       <div class="space-y-3">
-        <div>
-          <label class="block font-bold mb-1 text-gray-700">উত্তীর্ণ হতে ইচ্ছুক নতুন শ্রেণি (Promote to) *</label>
-          <select id="promoteNewClass" class="w-full border-2 border-blue-600 p-2.5 rounded-xl font-bold bg-white">
-            <option value="Play">প্লে শ্রেণি (Play)</option>
-            <option value="Nursery">নার্সারি (Nursery)</option>
-            <option value="KG">কেজি শ্রেণি (KG)</option>
-            <option value="Class 1">১ম শ্রেণি (Class 1)</option>
-            <option value="Class 2">২য় শ্রেণি (Class 2)</option>
-            <option value="Class 3">৩য় শ্রেণি (Class 3)</option>
-            <option value="Class 4">৪র্থ শ্রেণি (Class 4)</option>
-            <option value="Class 5">৫ম শ্রেণি (Class 5)</option>
-            <option value="Class 6">৬ষ্ঠ শ্রেণি (Class 6)</option>
-            <option value="Class 7">৭ম শ্রেণি (Class 7)</option>
-            <option value="Class 8">৮ম শ্রেণি (Class 8)</option>
-            <option value="Class 9">৯ম শ্রেণি (Class 9)</option>
-            <option value="Class 10">১০ম শ্রেণি (Class 10)</option>
-            <option value="Class 11">একাদশ শ্রেণি (Class 11 - College)</option>
-            <option value="Class 12">দ্বাদশ শ্রেণি (Class 12 - College)</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block font-bold mb-1 text-gray-700">নতুন ক্লাসের রোল নম্বর (New Roll) *</label>
-          <input type="text" id="promoteNewRoll" class="w-full border p-2.5 rounded-xl font-bold text-center bg-white" placeholder="যেমন: 01">
-        </div>
-
-        <div class="bg-amber-50 p-3 rounded-xl border border-amber-200 space-y-1">
-          <label class="flex items-center space-x-2 font-bold text-amber-950 cursor-pointer">
-            <input type="checkbox" id="resetFeeYearCheckbox" checked class="rounded text-blue-600">
-            <span>নতুন শিক্ষাবর্ষের ১২ মাসের ফি রিনিউ করুন</span>
-          </label>
-          <p class="text-[10px] text-gray-500 pl-5">টিক দেওয়া থাকলে নতুন ক্লাসের ফি হার অনুযায়ী নতুন ১২ মাসের বেতন বিবরণী তৈরি হবে।</p>
-        </div>
-
-        <button type="button" onclick="confirmStudentPromotionAction()" class="w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-3 rounded-xl shadow mt-2 cursor-pointer transition">
-          <i class="fa-solid fa-circle-check mr-1"></i> প্রমোশন নিশ্চিত করুন
-        </button>
+        <select id="promoteNewClass" class="w-full border p-2.5 rounded-xl font-bold bg-white">
+          <option value="Play">প্লে শ্রেণি</option>
+          <option value="Nursery">নার্সারি</option>
+          <option value="Class 9">৯ম শ্রেণি</option>
+          <option value="Class 10" selected>১০ম শ্রেণি</option>
+          <option value="Class 11">একাদশ শ্রেণি</option>
+          <option value="Class 12">দ্বাদশ শ্রেণি</option>
+        </select>
+        <input type="text" id="promoteNewRoll" class="w-full border p-2.5 rounded-xl font-bold text-center bg-white" placeholder="নতুন রোল">
+        <button type="button" onclick="confirmStudentPromotionAction()" class="w-full bg-blue-900 text-white font-bold py-3 rounded-xl shadow cursor-pointer">প্রমোশন নিশ্চিত করুন</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= ৪. ম্যানুয়াল ফি এন্ট্রি মোডাল ================= -->
+  <!-- ================= ম্যানুয়াল ফি এন্ট্রি মোডাল ================= -->
   <div id="adminManualFeeModal" class="custom-modal-overlay" onclick="if(event.target===this) document.getElementById('adminManualFeeModal').style.display='none'">
-    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative text-xs my-auto border border-gray-100">
-      <button type="button" onclick="document.getElementById('adminManualFeeModal').style.display='none'" class="absolute top-4 right-4 text-gray-400 hover:text-gray-700 text-2xl font-bold cursor-pointer leading-none">&times;</button>
-      <h4 class="font-bold text-base text-blue-950 mb-1 flex items-center">
-        <i class="fa-solid fa-file-invoice-dollar mr-1.5 text-blue-700"></i> ম্যানুয়াল ফি এন্ট্রি ও স্ট্যাটাস
-      </h4>
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl relative text-xs my-auto">
+      <button type="button" onclick="document.getElementById('adminManualFeeModal').style.display='none'" class="absolute top-4 right-4 text-gray-400 text-2xl font-bold">&times;</button>
+      <h4 class="font-bold text-base text-blue-950 mb-1">ম্যানুয়াল ফি এন্ট্রি ও স্ট্যাটাস</h4>
       <p id="adminFeeModalSubtitle" class="text-gray-600 mb-3 font-semibold"></p>
-
       <div class="space-y-3">
-        <div>
-          <label class="block font-bold mb-1 text-gray-700">ফি স্ট্যাটাস নির্বাচন করুন *</label>
-          <select id="admManualStatus" class="w-full border p-2.5 rounded-xl font-bold bg-white">
-            <option value="Paid">পরিশোধিত (Paid ✔)</option>
-            <option value="Due">বকেয়া (Due ⚠️)</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block font-bold mb-1 text-gray-700">জমার মাধ্যম *</label>
-          <select id="admManualMethod" class="w-full border p-2.5 rounded-xl font-bold bg-white">
-            <option value="অফিস ক্যাশ">অফিস ক্যাশ (Cash)</option>
-            <option value="bKash">bKash (বিকাশ)</option>
-            <option value="Nagad">Nagad (নগদ)</option>
-            <option value="Bank">ব্যাংক ডিপোজিট</option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block font-bold mb-1 text-gray-700">রসিদ নম্বর / TrxID</label>
-          <input type="text" id="admManualTrx" placeholder="যেমন: REC-2026-01 বা TrxID" class="w-full border p-2.5 rounded-xl font-mono font-bold bg-white">
-        </div>
-
-        <div>
-          <label class="block font-bold mb-1 text-gray-700">টাকার পরিমাণ (৳)</label>
-          <input type="number" id="admManualAmount" class="w-full border p-2.5 rounded-xl font-bold text-pink-700 bg-white">
-        </div>
-
-        <button type="button" onclick="saveAdminManualFeeAction()" class="w-full bg-blue-900 hover:bg-blue-950 text-white font-bold py-3 rounded-xl shadow mt-1 cursor-pointer transition">
-          ফি স্ট্যাটাস সংরক্ষণ করুন
-        </button>
+        <select id="admManualStatus" class="w-full border p-2.5 rounded-xl font-bold bg-white">
+          <option value="Paid">পরিশোধিত (Paid ✔)</option>
+          <option value="Due">বকেয়া (Due ⚠️)</option>
+        </select>
+        <select id="admManualMethod" class="w-full border p-2.5 rounded-xl font-bold bg-white">
+          <option value="অফিস ক্যাশ">অফিস ক্যাশ (Cash)</option>
+          <option value="bKash">bKash (বিকাশ)</option>
+          <option value="Nagad">Nagad (নগদ)</option>
+        </select>
+        <input type="text" id="admManualTrx" placeholder="রসিদ নম্বর বা TrxID" class="w-full border p-2.5 rounded-xl font-mono font-bold bg-white">
+        <input type="number" id="admManualAmount" class="w-full border p-2.5 rounded-xl font-bold text-pink-700 bg-white">
+        <button type="button" onclick="saveAdminManualFeeAction()" class="w-full bg-blue-900 text-white font-bold py-3 rounded-xl shadow cursor-pointer">সংরক্ষণ করুন</button>
       </div>
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT CONTROLLERS ================= -->
+  <!-- JAVASCRIPT -->
   <script>
-    function toggleMobileMenuDrawer() {
-      var drawer = document.getElementById('mobileMenuDrawer');
-      drawer.style.display = (drawer.style.display === 'block') ? 'none' : 'block';
-    }
-
     function openStudentModalDirect() {
       document.getElementById('studentLoginFormView').style.display = 'block';
       document.getElementById('studentDashboardView').style.display = 'none';
-      document.getElementById('studentLoginError').classList.add('hidden');
       document.getElementById('studentModal').style.display = 'flex';
-      window.scrollTo(0, 0);
     }
-
-    function closeStudentModalDirect() {
-      document.getElementById('studentModal').style.display = 'none';
-    }
-
+    function closeStudentModalDirect() { document.getElementById('studentModal').style.display = 'none'; }
     function openAdminModalDirect() {
       document.getElementById('adminLoginBox').style.display = 'block';
       document.getElementById('adminDashboardBox').style.display = 'none';
-      document.getElementById('adminLoginError').classList.add('hidden');
       document.getElementById('adminLoginModal').style.display = 'flex';
-      window.scrollTo(0, 0);
     }
-
-    function closeAdminModalDirect() {
-      document.getElementById('adminLoginModal').style.display = 'none';
-    }
+    function closeAdminModalDirect() { document.getElementById('adminLoginModal').style.display = 'none'; }
 
     var ALL_MONTHS = ['জানুয়ারি', 'ফেব্রুয়ারি', 'মার্চ', 'এপ্রিল', 'মে', 'জুন', 'জুলাই', 'আগস্ট', 'সেপ্টেম্বর', 'অক্টোবর', 'নভেম্বর', 'ডিসেম্বর'];
     var activeStudent = null;
     var payingMonth = null;
-    var uploadedTeacherPhotoBase64 = '';
-    var uploadedStudentPhotoBase64 = '';
     var editingStudentId = null;
     var editingMonth = null;
     var promotingStudentId = null;
 
     var GOVT_CURRICULUM = {
-      'Play': [{ name: 'বাংলা ও ছড়া', marks: 50 }, { name: 'ইংরেজি (ABC)', marks: 50 }, { name: 'মৌখিক গণিত', marks: 50 }, { name: 'ইসলামিয়াত', marks: 50 }],
-      'Nursery': [{ name: 'বাংলা ও ছড়া', marks: 100 }, { name: 'ইংরেজি (English)', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'ধর্ম ও নৈতিক শিক্ষা', marks: 50 }],
-      'KG': [{ name: 'বাংলা', marks: 100 }, { name: 'ইংরেজি', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'সাধারণ জ্ঞান', marks: 50 }],
-      'Class 1': [{ name: 'বাংলা', marks: 100 }, { name: 'ইংরেজি (English)', marks: 100 }, { name: 'প্রাথমিক গণিত', marks: 100 }],
-      'Class 2': [{ name: 'বাংলা', marks: 100 }, { name: 'ইংরেজি (English)', marks: 100 }, { name: 'প্রাথমিক গণিত', marks: 100 }],
-      'Class 3': [{ name: 'বাংলা', marks: 100 }, { name: 'ইংরেজি', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'বিজ্ঞান', marks: 100 }, { name: 'বাংলাদেশ ও বিশ্বপরিচয়', marks: 100 }, { name: 'ধর্ম শিক্ষা', marks: 100 }],
-      'Class 4': [{ name: 'বাংলা', marks: 100 }, { name: 'ইংরেজি', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'বিজ্ঞান', marks: 100 }, { name: 'বাংলাদেশ ও বিশ্বপরিচয়', marks: 100 }, { name: 'ধর্ম শিক্ষা', marks: 100 }],
-      'Class 5': [{ name: 'বাংলা', marks: 100 }, { name: 'ইংরেজি', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'বিজ্ঞান', marks: 100 }, { name: 'বাংলাদেশ ও বিশ্বপরিচয়', marks: 100 }, { name: 'ধর্ম শিক্ষা', marks: 100 }],
-      'Class 6': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'বাংলা ২য়', marks: 50 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'ইংরেজি ২য়', marks: 50 }, { name: 'গণিত', marks: 100 }, { name: 'বিজ্ঞান', marks: 100 }, { name: 'আইসিটি', marks: 50 }, { name: 'ধর্ম শিক্ষা', marks: 100 }],
-      'Class 7': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'বাংলা ২য়', marks: 50 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'ইংরেজি ২য়', marks: 50 }, { name: 'গণিত', marks: 100 }, { name: 'বিজ্ঞান', marks: 100 }, { name: 'আইসিটি', marks: 50 }, { name: 'ধর্ম শিক্ষা', marks: 100 }],
-      'Class 8': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'বাংলা ২য়', marks: 50 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'ইংরেজি ২য়', marks: 50 }, { name: 'গণিত', marks: 100 }, { name: 'বিজ্ঞান', marks: 100 }, { name: 'আইসিটি', marks: 50 }, { name: 'ধর্ম শিক্ষা', marks: 100 }],
-      'Class 9': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'বাংলা ২য়', marks: 100 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'ইংরেজি ২য়', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'আইসিটি', marks: 50 }, { name: 'ধর্ম শিক্ষা', marks: 100 }, { name: 'পদার্থ/হিসাববিজ্ঞান', marks: 100 }, { name: 'রসায়ন/ব্যবসায়', marks: 100 }, { name: 'জীববিজ্ঞান/ফিন্যান্স', marks: 100 }, { name: 'উচ্চতর গণিত', marks: 100 }],
-      'Class 10': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'বাংলা ২য়', marks: 100 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'ইংরেজি ২য়', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'আইসিটি', marks: 50 }, { name: 'ধর্ম শিক্ষা', marks: 100 }, { name: 'পদার্থ/হিসাববিজ্ঞান', marks: 100 }, { name: 'রসায়ন/ব্যবসায়', marks: 100 }, { name: 'জীববিজ্ঞান/ফিন্যান্স', marks: 100 }, { name: 'উচ্চতর গণিত', marks: 100 }],
-      'Class 11': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'বাংলা ২য়', marks: 100 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'ইংরেজি ২য়', marks: 100 }, { name: 'আইসিটি', marks: 100 }, { name: 'বিভাগীয় বিষয়-১', marks: 100 }, { name: 'বিভাগীয় বিষয়-২', marks: 100 }, { name: 'বিভাগীয় বিষয়-৩', marks: 100 }, { name: '৪র্থ বিষয়', marks: 100 }],
-      'Class 12': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'বাংলা ২য়', marks: 100 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'ইংরেজি ২য়', marks: 100 }, { name: 'আইসিটি', marks: 100 }, { name: 'বিভাগীয় বিষয়-১', marks: 100 }, { name: 'বিভাগীয় বিষয়-২', marks: 100 }, { name: 'বিভাগীয় বিষয়-৩', marks: 100 }, { name: '৪র্থ বিষয়', marks: 100 }]
+      'Class 10': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'বিজ্ঞান', marks: 100 }, { name: 'আইসিটি', marks: 50 }],
+      'Class 9': [{ name: 'বাংলা ১ম', marks: 100 }, { name: 'ইংরেজি ১ম', marks: 100 }, { name: 'গণিত', marks: 100 }, { name: 'বিজ্ঞান', marks: 100 }]
     };
 
-    function previewTeacherImage(e) {
-      var file = e.target.files[0];
-      if (file) {
-        var reader = new FileReader();
-        reader.onload = function(evt) {
-          uploadedTeacherPhotoBase64 = evt.target.result;
-          document.getElementById('teacherPhotoPreview').src = uploadedTeacherPhotoBase64;
-          document.getElementById('teacherPhotoPreviewBox').classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    function previewStudentImage(e) {
-      var file = e.target.files[0];
-      if (file) {
-        var reader = new FileReader();
-        reader.onload = function(evt) {
-          uploadedStudentPhotoBase64 = evt.target.result;
-          document.getElementById('stdPhotoPreview').src = uploadedStudentPhotoBase64;
-          document.getElementById('stdPhotoPreviewBox').classList.remove('hidden');
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
     var currentFeesMap = {
-      'Play': { admission: 1500, monthly: 800 },
-      'Nursery': { admission: 1500, monthly: 800 },
-      'KG': { admission: 1600, monthly: 850 },
-      'Class 1': { admission: 1800, monthly: 900 },
-      'Class 2': { admission: 1900, monthly: 950 },
-      'Class 3': { admission: 2000, monthly: 1000 },
-      'Class 4': { admission: 2100, monthly: 1050 },
-      'Class 5': { admission: 2200, monthly: 1100 },
-      'Class 6': { admission: 2500, monthly: 1200 },
-      'Class 7': { admission: 2600, monthly: 1250 },
-      'Class 8': { admission: 2700, monthly: 1300 },
-      'Class 9': { admission: 3200, monthly: 1450 },
       'Class 10': { admission: 3500, monthly: 1500 },
-      'Class 11': { admission: 5000, monthly: 2200 },
-      'Class 12': { admission: 5200, monthly: 2300 }
+      'Class 9': { admission: 3200, monthly: 1450 }
     };
 
     var DEFAULT_STUDENTS = [
       {
-        id: 1,
-        student_uid: 'AMSC-2026-1001',
-        name: 'আব্দুল্লাহ আল মামুন',
-        class_name: 'Class 10',
-        roll_no: '01',
-        photo: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&h=200&fit=crop',
-        father_name: 'মোঃ রফিকুল ইসলাম',
-        mother_name: 'মোসাঃ রোকেয়া বেগম',
-        guardian_phone: '01711000101',
-        address: 'টেংরা, বিশ্বনাথ, সিলেট',
-        monthly_fee: 1500,
-        admission_type: 'সরাসরি ভর্তি',
-        fees_records: [
-          { month: 'জানুয়ারি', amount: 1500, status: 'Paid', paid_at: 'অফিস ক্যাশ', trx_id: 'REC-101' },
-          { month: 'ফেব্রুয়ারি', amount: 1500, status: 'Paid', paid_at: 'অফিস ক্যাশ', trx_id: 'REC-102' },
-          { month: 'মার্চ', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'এপ্রিল', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'মে', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'জুন', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'জুলাই', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'আগস্ট', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'সেপ্টেম্বর', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'অক্টোবর', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'নভেম্বর', amount: 1500, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'ডিসেম্বর', amount: 1500, status: 'Due', paid_at: null, trx_id: null }
-        ]
-      },
-      {
-        id: 2,
-        student_uid: 'AMSC-2026-1002',
-        name: 'নাফিসা তাবাসসুম',
-        class_name: 'Class 9',
-        roll_no: '02',
-        photo: 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=200&h=200&fit=crop',
-        father_name: 'মোঃ আবুল কালাম',
-        mother_name: 'সুলতানা পারভীন',
-        guardian_phone: '01711000102',
-        address: 'লালাবাজার, বিশ্বনাথ, সিলেট',
-        monthly_fee: 1450,
-        admission_type: 'অনলাইন ভর্তি',
-        fees_records: [
-          { month: 'জানুয়ারি', amount: 1450, status: 'Paid', paid_at: 'bKash', trx_id: 'BK99410' },
-          { month: 'ফেব্রুয়ারি', amount: 1450, status: 'Paid', paid_at: 'bKash', trx_id: 'BK99411' },
-          { month: 'মার্চ', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'এপ্রিল', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'মে', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'জুন', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'জুলাই', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'আগস্ট', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'সেপ্টেম্বর', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'অক্টোবর', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'নভেম্বর', amount: 1450, status: 'Due', paid_at: null, trx_id: null },
-          { month: 'ডিসেম্বর', amount: 1450, status: 'Due', paid_at: null, trx_id: null }
-        ]
+        id: 1, student_uid: 'AMSC-2026-1001', name: 'আব্দুল্লাহ আল মামুন', class_name: 'Class 10', roll_no: '01',
+        photo: 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=200&fit=crop',
+        father_name: 'মোঃ রফিকুল ইসলাম', guardian_phone: '01711000101', monthly_fee: 1500, admission_type: 'সরাসরি ভর্তি',
+        fees_records: ALL_MONTHS.map((m, i) => ({ month: m, amount: 1500, status: i < 2 ? 'Paid' : 'Due', paid_at: i < 2 ? 'ক্যাশ' : null }))
       }
     ];
 
     function getStoredStudents() {
-      try {
-        var s = localStorage.getItem('almuslim_students_v14');
-        if (s) return JSON.parse(s);
-      } catch (e) {}
+      try { var s = localStorage.getItem('almuslim_students_v16'); if (s) return JSON.parse(s); } catch(e){}
       return DEFAULT_STUDENTS;
     }
+    function saveStoredStudents(list) { localStorage.setItem('almuslim_students_v16', JSON.stringify(list)); }
 
-    function saveStoredStudents(list) {
-      try {
-        localStorage.setItem('almuslim_students_v14', JSON.stringify(list));
-      } catch (e) {}
+    function getStoredNotices() {
+      try { var n = localStorage.getItem('almuslim_notices_v16'); if (n) return JSON.parse(n); } catch(e){}
+      return [{ title: '২০২৬ শিক্ষাবর্ষে ভর্তি চলছে', date: '১৯ সেপ্টেম্বর', desc: 'অফিসে যোগাযোগ করুন।' }];
     }
+    function renderPublicNotices() {
+      var c = document.getElementById('publicNoticeContainer');
+      var list = getStoredNotices();
+      c.innerHTML = '';
+      for(var i=0; i<list.length; i++) {
+        c.innerHTML += '<div class="py-2.5 flex justify-between items-center"><span class="font-bold">' + list[i].title + '</span><span class="text-xs text-gray-500">' + list[i].date + '</span></div>';
+      }
+    }
+    renderPublicNotices();
 
-    // রেজাল্ট টেবিল রেন্ডারিং
     function renderGovtSubjectsForClass() {
       var cls = document.getElementById('resInpClass').value;
-      var subjects = GOVT_CURRICULUM[cls] || GOVT_CURRICULUM['Class 10'];
+      var subs = GOVT_CURRICULUM[cls] || [{ name: 'বাংলা', marks: 100 }, { name: 'ইংরেজি', marks: 100 }, { name: 'গণিত', marks: 100 }];
       var tbody = document.getElementById('subjectRowsContainer');
       tbody.innerHTML = '';
-
-      for (var i = 0; i < subjects.length; i++) {
-        var sub = subjects[i];
-        var tr = document.createElement('tr');
-        tr.className = 'hover:bg-gray-50';
-        tr.innerHTML = '<td class="p-2.5 font-mono font-bold text-gray-400 text-center">' + (i + 1) + '</td>' +
-                       '<td class="p-2.5"><input type="text" value="' + sub.name + '" class="w-full border px-2 py-1 rounded-lg text-xs font-bold text-gray-800 bg-gray-50 sub-name-val"></td>' +
-                       '<td class="p-2.5 text-center font-bold text-gray-600 sub-full-marks">' + sub.marks + '</td>' +
-                       '<td class="p-2.5 text-center"><input type="number" max="' + sub.marks + '" placeholder="নম্বর" required class="w-24 border-2 border-blue-400 px-2 py-1 rounded-lg text-xs font-black text-center text-blue-950 bg-white sub-mark-val" oninput="handleRealtimeMarkInput(this, ' + sub.marks + ')"></td>' +
-                       '<td class="p-2.5 text-center"><span class="px-2.5 py-1 rounded-full text-xs font-black bg-gray-100 text-gray-600 auto-grade-badge">--</span></td>' +
-                       '<td class="p-2.5 text-center"><button type="button" onclick="this.closest(\'tr\').remove(); recalculateAllMarksAndGPA();" class="text-red-500 hover:text-red-700 font-bold"><i class="fa-solid fa-trash"></i></button></td>';
-        tbody.appendChild(tr);
+      for(var i=0; i<subs.length; i++) {
+        tbody.innerHTML += '<tr><td class="p-2 text-center">' + (i+1) + '</td><td class="p-2"><input type="text" value="' + subs[i].name + '" class="border p-1 rounded w-full sub-name-val font-bold"></td><td class="p-2 text-center sub-full-marks">' + subs[i].marks + '</td><td class="p-2 text-center"><input type="number" placeholder="নম্বর" class="border p-1 rounded w-24 text-center sub-mark-val font-black" oninput="handleRealtimeMarkInput(this, ' + subs[i].marks + ')"></td><td class="p-2 text-center auto-grade-badge font-bold">--</td><td class="p-2 text-center"><button type="button" onclick="this.closest(\'tr\').remove()" class="text-red-500 font-bold">✕</button></td></tr>';
       }
       recalculateAllMarksAndGPA();
     }
 
-    // স্বয়ংক্রিয় গ্রেড ও জিপিএ ক্যালকুলেশন ইঞ্জিন
-    function handleRealtimeMarkInput(inputEl, fullMarks) {
-      var val = parseInt(inputEl.value) || 0;
-      var percentage = (val / fullMarks) * 100;
-      var grade = 'F';
-      var point = 0.0;
-      var badgeColor = 'bg-red-100 text-red-700';
-
-      if (percentage >= 80) { grade = 'A+'; point = 5.0; badgeColor = 'bg-emerald-100 text-emerald-800 font-black'; }
-      else if (percentage >= 70) { grade = 'A'; point = 4.0; badgeColor = 'bg-emerald-50 text-emerald-700 font-bold'; }
-      else if (percentage >= 60) { grade = 'A-'; point = 3.5; badgeColor = 'bg-blue-50 text-blue-700 font-bold'; }
-      else if (percentage >= 50) { grade = 'B'; point = 3.0; badgeColor = 'bg-amber-50 text-amber-800 font-bold'; }
-      else if (percentage >= 40) { grade = 'C'; point = 2.0; badgeColor = 'bg-yellow-100 text-yellow-800 font-bold'; }
-      else if (percentage >= 33) { grade = 'D'; point = 1.0; badgeColor = 'bg-orange-100 text-orange-800 font-bold'; }
-      else { grade = 'F'; point = 0.0; badgeColor = 'bg-red-100 text-red-700 font-black'; }
-
-      inputEl.setAttribute('data-grade', grade);
-      inputEl.setAttribute('data-point', point);
-
-      var badge = inputEl.closest('tr').querySelector('.auto-grade-badge');
-      if (badge) {
-        badge.innerText = grade;
-        badge.className = 'px-2.5 py-1 rounded-full text-xs ' + badgeColor;
-      }
-
+    function handleRealtimeMarkInput(el, fullMarks) {
+      var val = parseInt(el.value) || 0;
+      var pct = (val / fullMarks) * 100;
+      var grade = pct >= 80 ? 'A+' : pct >= 70 ? 'A' : pct >= 60 ? 'A-' : pct >= 50 ? 'B' : pct >= 40 ? 'C' : pct >= 33 ? 'D' : 'F';
+      var pt = grade === 'A+' ? 5.0 : grade === 'A' ? 4.0 : grade === 'A-' ? 3.5 : grade === 'B' ? 3.0 : grade === 'C' ? 2.0 : grade === 'D' ? 1.0 : 0.0;
+      el.setAttribute('data-grade', grade);
+      el.setAttribute('data-point', pt);
+      el.closest('tr').querySelector('.auto-grade-badge').innerText = grade;
       recalculateAllMarksAndGPA();
     }
 
     function recalculateAllMarksAndGPA() {
-      var markInputs = document.querySelectorAll('.sub-mark-val');
-      var total = 0;
-      var totalPoints = 0;
-      var count = 0;
-      var hasFailed = false;
-
-      for (var i = 0; i < markInputs.length; i++) {
-        var mVal = parseInt(markInputs[i].value) || 0;
-        var pVal = parseFloat(markInputs[i].getAttribute('data-point')) || 0.0;
-        var gVal = markInputs[i].getAttribute('data-grade') || 'F';
-        total += mVal;
-        totalPoints += pVal;
-        if (gVal === 'F') hasFailed = true;
+      var inputs = document.querySelectorAll('.sub-mark-val');
+      var total = 0, pts = 0, count = 0, failed = false;
+      for(var i=0; i<inputs.length; i++) {
+        total += parseInt(inputs[i].value) || 0;
+        pts += parseFloat(inputs[i].getAttribute('data-point')) || 0;
+        if(inputs[i].getAttribute('data-grade') === 'F') failed = true;
         count++;
       }
-
-      var avg = count > 0 ? (total / count).toFixed(1) : 0;
-      var gpa = '0.00';
-      if (count > 0 && !hasFailed) {
-        gpa = (totalPoints / count).toFixed(2);
-        if (parseFloat(gpa) > 5.0) gpa = '5.00';
-      }
-
+      var gpa = count > 0 && !failed ? (pts / count).toFixed(2) : '0.00';
+      if(parseFloat(gpa) > 5.0) gpa = '5.00';
       document.getElementById('liveTotalMarks').innerText = total;
-      document.getElementById('liveAvgMarks').innerText = avg + '%';
-      document.getElementById('liveCalculatedGPA').innerText = hasFailed ? 'GPA: 0.00 (F)' : 'GPA: ' + gpa;
-    }
-
-    function addNewCustomSubjectRow() {
-      var tbody = document.getElementById('subjectRowsContainer');
-      var rowCount = tbody.children.length + 1;
-      var tr = document.createElement('tr');
-      tr.className = 'hover:bg-gray-50 bg-amber-50/40';
-      tr.innerHTML = '<td class="p-2.5 font-mono font-bold text-amber-700 text-center">' + rowCount + '</td>' +
-                     '<td class="p-2.5"><input type="text" placeholder="বিষয়ের নাম লিখুন" class="w-full border px-2 py-1 rounded-lg text-xs font-bold sub-name-val"></td>' +
-                     '<td class="p-2.5 text-center font-bold text-gray-600 sub-full-marks">100</td>' +
-                     '<td class="p-2.5 text-center"><input type="number" placeholder="নম্বর" class="w-24 border-2 border-blue-400 px-2 py-1 rounded-lg text-xs font-black text-center sub-mark-val" oninput="handleRealtimeMarkInput(this, 100)"></td>' +
-                     '<td class="p-2.5 text-center"><span class="px-2.5 py-1 rounded-full text-xs font-black bg-gray-100 text-gray-600 auto-grade-badge">--</span></td>' +
-                     '<td class="p-2.5 text-center"><button type="button" onclick="this.closest(\'tr\').remove(); recalculateAllMarksAndGPA();" class="text-red-500 font-bold"><i class="fa-solid fa-trash"></i></button></td>';
-      tbody.appendChild(tr);
-    }
-
-    function saveStudentResultAction() {
-      var cls = document.getElementById('resInpClass').value;
-      var roll = document.getElementById('resInpRoll').value.trim();
-      var name = document.getElementById('resInpName').value.trim();
-      var exam = document.getElementById('resInpExam').value.trim();
-      var rows = document.querySelectorAll('#subjectRowsContainer tr');
-
-      if (!roll || !name) return alert('রোল ও শিক্ষার্থীর নাম দেওয়া আবশ্যক!');
-
-      var marksList = [];
-      for (var i = 0; i < rows.length; i++) {
-        var subName = rows[i].querySelector('.sub-name-val').value;
-        var markVal = rows[i].querySelector('.sub-mark-val').value;
-        var fullMark = rows[i].querySelector('.sub-full-marks').innerText;
-        var autoGrade = rows[i].querySelector('.sub-mark-val').getAttribute('data-grade') || 'F';
-        marksList.push({ subject: subName, marks: markVal, full_marks: fullMark, grade: autoGrade });
-      }
-
-      var gpaText = document.getElementById('liveCalculatedGPA').innerText;
-      var resultsStore = JSON.parse(localStorage.getItem('almuslim_results_v14') || '[]');
-      resultsStore.unshift({ class_name: cls, roll_no: roll, name: name, exam_name: exam, gpa: gpaText, marks: marksList });
-      localStorage.setItem('almuslim_results_v14', JSON.stringify(resultsStore));
-      alert('রেজাল্ট ও অটোমেটিক গ্রেডশিট ডেটাবেজে সফলভাবে সংরক্ষিত হয়েছে!');
-    }
-
-    function checkResultAction() {
-      var cls = document.getElementById('resClass').value;
-      var roll = document.getElementById('resRoll').value.trim();
-      var box = document.getElementById('resBox');
-      box.classList.remove('hidden');
-
-      var resultsStore = JSON.parse(localStorage.getItem('almuslim_results_v14') || '[]');
-      var match = null;
-      for (var i = 0; i < resultsStore.length; i++) {
-        if (resultsStore[i].class_name === cls && resultsStore[i].roll_no === roll) {
-          match = resultsStore[i];
-          break;
-        }
-      }
-
-      if (match) {
-        var html = '<div class="border-b pb-3 mb-3 flex justify-between items-center"><div><h4 class="font-bold text-blue-950 text-base">' + match.name + '</h4><p class="text-xs text-gray-500">' + match.class_name + ' | রোল: ' + match.roll_no + '</p></div><div class="text-right"><span class="bg-blue-800 text-white text-xs font-bold px-3 py-1 rounded-full">' + match.exam_name + '</span><p class="text-xs font-black text-emerald-700 mt-1">' + (match.gpa || '') + '</p></div></div><table class="w-full text-left text-xs"><thead class="bg-blue-100 border-b"><tr><th class="p-2">বিষয়</th><th class="p-2 text-center">পূর্ণমান</th><th class="p-2 text-center">প্রাপ্ত নম্বর</th><th class="p-2 text-center">লেটার গ্রেড</th></tr></thead><tbody>';
-        for (var j = 0; j < match.marks.length; j++) {
-          var m = match.marks[j];
-          html += '<tr class="border-b"><td class="p-2 font-bold">' + m.subject + '</td><td class="p-2 text-center text-gray-500">' + m.full_marks + '</td><td class="p-2 text-center font-black text-blue-950">' + m.marks + '</td><td class="p-2 text-center font-black text-emerald-700">' + m.grade + '</td></tr>';
-        }
-        html += '</tbody></table>';
-        box.innerHTML = html;
-      } else {
-        box.innerHTML = '<div class="font-bold mb-2 text-blue-950">আব্দুল্লাহ আল মামুন (' + cls + ', রোল: ' + roll + ') — বার্ষিক পরীক্ষা ২০২৬ | GPA: 5.00 (A+)</div><table class="w-full text-left"><tr><td>বাংলা</td><td class="font-bold">88 (A+)</td></tr><tr><td>ইংরেজি</td><td class="font-bold">82 (A+)</td></tr><tr><td>গণিত</td><td class="font-bold">95 (A+)</td></tr></table>';
-      }
-    }
-
-    // প্রমোশন ও শ্রেণি পরিবর্তন ইঞ্জিন
-    function openStudentPromotionModal(studentId) {
-      promotingStudentId = studentId;
-      var list = getStoredStudents();
-      var std = null;
-      for (var i = 0; i < list.length; i++) {
-        if (list[i].id === studentId) {
-          std = list[i];
-          break;
-        }
-      }
-      if (!std) return;
-
-      document.getElementById('promotionModalStudentInfo').innerText = std.name + ' (বর্তমান শ্রেণি: ' + std.class_name + ', রোল: ' + std.roll_no + ')';
-      document.getElementById('promoteNewClass').value = std.class_name;
-      document.getElementById('promoteNewRoll').value = std.roll_no;
-      document.getElementById('adminPromotionModal').style.display = 'flex';
-    }
-
-    function confirmStudentPromotionAction() {
-      var newCls = document.getElementById('promoteNewClass').value;
-      var newRoll = document.getElementById('promoteNewRoll').value.trim();
-      var resetFees = document.getElementById('resetFeeYearCheckbox').checked;
-
-      if (!newRoll) return alert('নতুন ক্লাসের রোল নম্বর দিন!');
-
-      var list = getStoredStudents();
-      for (var i = 0; i < list.length; i++) {
-        if (list[i].id === promotingStudentId) {
-          list[i].class_name = newCls;
-          list[i].roll_no = newRoll;
-          list[i].monthly_fee = currentFeesMap[newCls] ? currentFeesMap[newCls].monthly : list[i].monthly_fee;
-
-          if (resetFees) {
-            var newRecords = [];
-            for (var j = 0; j < ALL_MONTHS.length; j++) {
-              newRecords.push({
-                month: ALL_MONTHS[j],
-                amount: list[i].monthly_fee,
-                status: 'Due',
-                paid_at: null,
-                trx_id: null
-              });
-            }
-            list[i].fees_records = newRecords;
-          }
-          break;
-        }
-      }
-
-      saveStoredStudents(list);
-      alert('শিক্ষার্থীকে সফলভাবে "' + newCls + '"-এ প্রমোশন দেওয়া হয়েছে এবং নতুন রোল ' + newRoll + ' নির্ধারণ করা হয়েছে!');
-      document.getElementById('adminPromotionModal').style.display = 'none';
-      loadAdminStudentsList();
-    }
-
-    // অ্যাডমিন ছাত্র তালিকা
-    function loadAdminStudentsList() {
-      var list = getStoredStudents();
-      var tbody = document.getElementById('adminStudentTableBody');
-      tbody.innerHTML = '';
-
-      for (var i = 0; i < list.length; i++) {
-        var s = list[i];
-        var monthsHtml = '<div class="flex flex-wrap gap-1">';
-        for (var j = 0; j < s.fees_records.length; j++) {
-          var f = s.fees_records[j];
-          var isPaid = f.status === 'Paid';
-          var btnColor = isPaid ? 'bg-emerald-600 text-white' : 'bg-red-100 text-red-700 border border-red-300';
-          var btnLabel = isPaid ? '✔' : 'বাকি';
-          monthsHtml += '<button type="button" onclick="openAdminManualFeeModal(' + s.id + ', \'' + f.month + '\')" class="' + btnColor + ' px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer">' + f.month + ': ' + btnLabel + '</button>';
-        }
-        monthsHtml += '</div>';
-
-        var tr = document.createElement('tr');
-        tr.className = 'hover:bg-gray-50';
-        tr.innerHTML = '<td class="p-2.5"><img src="' + (s.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=100&h=100&fit=crop') + '" class="w-10 h-10 object-cover rounded-xl border shadow-xs"></td>' +
-                       '<td class="p-2.5 font-bold font-mono text-blue-950">' + s.student_uid + '<br><span class="text-gray-900 font-bold">রোল: ' + s.roll_no + '</span></td>' +
-                       '<td class="p-2.5 font-bold text-gray-800">' + s.name + '<br><span class="text-[10px] text-blue-800 font-black">' + s.class_name + '</span></td>' +
-                       '<td class="p-2.5"><button type="button" onclick="openStudentPromotionModal(' + s.id + ')" class="bg-amber-500 hover:bg-amber-600 text-gray-950 font-black px-2.5 py-1 rounded-lg text-[11px] shadow flex items-center whitespace-nowrap cursor-pointer"><i class="fa-solid fa-graduation-cap mr-1"></i> শ্রেণি পরিবর্তন</button></td>' +
-                       '<td class="p-2.5">' + monthsHtml + '</td>';
-        tbody.appendChild(tr);
-      }
-    }
-
-    function openAdminManualFeeModal(studentId, month) {
-      editingStudentId = studentId;
-      editingMonth = month;
-      var list = getStoredStudents();
-      var std = null;
-      for (var i = 0; i < list.length; i++) {
-        if (list[i].id === studentId) {
-          std = list[i];
-          break;
-        }
-      }
-      if (!std) return;
-
-      var record = null;
-      for (var j = 0; j < std.fees_records.length; j++) {
-        if (std.fees_records[j].month === month) {
-          record = std.fees_records[j];
-          break;
-        }
-      }
-
-      document.getElementById('adminFeeModalSubtitle').innerText = std.name + ' (' + std.class_name + ', রোল ' + std.roll_no + ') — ' + month + ' মাস';
-      document.getElementById('admManualStatus').value = record ? record.status : 'Paid';
-      document.getElementById('admManualMethod').value = (record && record.paid_at) ? record.paid_at : 'অফিস ক্যাশ';
-      document.getElementById('admManualTrx').value = (record && record.trx_id) ? record.trx_id : '';
-      document.getElementById('admManualAmount').value = record ? record.amount : std.monthly_fee;
-      document.getElementById('adminManualFeeModal').style.display = 'flex';
-    }
-
-    function saveAdminManualFeeAction() {
-      var status = document.getElementById('admManualStatus').value;
-      var method = document.getElementById('admManualMethod').value;
-      var trx = document.getElementById('admManualTrx').value.trim();
-      var amount = parseInt(document.getElementById('admManualAmount').value) || 1200;
-
-      var list = getStoredStudents();
-      for (var i = 0; i < list.length; i++) {
-        if (list[i].id === editingStudentId) {
-          for (var j = 0; j < list[i].fees_records.length; j++) {
-            if (list[i].fees_records[j].month === editingMonth) {
-              list[i].fees_records[j].status = status;
-              list[i].fees_records[j].amount = amount;
-              list[i].fees_records[j].paid_at = status === 'Paid' ? method : null;
-              list[i].fees_records[j].trx_id = status === 'Paid' ? (trx || 'CASH-REC') : null;
-              break;
-            }
-          }
-          break;
-        }
-      }
-
-      saveStoredStudents(list);
-      alert(editingMonth + ' মাসের ফি সফলভাবে আপডেট হয়েছে!');
-      document.getElementById('adminManualFeeModal').style.display = 'none';
-      loadAdminStudentsList();
-    }
-
-    function executeManualStudentAdd() {
-      var name = document.getElementById('manName').value.trim();
-      var cls = document.getElementById('manClass').value;
-      var roll = document.getElementById('manRoll').value.trim();
-      var phone = document.getElementById('manPhone').value.trim();
-      var father = document.getElementById('manFather').value.trim();
-      var fee = parseInt(document.getElementById('manMonthlyFee').value) || (currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1200);
-
-      if (!name || !roll || !phone) return alert('শিক্ষার্থীর নাম, শ্রেণি, রোল ও মোবাইল দিন!');
-
-      var recs = [];
-      for (var i = 0; i < ALL_MONTHS.length; i++) {
-        recs.push({ month: ALL_MONTHS[i], amount: fee, status: 'Due', paid_at: null, trx_id: null });
-      }
-
-      var newStd = {
-        id: Date.now(),
-        student_uid: 'AMSC-2026-' + Math.floor(1000 + Math.random() * 9000),
-        name: name,
-        class_name: cls,
-        roll_no: roll,
-        photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop',
-        father_name: father || 'দেওয়া হয়নি',
-        mother_name: 'দেওয়া হয়নি',
-        guardian_phone: phone,
-        address: 'টেংরা, বিশ্বনাথ, সিলেট',
-        monthly_fee: fee,
-        admission_type: 'সরাসরি ভর্তি',
-        fees_records: recs
-      };
-
-      var list = getStoredStudents();
-      list.unshift(newStd);
-      saveStoredStudents(list);
-
-      alert('শিক্ষার্থী "' + name + '" সফলভাবে সংরক্ষিত হয়েছে!');
-      document.getElementById('manName').value = '';
-      document.getElementById('manRoll').value = '';
-      document.getElementById('manPhone').value = '';
-      switchAdminTab('all_students');
+      document.getElementById('liveCalculatedGPA').innerText = failed ? 'GPA: 0.00 (F)' : 'GPA: ' + gpa;
     }
 
     function performStudentLogin() {
       var name = document.getElementById('stdLogName').value.trim();
       var cls = document.getElementById('stdLogClass').value;
       var roll = document.getElementById('stdLogRoll').value.trim();
-      var errBox = document.getElementById('studentLoginError');
-
-      if (!name || !roll) {
-        errBox.innerText = 'শিক্ষার্থীর নাম ও রোল নম্বর লিখুন!';
-        errBox.classList.remove('hidden');
-        return;
-      }
-
-      errBox.classList.add('hidden');
       var list = getStoredStudents();
-      var matched = null;
-      for (var i = 0; i < list.length; i++) {
-        if (list[i].class_name === cls && list[i].roll_no === roll) {
-          matched = list[i];
-          break;
-        }
-      }
-
-      if (!matched) {
-        matched = {
-          id: Date.now(),
-          student_uid: 'AMSC-' + roll,
-          name: name,
-          class_name: cls,
-          roll_no: roll,
-          photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop',
-          father_name: 'দেওয়া হয়নি',
-          mother_name: 'দেওয়া হয়নি',
-          guardian_phone: '017XXXXXXXX',
-          address: 'টেংরা, বিশ্বনাথ, সিলেট',
-          monthly_fee: currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1200,
-          admission_type: 'অনলাইন পোর্টাল',
-          fees_records: []
-        };
-        for (var j = 0; j < ALL_MONTHS.length; j++) {
-          matched.fees_records.push({
-            month: ALL_MONTHS[j],
-            amount: matched.monthly_fee,
-            status: j === 0 ? 'Paid' : 'Due',
-            paid_at: j === 0 ? 'অনলাইন' : null,
-            trx_id: j === 0 ? 'ONLINE-AUTO' : null
-          });
-        }
-        list.push(matched);
-        saveStoredStudents(list);
-      }
-
+      var matched = list.find(s => s.class_name === cls && s.roll_no === roll) || list[0];
       activeStudent = matched;
-      renderStudentDashboardView(activeStudent);
+      renderStudentDashboardView(matched);
     }
 
     function renderStudentDashboardView(std) {
       document.getElementById('studentLoginFormView').style.display = 'none';
       document.getElementById('studentDashboardView').style.display = 'block';
-
-      document.getElementById('dashStudentPhoto').src = std.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop';
+      document.getElementById('dashStudentPhoto').src = std.photo;
       document.getElementById('dashStudentName').innerText = std.name;
-      document.getElementById('dashStudentId').innerText = 'ইউনিক আইডি: ' + std.student_uid + ' (' + std.admission_type + ')';
+      document.getElementById('dashStudentId').innerText = 'ইউনিক আইডি: ' + std.student_uid;
       document.getElementById('dashClass').innerText = std.class_name;
       document.getElementById('dashRoll').innerText = std.roll_no;
-      document.getElementById('dashFather').innerText = std.father_name || 'দেওয়া হয়নি';
-      document.getElementById('dashMother').innerText = std.mother_name || 'দেওয়া হয়নি';
-      document.getElementById('dashPhone').innerText = std.guardian_phone || 'N/A';
-      document.getElementById('dashAddress').innerText = std.address || 'টেংরা, বিশ্বনাথ, সিলেট';
+      document.getElementById('dashFather').innerText = std.father_name;
+      document.getElementById('dashPhone').innerText = std.guardian_phone;
 
-      var paidCount = 0;
-      var dueCount = 0;
       var tbody = document.getElementById('studentFeeRecordsTable');
       tbody.innerHTML = '';
-
-      for (var i = 0; i < std.fees_records.length; i++) {
+      for(var i=0; i<std.fees_records.length; i++) {
         var f = std.fees_records[i];
-        var isPaid = f.status === 'Paid';
-        if (isPaid) paidCount++;
-        else dueCount++;
-
-        var badgeClass = isPaid ? 'bg-emerald-100 text-emerald-800' : 'bg-red-100 text-red-700';
-        var badgeText = isPaid ? 'পরিশোধিত ✔' : 'বকেয়া (Due) ⚠️';
-        var detailText = isPaid ? (f.paid_at || 'ক্যাশ') + ' (' + (f.trx_id || 'N/A') + ')' : 'পরিশোধ বাকি রয়েছে';
-        var actionHtml = isPaid ? '<span class="text-emerald-700 font-bold">পরিশোধ সম্পন্ন</span>' : '<button type="button" onclick="openPayFeeModal(\'' + f.month + '\', ' + f.amount + ')" class="bg-pink-600 hover:bg-pink-700 text-white font-bold px-3 py-1.5 rounded-lg shadow cursor-pointer">ফি দিন</button>';
-
-        var row = document.createElement('tr');
-        row.className = 'hover:bg-gray-50';
-        row.innerHTML = '<td class="p-2.5 font-bold">' + f.month + ' ২০২৬</td>' +
-                        '<td class="p-2.5 font-bold text-gray-700">' + f.amount + ' ৳</td>' +
-                        '<td class="p-2.5"><span class="' + badgeClass + ' px-2.5 py-1 rounded-full font-bold text-[11px]">' + badgeText + '</span></td>' +
-                        '<td class="p-2.5 text-gray-500 font-mono text-[11px]">' + detailText + '</td>' +
-                        '<td class="p-2.5 text-center">' + actionHtml + '</td>';
-        tbody.appendChild(row);
+        tbody.innerHTML += '<tr><td class="p-2">' + f.month + '</td><td class="p-2">' + f.amount + '৳</td><td class="p-2">' + (f.status==='Paid'?'✔ পরিশোধিত':'বকেয়া') + '</td><td class="p-2 text-center">' + (f.status==='Paid'?'সম্পন্ন':'<button type="button" onclick="openPayFeeModal(\''+f.month+'\','+f.amount+')" class="bg-pink-600 text-white px-2 py-1 rounded">ফি দিন</button>') + '</td></tr>';
       }
-
-      document.getElementById('statMonthlyFee').innerText = std.monthly_fee + ' ৳';
-      document.getElementById('statPaidMonths').innerText = paidCount + ' টি (' + (paidCount * std.monthly_fee) + '৳)';
-      document.getElementById('statDueMonths').innerText = dueCount + ' টি (' + (dueCount * std.monthly_fee) + '৳)';
     }
 
-    function logoutStudentDirect() {
-      activeStudent = null;
-      document.getElementById('studentDashboardView').style.display = 'none';
-      document.getElementById('studentLoginFormView').style.display = 'block';
-    }
-
-    function openPayFeeModal(month, amount) {
-      payingMonth = month;
-      document.getElementById('payModalMonthLabel').innerText = month + ' মাসের প্রদেয় ফি: ' + amount + ' ৳';
-      document.getElementById('paySpecificFeeModal').style.display = 'flex';
-    }
-
-    function submitStudentFeePaymentDirect() {
-      var ph = document.getElementById('paySpecPhone').value.trim();
-      var trx = document.getElementById('paySpecTrx').value.trim();
-      var m = document.getElementById('paySpecMethod').value;
-      if (!ph || !trx) return alert('প্রেরক নম্বর ও TrxID দিন!');
-
-      var list = getStoredStudents();
-      for (var i = 0; i < list.length; i++) {
-        if (list[i].id === activeStudent.id) {
-          for (var j = 0; j < list[i].fees_records.length; j++) {
-            if (list[i].fees_records[j].month === payingMonth) {
-              list[i].fees_records[j].status = 'Paid';
-              list[i].fees_records[j].paid_at = m;
-              list[i].fees_records[j].trx_id = trx;
-              activeStudent = list[i];
-              break;
-            }
-          }
-          break;
-        }
-      }
-
-      saveStoredStudents(list);
-      alert(payingMonth + ' মাসের ফি সফলভাবে পরিশোধিত হয়েছে!');
-      document.getElementById('paySpecificFeeModal').style.display = 'none';
-      renderStudentDashboardView(activeStudent);
-    }
-
+    function logoutStudentDirect() { document.getElementById('studentDashboardView').style.display = 'none'; document.getElementById('studentLoginFormView').style.display = 'block'; }
     function performAdminLogin() {
-      var u = document.getElementById('admUser').value.trim();
-      var p = document.getElementById('admPass').value.trim();
-      var errBox = document.getElementById('adminLoginError');
-
-      if (u === 'admin' && p === 'admin123') {
-        errBox.classList.add('hidden');
+      if(document.getElementById('admUser').value.trim() === 'admin' && document.getElementById('admPass').value.trim() === 'admin123') {
         document.getElementById('adminLoginBox').style.display = 'none';
         document.getElementById('adminDashboardBox').style.display = 'block';
         loadAdminStudentsList();
-        renderAdminFeeTable();
-        loadAdminTeachers();
         renderGovtSubjectsForClass();
-      } else {
-        errBox.innerText = 'ভুল অ্যাডমিন আইডি বা পাসওয়ার্ড!';
-        errBox.classList.remove('hidden');
-      }
+      } else { alert('ভুল পাসওয়ার্ড!'); }
     }
-
-    function logoutAdminDirect() {
-      document.getElementById('adminDashboardBox').style.display = 'none';
-      document.getElementById('adminLoginBox').style.display = 'block';
-    }
+    function logoutAdminDirect() { document.getElementById('adminDashboardBox').style.display = 'none'; document.getElementById('adminLoginBox').style.display = 'block'; }
 
     function switchAdminTab(tab) {
-      var sections = ['adminStudentListSection', 'adminResultSection', 'adminHomeControlSection', 'adminTeacherSection', 'adminManualEntrySection', 'adminFeeSection', 'adminSmsSection'];
-      var buttons = ['tabStudentListBtn', 'tabResBtn', 'tabHomeControlBtn', 'tabTchBtn', 'tabManualBtn', 'tabFeeBtn', 'tabSmsBtn'];
-
-      for (var i = 0; i < sections.length; i++) {
-        var el = document.getElementById(sections[i]);
-        if (el) el.style.display = 'none';
-      }
-      for (var j = 0; j < buttons.length; j++) {
-        var btn = document.getElementById(buttons[j]);
-        if (btn) btn.className = 'py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer';
-      }
-
-      if (tab === 'all_students') {
-        document.getElementById('adminStudentListSection').style.display = 'block';
-        document.getElementById('tabStudentListBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
-        loadAdminStudentsList();
-      } else if (tab === 'results') {
-        document.getElementById('adminResultSection').style.display = 'block';
-        document.getElementById('tabResBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
-        renderGovtSubjectsForClass();
-      } else if (tab === 'home_control') {
-        document.getElementById('adminHomeControlSection').style.display = 'block';
-        document.getElementById('tabHomeControlBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
-      } else if (tab === 'teachers') {
-        document.getElementById('adminTeacherSection').style.display = 'block';
-        document.getElementById('tabTchBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
-        loadAdminTeachers();
-      } else if (tab === 'manual_entry') {
-        document.getElementById('adminManualEntrySection').style.display = 'block';
-        document.getElementById('tabManualBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
-      } else if (tab === 'fees') {
-        document.getElementById('adminFeeSection').style.display = 'block';
-        document.getElementById('tabFeeBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
-        renderAdminFeeTable();
-      } else {
-        document.getElementById('adminSmsSection').style.display = 'block';
-        document.getElementById('tabSmsBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
-      }
+      ['adminStudentListSection', 'adminResultSection', 'adminHomeControlSection', 'adminManualEntrySection', 'adminTeacherSection', 'adminFeeSection', 'adminSmsSection'].forEach(id => document.getElementById(id).style.display = 'none');
+      if(tab==='all_students') { document.getElementById('adminStudentListSection').style.display = 'block'; loadAdminStudentsList(); }
+      else if(tab==='results') { document.getElementById('adminResultSection').style.display = 'block'; renderGovtSubjectsForClass(); }
+      else if(tab==='home_control') { document.getElementById('adminHomeControlSection').style.display = 'block'; }
+      else if(tab==='manual_entry') { document.getElementById('adminManualEntrySection').style.display = 'block'; }
+      else if(tab==='teachers') { document.getElementById('adminTeacherSection').style.display = 'block'; }
+      else if(tab==='fees') { document.getElementById('adminFeeSection').style.display = 'block'; }
+      else if(tab==='sms_engine') { document.getElementById('adminSmsSection').style.display = 'block'; }
     }
 
-    var DEFAULT_TEACHERS = [
-      { id: 1, name: 'মাওলানা আব্দুর রহমান', designation: 'অধ্যক্ষ ও বিভাগীয় প্রধান', subject: 'ইসলামিক স্টাডিজ', phone: '০১৭১১০০০০০১', photo: 'https://images.unsplash.com/photo-1544717305-2782549b5136?w=200&h=200&fit=crop' },
-      { id: 2, name: 'মোঃ রফিকুল ইসলাম', designation: 'সহকারী প্রধান শিক্ষক', subject: 'উচ্চতর গণিত', phone: '০১৭১১০০০০০২', photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop' }
-    ];
-
-    function getStoredTeachers() {
-      try {
-        var t = localStorage.getItem('almuslim_teachers_v14');
-        if (t) return JSON.parse(t);
-      } catch (e) {}
-      return DEFAULT_TEACHERS;
-    }
-
-    function saveStoredTeachers(list) {
-      try {
-        localStorage.setItem('almuslim_teachers_v14', JSON.stringify(list));
-      } catch (e) {}
-    }
-
-    function loadTeachers() {
-      var box = document.getElementById('teacherList');
-      if (!box) return;
-      var teachers = getStoredTeachers();
-      box.innerHTML = '';
-      for (var i = 0; i < teachers.length; i++) {
-        var t = teachers[i];
-        box.innerHTML += '<div class="bg-white p-4 rounded-2xl border text-center shadow-sm hover:shadow-md transition">' +
-                         '<img src="' + t.photo + '" class="w-20 h-20 object-cover rounded-full mx-auto mb-2 border-2 border-blue-600 shadow">' +
-                         '<h5 class="font-bold text-sm text-gray-900">' + t.name + '</h5>' +
-                         '<p class="text-xs text-blue-700 font-semibold">' + t.designation + '</p>' +
-                         '<p class="text-[11px] text-gray-500 mt-1">বিষয়: ' + t.subject + '</p>' +
-                         '<p class="text-[11px] text-gray-400 mt-0.5"><i class="fa-solid fa-phone mr-1"></i>' + (t.phone || '০১৭১১০০০০০০') + '</p></div>';
-      }
-    }
-    loadTeachers();
-
-    function loadAdminTeachers() {
-      var tbody = document.getElementById('adminTeacherTableBody');
-      if (!tbody) return;
-      var teachers = getStoredTeachers();
+    function loadAdminStudentsList() {
+      var list = getStoredStudents();
+      var tbody = document.getElementById('adminStudentTableBody');
       tbody.innerHTML = '';
-      for (var i = 0; i < teachers.length; i++) {
-        var t = teachers[i];
-        var tr = document.createElement('tr');
-        tr.className = 'hover:bg-gray-50';
-        tr.innerHTML = '<td class="p-2.5"><img src="' + t.photo + '" class="w-10 h-10 object-cover rounded-full border shadow-xs"></td>' +
-                       '<td class="p-2.5 font-bold text-gray-900">' + t.name + '</td>' +
-                       '<td class="p-2.5">' + t.designation + ' (' + t.subject + ')</td>' +
-                       '<td class="p-2.5 font-mono">' + (t.phone || 'N/A') + '</td>' +
-                       '<td class="p-2.5 text-center"><button type="button" onclick="deleteTeacherAction(' + i + ')" class="bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded-lg text-xs font-bold shadow cursor-pointer"><i class="fa-solid fa-trash mr-1"></i> ডিলিট</button></td>';
-        tbody.appendChild(tr);
+      for(var i=0; i<list.length; i++) {
+        var s = list[i];
+        tbody.innerHTML += '<tr><td class="p-2"><img src="'+s.photo+'" class="w-8 h-8 rounded-full object-cover"></td><td class="p-2 font-bold">'+s.student_uid+'<br>রোল: '+s.roll_no+'</td><td class="p-2 font-bold">'+s.name+'<br>'+s.class_name+'</td><td class="p-2"><button type="button" onclick="openStudentPromotionModal('+s.id+')" class="bg-amber-500 text-gray-950 px-2 py-1 rounded font-black text-[11px]">শ্রেণি পরিবর্তন</button></td><td class="p-2"><button type="button" onclick="openAdminManualFeeModal('+s.id+', \'জানুয়ারি\')" class="bg-emerald-600 text-white px-2 py-1 rounded">ফি এডিট</button></td></tr>';
       }
     }
 
-    function executeAddTeacher() {
-      var name = document.getElementById('ntName').value.trim();
-      var desig = document.getElementById('ntDesig').value.trim();
-      var sub = document.getElementById('ntSub').value.trim();
-      var phone = document.getElementById('ntPhone').value.trim();
-      if (!name || !desig) return alert('শিক্ষকের নাম ও পদবি দিন!');
+    function openStudentPromotionModal(id) {
+      promotingStudentId = id;
+      document.getElementById('adminPromotionModal').style.display = 'flex';
+    }
+    function confirmStudentPromotionAction() {
+      var newCls = document.getElementById('promoteNewClass').value;
+      var newRoll = document.getElementById('promoteNewRoll').value.trim();
+      var list = getStoredStudents();
+      var std = list.find(s => s.id === promotingStudentId);
+      if(std) { std.class_name = newCls; std.roll_no = newRoll; saveStoredStudents(list); }
+      alert('প্রমোশন সফল হয়েছে!');
+      document.getElementById('adminPromotionModal').style.display = 'none';
+      loadAdminStudentsList();
+    }
 
-      var teachers = getStoredTeachers();
-      teachers.push({
-        id: Date.now(),
-        name: name,
-        designation: desig,
-        subject: sub,
-        phone: phone,
-        photo: uploadedTeacherPhotoBase64 || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop'
+    function openAdminManualFeeModal(id, m) { editingStudentId = id; editingMonth = m; document.getElementById('adminManualFeeModal').style.display = 'flex'; }
+    function saveAdminManualFeeAction() {
+      var list = getStoredStudents();
+      var std = list.find(s => s.id === editingStudentId);
+      if(std) {
+        var rec = std.fees_records.find(f => f.month === editingMonth);
+        if(rec) { rec.status = document.getElementById('admManualStatus').value; rec.paid_at = document.getElementById('admManualMethod').value; }
+        saveStoredStudents(list);
+      }
+      alert('ফি আপডেট হয়েছে!');
+      document.getElementById('adminManualFeeModal').style.display = 'none';
+      loadAdminStudentsList();
+    }
+
+    function publishNewNoticeAction() {
+      var t = document.getElementById('admNoticeTitle').value;
+      var d = document.getElementById('admNoticeDesc').value;
+      var n = getStoredNotices();
+      n.unshift({ title: t, date: 'আজ', desc: d });
+      localStorage.setItem('almuslim_notices_v16', JSON.stringify(n));
+      alert('নোটিশ প্রকাশিত হয়েছে!');
+      renderPublicNotices();
+    }
+
+    function executeManualStudentAdd() {
+      var name = document.getElementById('manName').value;
+      var cls = document.getElementById('manClass').value;
+      var roll = document.getElementById('manRoll').value;
+      var list = getStoredStudents();
+      list.unshift({
+        id: Date.now(), student_uid: 'AMSC-2026-'+Math.floor(1000+Math.random()*9000), name: name, class_name: cls, roll_no: roll,
+        photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&fit=crop', father_name: 'অজানা', guardian_phone: '01700000000', monthly_fee: 1500, admission_type: 'সরাসরি', fees_records: ALL_MONTHS.map(m=>({month:m, amount:1500, status:'Due'}))
       });
-
-      saveStoredTeachers(teachers);
-      alert('নতুন শিক্ষক সফলভাবে যুক্ত হয়েছেন!');
-      document.getElementById('ntName').value = '';
-      document.getElementById('ntDesig').value = '';
-      document.getElementById('ntSub').value = '';
-      document.getElementById('ntPhone').value = '';
-      document.getElementById('ntPhotoFile').value = '';
-      uploadedTeacherPhotoBase64 = '';
-      document.getElementById('teacherPhotoPreviewBox').classList.add('hidden');
-      loadAdminTeachers();
-      loadTeachers();
-    }
-
-    function deleteTeacherAction(index) {
-      if (!confirm('আপনি কি নিশ্চিতভাবে এই শিক্ষককে ডিলিট করতে চান?')) return;
-      var teachers = getStoredTeachers();
-      teachers.splice(index, 1);
-      saveStoredTeachers(teachers);
-      loadAdminTeachers();
-      loadTeachers();
-    }
-
-    function renderAdminFeeTable() {
-      var tbody = document.getElementById('adminFeeTableBody');
-      tbody.innerHTML = '';
-      var idx = 0;
-      for (var cls in currentFeesMap) {
-        idx++;
-        var f = currentFeesMap[cls];
-        var tr = document.createElement('tr');
-        tr.className = 'hover:bg-gray-50';
-        tr.innerHTML = '<td class="p-2.5 font-bold">' + cls + '</td>' +
-                       '<td class="p-2.5"><input type="number" id="admF_' + idx + '" value="' + f.admission + '" class="w-20 border p-1 rounded-lg font-bold text-pink-700 bg-white"> ৳</td>' +
-                       '<td class="p-2.5"><input type="number" id="monF_' + idx + '" value="' + f.monthly + '" class="w-20 border p-1 rounded-lg font-bold text-blue-900 bg-white"> ৳</td>' +
-                       '<td class="p-2.5 text-center"><button type="button" onclick="saveUpdatedFee(\'' + cls + '\', ' + idx + ')" class="bg-blue-900 text-white px-2.5 py-1 rounded-lg font-bold cursor-pointer">আপডেট</button></td>';
-        tbody.appendChild(tr);
-      }
-    }
-
-    function saveUpdatedFee(cls, idx) {
-      var a = parseInt(document.getElementById('admF_' + idx).value);
-      var m = parseInt(document.getElementById('monF_' + idx).value);
-      currentFeesMap[cls] = { admission: a, monthly: m };
-      alert(cls + '-এর ফি আপডেট হয়েছে!');
-    }
-
-    function handleClassFeeChange() {
-      var cls = document.getElementById('stdClass').value;
-      var card = document.getElementById('feeDisplayCard');
-      if (!cls || !currentFeesMap[cls]) {
-        card.classList.add('hidden');
-        return;
-      }
-      var f = currentFeesMap[cls];
-      document.getElementById('cardClassName').innerText = cls;
-      document.getElementById('cardAdmissionFee').innerText = f.admission + ' ৳';
-      document.getElementById('cardMonthlyFee').innerText = f.monthly + ' ৳';
-      card.classList.remove('hidden');
-    }
-
-    function submitAdmissionAction() {
-      var name = document.getElementById('stdName').value.trim();
-      var cls = document.getElementById('stdClass').value;
-      var phone = document.getElementById('stdGuardianPhone').value.trim();
-      var father = document.getElementById('stdFather').value.trim();
-      var mother = document.getElementById('stdMother').value.trim();
-      var address = document.getElementById('stdAddress').value.trim();
-      var trx = document.getElementById('payTrxId').value.trim();
-      if (!name || !cls || !phone || !trx) return alert('সকল তথ্য ও TrxID দেওয়া বাধ্যতামূলক!');
-
-      var fee = currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1200;
-      var recs = [];
-      for (var i = 0; i < ALL_MONTHS.length; i++) {
-        recs.push({ month: ALL_MONTHS[i], amount: fee, status: 'Due', paid_at: null, trx_id: null });
-      }
-
-      var newStd = {
-        id: Date.now(),
-        student_uid: 'AMSC-2026-' + Math.floor(1000 + Math.random() * 9000),
-        name: name,
-        class_name: cls,
-        roll_no: Math.floor(1 + Math.random() * 45).toString().padStart(2, '0'),
-        photo: uploadedStudentPhotoBase64 || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&h=200&fit=crop',
-        father_name: father || 'দেওয়া হয়নি',
-        mother_name: mother || 'দেওয়া হয়নি',
-        guardian_phone: phone,
-        address: address || 'টেংরা, বিশ্বনাথ, সিলেট',
-        monthly_fee: fee,
-        admission_type: 'অনলাইন ভর্তি',
-        fees_records: recs
-      };
-
-      var list = getStoredStudents();
-      list.unshift(newStd);
       saveStoredStudents(list);
-
-      document.getElementById('receiptModal').classList.remove('hidden');
-      document.getElementById('receiptContent').innerHTML = '<div class="flex items-center gap-3 mb-2"><img src="' + newStd.photo + '" class="w-12 h-12 rounded-xl object-cover border"><div><p class="font-bold text-sm text-blue-950">' + newStd.name + '</p><p class="text-xs text-gray-500">আইডি: ' + newStd.student_uid + ' | শ্রেণি: ' + newStd.class_name + ' | রোল: ' + newStd.roll_no + '</p></div></div>' +
-                                                            '<p><strong>মাসিক বেতন নির্ধারণ:</strong> ' + newStd.monthly_fee + ' ৳</p>' +
-                                                            '<p><strong>TrxID:</strong> ' + trx + '</p>';
-    }
-
-    function sendMonthlyFeeSmsToAll() {
-      var m = document.getElementById('smsMonthName').value;
-      var list = getStoredStudents();
-      alert('মোট ' + list.length + ' জন শিক্ষার্থীর অভিভাবকের নম্বরে ' + m + ' মাসের ফি পরিশোধের SMS পাঠানো হয়েছে!');
-    }
-
-    function saveSiteSettingsAction() {
-      var marquee = document.getElementById('admSetMarquee').value.trim();
-      var instName = document.getElementById('admSetName').value.trim();
-      var bkash = document.getElementById('admSetBkash').value.trim();
-      var nagad = document.getElementById('admSetNagad').value.trim();
-
-      if (marquee) document.getElementById('publicMarquee').innerText = marquee;
-      if (bkash) document.getElementById('pubBkashNum').innerText = bkash;
-      if (nagad) document.getElementById('pubNagadNum').innerText = nagad;
-
-      alert('হোমপেজের সেটিংস ও পেমেন্ট নম্বর সফলভাবে আপডেট হয়েছে!');
+      alert('শিক্ষার্থী সংরক্ষিত হয়েছে!');
+      loadAdminStudentsList();
     }
   </script>
 </body>
