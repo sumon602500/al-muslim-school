@@ -59,13 +59,14 @@
     </div>
   </div>
 
-  <!-- ================= ২. হেডার ও মেনুবার (ল্যাপটপ স্ক্রিনশটের হুবহু রূপ) ================= -->
+  <!-- ================= ২. হেডার ও মেনুবার ================= -->
   <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-200">
-    <div class="max-w-7xl mx-auto px-4 h-22 flex justify-between items-center">
+    <div class="max-w-7xl mx-auto px-4 h-24 flex justify-between items-center">
       
+      <!-- লোগো (বড় ও স্পষ্ট) -->
       <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
-        <div class="w-14 h-14 rounded-full p-0.5 bg-white royal-border shadow flex items-center justify-center flex-shrink-0 overflow-hidden">
-          <img id="siteLogoImg" src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=300&fit=crop" class="w-full h-full object-contain" alt="Logo">
+        <div class="w-16 h-16 sm:w-20 sm:h-20 p-1 bg-white royal-border rounded-2xl shadow flex items-center justify-center flex-shrink-0 overflow-hidden">
+          <img id="siteLogoImg" src="https://i.ibb.co/v5yBZWL/logo.png" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=300&fit=crop';" class="w-full h-full object-contain" alt="Logo">
         </div>
         <div>
           <h1 id="publicInstName" class="text-lg sm:text-2xl font-black text-blue-950 font-anek leading-tight">আল-মুছিম স্কুল এন্ড কলেজ</h1>
@@ -74,6 +75,7 @@
         </div>
       </div>
 
+      <!-- ন্যাভ মেনু -->
       <nav class="hidden lg:flex space-x-5 text-xs font-black text-gray-700 tracking-wider">
         <a href="#home" class="hover:text-blue-900 transition">ABOUT US</a>
         <a href="#admission-sec" class="hover:text-blue-900 transition">ACADEMICS</a>
@@ -83,6 +85,7 @@
         <a href="#teachers-sec" class="hover:text-blue-900 transition">CONTACT</a>
       </nav>
 
+      <!-- পোর্টাল বাটন ও থ্রি-ডট মেনু -->
       <div class="flex items-center space-x-2">
         <button type="button" onclick="openStudentModalDirect()" class="hidden sm:flex bg-amber-500 hover:bg-amber-600 text-gray-950 px-3.5 py-2 rounded-xl text-xs font-black shadow flex items-center transition cursor-pointer">
           <i class="fa-solid fa-user-graduate mr-1.5"></i> শিক্ষার্থী পোর্টাল
@@ -98,6 +101,7 @@
       </div>
     </div>
 
+    <!-- মোবাইল মেনু -->
     <div id="mobileMenuDrawer" style="display: none;" class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 space-y-2 text-xs font-bold shadow-lg">
       <a href="#home" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">ABOUT US</a>
       <a href="#admission-sec" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">ACADEMICS / ADMISSION</a>
@@ -110,7 +114,7 @@
     </div>
   </header>
 
-  <!-- ================= ৩. মূল হিরো ব্যানার (ল্যাপটপ স্ক্রিনশটের হুবহু লুক) ================= -->
+  <!-- ================= ৩. মূল হিরো ব্যানার ================= -->
   <section id="home" class="py-6 px-4 max-w-6xl mx-auto">
     <div class="banner-royal-box rounded-3xl overflow-hidden text-center text-white relative">
       <div class="gold-stripe w-full"></div>
@@ -128,9 +132,10 @@
           </p>
         </div>
 
+        <!-- ব্যানার ছবি (অ্যাসেম্বলি ও ক্যাম্পাস) -->
         <div class="relative max-w-3xl mx-auto">
           <div class="p-3.5 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 rounded-3xl shadow-2xl inline-block max-w-full">
-            <div class="rounded-2xl overflow-hidden h-60 sm:h-80 w-full sm:w-[700px] border-2 border-amber-600 shadow-inner bg-slate-900">
+            <div class="rounded-2xl overflow-hidden h-60 sm:h-80 w-full sm:w-[700px] border-2 border-amber-600 shadow-inner bg-slate-900 flex items-center justify-center">
               <img id="siteBannerImg" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&fit=crop" class="w-full h-full object-cover" alt="Campus Banner">
             </div>
           </div>
@@ -151,7 +156,7 @@
     </div>
   </section>
 
-  <!-- ================= ৪. ছবির নিচের ৩টি তথ্য কার্ড ================= -->
+  <!-- ================= ৪. ৩টি তথ্য কার্ড ================= -->
   <section class="max-w-6xl mx-auto px-4 pb-10">
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
       <div class="bg-white rounded-2xl shadow-md border border-gray-200 overflow-hidden flex flex-col">
@@ -192,7 +197,7 @@
           <p id="pubPrincipalMsgDisplay">"নৈতিক মূল্যবোধ ও আধুনিক প্রযুক্তির সমন্বয়ে প্রতিটি শিক্ষার্থীকে আদর্শ মানুষ হিসেবে গড়ে তোলাই আমাদের লক্ষ্য।" — মাওলানা আব্দুর রহমান</p>
         </div>
         <div class="p-3 bg-gray-50 border-t text-right">
-          <a href="javascript:void(0)" onclick="alert('অধ্যক্ষ মহোদয়ের বাণী শীঘ্রই বিস্তারিত আকারে আসছে।')" class="text-blue-900 font-bold text-xs hover:underline">পূর্ণাঙ্গ বাণী পড়ুন →</a>
+          <a href="javascript:void(0)" onclick="alert('অধ্যক্ষ মহোদয়ের বাণী শীঘ্রই আপডেট করা হবে।')" class="text-blue-900 font-bold text-xs hover:underline">পূর্ণাঙ্গ বাণী পড়ুন →</a>
         </div>
       </div>
     </div>
@@ -480,7 +485,6 @@
         </div>
       </div>
 
-      <!-- শিক্ষার্থীর ড্যাশবোর্ড -->
       <div id="studentDashboardView" style="display: none;" class="space-y-4 text-xs mt-4">
         <div class="bg-gradient-to-r from-amber-50 to-blue-50 p-5 rounded-2xl border-2 border-blue-600/50 shadow-sm">
           <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
@@ -609,7 +613,7 @@
           <button type="button" onclick="logoutAdminDirect()" class="bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded-lg font-bold cursor-pointer">লগআউট</button>
         </div>
 
-        <!-- অ্যাডমিনের পূর্ণাঙ্গ ৮টি মেনু ট্যাব -->
+        <!-- অ্যাডমিনের ৮টি পূর্ণাঙ্গ ট্যাব -->
         <div class="flex border-b font-bold gap-2 overflow-x-auto pb-1">
           <button type="button" id="tabStudentListBtn" onclick="switchAdminTab('all_students')" class="py-2 px-3 border-b-2 border-blue-900 text-blue-900 whitespace-nowrap cursor-pointer">👥 শিক্ষার্থী তালিকা ও প্রমোশন</button>
           <button type="button" id="tabResBtn" onclick="switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📊 রেজাল্ট এন্ট্রি (অটো গ্রেড)</button>
@@ -640,7 +644,7 @@
                   <th class="p-2.5">আইডি ও রোল</th>
                   <th class="p-2.5">নাম ও শ্রেণি</th>
                   <th class="p-2.5">শ্রেণি পরিবর্তন</th>
-                  <th class="p-2.5">১২ মাসের ফি স্ট্যাটাস (ক্লিক করে ম্যানুয়াল এডিট)</th>
+                  <th class="p-2.5">১২ মাসের ফি স্ট্যাটাস (ক্লিক করে ম্যানুয়াল এডিট করুন)</th>
                 </tr>
               </thead>
               <tbody id="adminStudentTableBody" class="divide-y"></tbody>
@@ -734,8 +738,25 @@
           </div>
         </div>
 
-        <!-- ৩. হোমপেজ ও নোটিশ কন্ট্রোল -->
+        <!-- ৩. হোমপেজ ও নোটিশ কন্ট্রোল (ছবি পরিবর্তনের সহজ ইনপুট সহ) -->
         <div id="adminHomeControlSection" style="display: none;" class="space-y-6">
+          
+          <div class="bg-gray-50 p-5 rounded-2xl border space-y-3">
+            <h5 class="font-bold text-gray-800 text-sm border-b pb-1 flex items-center text-blue-950">
+              <i class="fa-solid fa-image mr-2 text-blue-700"></i> হোমপেজ লোগো ও ব্যানার ছবি সরাসরি পরিবর্তন
+            </h5>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <label class="block font-bold mb-1 text-gray-700">লোগোর সরাসরি ছবির লিংক (Direct Image URL)</label>
+                <input type="text" id="admSetLogoUrl" placeholder="https://i.ibb.co/.../logo.png" class="w-full border p-2.5 rounded-xl bg-white font-mono text-xs">
+              </div>
+              <div>
+                <label class="block font-bold mb-1 text-gray-700">ব্যানারের সরাসরি ছবির লিংক (Direct Image URL)</label>
+                <input type="text" id="admSetBannerUrl" placeholder="https://i.ibb.co/.../banner.jpg" class="w-full border p-2.5 rounded-xl bg-white font-mono text-xs">
+              </div>
+            </div>
+          </div>
+
           <div class="bg-gray-50 p-5 rounded-2xl border space-y-3">
             <h5 class="font-bold text-gray-800 text-sm border-b pb-1 flex items-center text-blue-950">
               <i class="fa-solid fa-bullhorn mr-2 text-blue-700"></i> নোটিশ বোর্ডে নতুন নোটিশ প্রকাশ করুন
@@ -752,7 +773,7 @@
 
           <div class="bg-gray-50 p-5 rounded-2xl border space-y-3">
             <h5 class="font-bold text-gray-800 text-sm border-b pb-1 text-blue-950">
-              <i class="fa-solid fa-sliders mr-2 text-blue-700"></i> হোমপেজ তথ্য ও পেমেন্ট নম্বর এডিট
+              <i class="fa-solid fa-sliders mr-2 text-blue-700"></i> সাধারণ তথ্য ও পেমেন্ট নম্বর এডিট
             </h5>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
@@ -1009,34 +1030,34 @@
 
   <!-- ================= JAVASCRIPT CONTROLLERS ================= -->
   <script>
-    // ImgBB থেকে আসল লোগো ও ব্যানার সরাসরি লোড
-    var USER_LOGO_PAGE = "https://ibb.co/v5yBZWL";
-    var USER_BANNER_PAGE = "https://ibb.co/Q3VgGBHq";
+    // ছবি লোডার ও ফলব্যাক ইঞ্জিন
+    function initCustomImages() {
+      var savedLogo = localStorage.getItem('almuslim_custom_logo');
+      var savedBanner = localStorage.getItem('almuslim_custom_banner');
 
-    function autoLoadImgbb(pageUrl, targetImgId) {
-      if (!pageUrl) return;
-      if (pageUrl.includes('i.ibb.co')) {
-        document.getElementById(targetImgId).src = pageUrl;
-        return;
+      if (savedLogo) {
+        document.getElementById('siteLogoImg').src = savedLogo;
       }
-      fetch('https://api.allorigins.win/get?url=' + encodeURIComponent(pageUrl))
-        .then(function(response) { return response.json(); })
-        .then(function(data) {
-          var html = data.contents;
-          var match = html.match(/<meta property="og:image" content="([^"]+)"/i) ||
-                      html.match(/<link rel="image_src" href="([^"]+)"/i) ||
-                      html.match(/src="(https:\/\/i\.ibb\.co\/[^"]+)"/i);
-          if (match && match[1]) {
-            document.getElementById(targetImgId).src = match[1];
-          }
-        })
-        .catch(function(err) {
-          console.log("Fallback image active");
-        });
-    }
+      if (savedBanner) {
+        document.getElementById('siteBannerImg').src = savedBanner;
+      }
 
-    autoLoadImgbb(USER_LOGO_PAGE, 'siteLogoImg');
-    autoLoadImgbb(USER_BANNER_PAGE, 'siteBannerImg');
+      // ImgBB ডিরেক্ট ইমেজ রিডার
+      var logoDirect = "https://i.ibb.co/v5yBZWL/image.png";
+      var bannerDirect = "https://i.ibb.co/Q3VgGBHq/image.jpg";
+
+      if (!savedLogo) {
+        var testLogo = new Image();
+        testLogo.onload = function() { document.getElementById('siteLogoImg').src = logoDirect; };
+        testLogo.src = logoDirect;
+      }
+      if (!savedBanner) {
+        var testBanner = new Image();
+        testBanner.onload = function() { document.getElementById('siteBannerImg').src = bannerDirect; };
+        testBanner.src = bannerDirect;
+      }
+    }
+    initCustomImages();
 
     function toggleMobileMenuDrawer() {
       var drawer = document.getElementById('mobileMenuDrawer');
@@ -1199,7 +1220,7 @@
 
     function getStoredStudents() {
       try {
-        var s = localStorage.getItem('almuslim_students_final_master');
+        var s = localStorage.getItem('almuslim_students_final_full');
         if (s) return JSON.parse(s);
       } catch (e) {}
       return DEFAULT_STUDENTS;
@@ -1207,7 +1228,7 @@
 
     function saveStoredStudents(list) {
       try {
-        localStorage.setItem('almuslim_students_final_master', JSON.stringify(list));
+        localStorage.setItem('almuslim_students_final_full', JSON.stringify(list));
       } catch (e) {}
     }
 
@@ -1218,7 +1239,7 @@
 
     function getStoredNotices() {
       try {
-        var n = localStorage.getItem('almuslim_notices_final_master');
+        var n = localStorage.getItem('almuslim_notices_final_full');
         if (n) return JSON.parse(n);
       } catch(e){}
       return DEFAULT_NOTICES;
@@ -1249,7 +1270,7 @@
 
       var list = getStoredNotices();
       list.unshift({ id: Date.now(), title: title, date: date, desc: desc });
-      localStorage.setItem('almuslim_notices_final_master', JSON.stringify(list));
+      localStorage.setItem('almuslim_notices_final_full', JSON.stringify(list));
       alert('নতুন নোটিশ সফলভাবে প্রকাশ করা হয়েছে!');
       document.getElementById('admNoticeTitle').value = '';
       document.getElementById('admNoticeDesc').value = '';
@@ -1366,9 +1387,9 @@
       }
 
       var gpaText = document.getElementById('liveCalculatedGPA').innerText;
-      var resultsStore = JSON.parse(localStorage.getItem('almuslim_results_final_master') || '[]');
+      var resultsStore = JSON.parse(localStorage.getItem('almuslim_results_final_full') || '[]');
       resultsStore.unshift({ class_name: cls, roll_no: roll, name: name, exam_name: exam, gpa: gpaText, marks: marksList });
-      localStorage.setItem('almuslim_results_final_master', JSON.stringify(resultsStore));
+      localStorage.setItem('almuslim_results_final_full', JSON.stringify(resultsStore));
       alert('রেজাল্ট ও অটোমেটিক গ্রেডশিট ডেটাবেজে সফলভাবে সংরক্ষিত হয়েছে!');
     }
 
@@ -1378,7 +1399,7 @@
       var box = document.getElementById('resBox');
       box.classList.remove('hidden');
 
-      var resultsStore = JSON.parse(localStorage.getItem('almuslim_results_final_master') || '[]');
+      var resultsStore = JSON.parse(localStorage.getItem('almuslim_results_final_full') || '[]');
       var match = null;
       for (var i = 0; i < resultsStore.length; i++) {
         if (resultsStore[i].class_name === cls && resultsStore[i].roll_no === roll) {
@@ -1794,7 +1815,7 @@
 
     function getStoredTeachers() {
       try {
-        var t = localStorage.getItem('almuslim_teachers_final_master');
+        var t = localStorage.getItem('almuslim_teachers_final_full');
         if (t) return JSON.parse(t);
       } catch (e) {}
       return DEFAULT_TEACHERS;
@@ -1802,7 +1823,7 @@
 
     function saveStoredTeachers(list) {
       try {
-        localStorage.setItem('almuslim_teachers_final_master', JSON.stringify(list));
+        localStorage.setItem('almuslim_teachers_final_full', JSON.stringify(list));
       } catch (e) {}
     }
 
@@ -1972,6 +1993,8 @@
       var bkash = document.getElementById('admSetBkash').value.trim();
       var nagad = document.getElementById('admSetNagad').value.trim();
       var pmsg = document.getElementById('admSetPrincipalMsg').value.trim();
+      var logoUrl = document.getElementById('admSetLogoUrl').value.trim();
+      var bannerUrl = document.getElementById('admSetBannerUrl').value.trim();
 
       if (marquee) document.getElementById('publicMarquee').innerText = marquee;
       if (instName) document.getElementById('publicInstName').innerText = instName;
@@ -1979,7 +2002,16 @@
       if (nagad) document.getElementById('pubNagadNum').innerText = nagad;
       if (pmsg) document.getElementById('pubPrincipalMsgDisplay').innerText = pmsg;
 
-      alert('হোমপেজের সেটিংস ও পেমেন্ট নম্বর সফলভাবে আপডেট হয়েছে!');
+      if (logoUrl) {
+        document.getElementById('siteLogoImg').src = logoUrl;
+        localStorage.setItem('almuslim_custom_logo', logoUrl);
+      }
+      if (bannerUrl) {
+        document.getElementById('siteBannerImg').src = bannerUrl;
+        localStorage.setItem('almuslim_custom_banner', bannerUrl);
+      }
+
+      alert('হোমপেজের সেটিংস ও ছবি সফলভাবে আপডেট হয়েছে!');
     }
   </script>
 </body>
