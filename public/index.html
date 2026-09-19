@@ -23,20 +23,20 @@
       overflow-y: auto;
     }
     .banner-royal-box {
-      background: linear-gradient(135deg, #0b1f48 0%, #06122d 100%);
+      background: radial-gradient(circle at center, #0f2b61 0%, #08183a 100%);
       border: 4px solid #1e3a8a;
       box-shadow: 0 15px 35px rgba(0,0,0,0.5);
     }
     .gold-stripe {
       background: linear-gradient(90deg, #d4af37, #fef08a, #d4af37);
-      height: 12px;
+      height: 10px;
     }
     .stripe-pattern {
       background: repeating-linear-gradient(45deg, #d4af37, #d4af37 10px, #b45309 10px, #b45309 20px);
     }
     .royal-border {
-      border: 3px solid #d4af37;
-      box-shadow: 0 0 15px rgba(212, 175, 55, 0.35);
+      border: 3.5px solid #d4af37;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
     }
   </style>
 </head>
@@ -63,7 +63,6 @@
   <header class="bg-white shadow-sm sticky top-0 z-40 border-b border-gray-200">
     <div class="max-w-7xl mx-auto px-4 h-24 flex justify-between items-center">
       
-      <!-- লোগো (বড় ও স্পষ্ট) -->
       <div class="flex items-center space-x-3 cursor-pointer" onclick="window.scrollTo({top:0, behavior:'smooth'})">
         <div class="w-16 h-16 sm:w-20 sm:h-20 p-1 bg-white royal-border rounded-2xl shadow flex items-center justify-center flex-shrink-0 overflow-hidden">
           <img id="siteLogoImg" src="https://i.ibb.co/v5yBZWL/logo.png" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1546410531-bb4caa6b424d?w=300&fit=crop';" class="w-full h-full object-contain" alt="Logo">
@@ -75,7 +74,6 @@
         </div>
       </div>
 
-      <!-- ন্যাভ মেনু -->
       <nav class="hidden lg:flex space-x-5 text-xs font-black text-gray-700 tracking-wider">
         <a href="#home" class="hover:text-blue-900 transition">ABOUT US</a>
         <a href="#admission-sec" class="hover:text-blue-900 transition">ACADEMICS</a>
@@ -85,7 +83,6 @@
         <a href="#teachers-sec" class="hover:text-blue-900 transition">CONTACT</a>
       </nav>
 
-      <!-- পোর্টাল বাটন ও থ্রি-ডট মেনু -->
       <div class="flex items-center space-x-2">
         <button type="button" onclick="openStudentModalDirect()" class="hidden sm:flex bg-amber-500 hover:bg-amber-600 text-gray-950 px-3.5 py-2 rounded-xl text-xs font-black shadow flex items-center transition cursor-pointer">
           <i class="fa-solid fa-user-graduate mr-1.5"></i> শিক্ষার্থী পোর্টাল
@@ -101,7 +98,7 @@
       </div>
     </div>
 
-    <!-- মোবাইল মেনু -->
+    <!-- মোবাইল মেনু ড্রয়ার -->
     <div id="mobileMenuDrawer" style="display: none;" class="lg:hidden bg-white border-b border-gray-200 px-4 py-3 space-y-2 text-xs font-bold shadow-lg">
       <a href="#home" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">ABOUT US</a>
       <a href="#admission-sec" onclick="toggleMobileMenuDrawer()" class="block py-2 text-gray-800 border-b">ACADEMICS / ADMISSION</a>
@@ -114,34 +111,46 @@
     </div>
   </header>
 
-  <!-- ================= ৩. মূল হিরো ব্যানার ================= -->
+  <!-- ================= ৩. প্রিমিয়াম ব্যানার (১০০% ক্লিয়ার ও আন-ব্লার ডিজাইন) ================= -->
   <section id="home" class="py-6 px-4 max-w-6xl mx-auto">
     <div class="banner-royal-box rounded-3xl overflow-hidden text-center text-white relative">
       <div class="gold-stripe w-full"></div>
 
       <div class="p-6 sm:p-10 space-y-6">
-        <div class="space-y-1">
-          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black font-anek text-[#fde047] drop-shadow-md tracking-wide">
+        
+        <!-- পরিষ্কার টেক্সট হেডিং -->
+        <div class="space-y-1.5">
+          <h2 class="text-3xl sm:text-5xl lg:text-6xl font-black font-anek text-[#fde047] drop-shadow-[0_2px_10px_rgba(0,0,0,0.8)] tracking-wide">
             আল-মুছিম স্কুল এন্ড কলেজ
           </h2>
           <p class="text-base sm:text-xl font-black tracking-wider text-white uppercase font-sans">
             AL-MUSIM SCHOOL & COLLEGE
           </p>
-          <p class="text-xs sm:text-sm text-amber-200 font-bold pt-1">
-            মোবাঃ <span id="bannerPhone">০১৭২৬-৫৬৭৯৩৬, ০১৭২২-৩৯৭৬০৭</span>
+          <p class="text-xs sm:text-sm text-amber-200 font-bold flex items-center justify-center gap-1">
+            <i class="fa-solid fa-location-dot text-amber-400"></i> টেংরা, লালাবাজার, বিশ্বনাথ, সিলেট।
+          </p>
+          <p class="text-xs sm:text-sm text-emerald-300 font-bold font-mono">
+            মোবাইল: <span id="bannerPhone">০১৭২৬-৫৬৭৯৩৬, ০১৭২২-৩৯৭৬০৭</span>
           </p>
         </div>
 
-        <!-- ব্যানার ছবি (অ্যাসেম্বলি ও ক্যাম্পাস) -->
+        <!-- গোল্ডেন ফ্রেমের ভেতর ক্যাম্পাস ফটো -->
         <div class="relative max-w-3xl mx-auto">
-          <div class="p-3.5 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 rounded-3xl shadow-2xl inline-block max-w-full">
-            <div class="rounded-2xl overflow-hidden h-60 sm:h-80 w-full sm:w-[700px] border-2 border-amber-600 shadow-inner bg-slate-900 flex items-center justify-center">
-              <img id="siteBannerImg" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&fit=crop" class="w-full h-full object-cover" alt="Campus Banner">
+          <div class="p-3 bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-300 rounded-3xl shadow-2xl inline-block max-w-full">
+            <div class="rounded-2xl overflow-hidden h-64 sm:h-80 w-full sm:w-[700px] border-2 border-amber-600 shadow-inner bg-slate-900 relative">
+              <img id="siteBannerImg" src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?w=1200&fit=crop" class="w-full h-full object-cover" alt="Campus Assembly">
+              <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent flex items-end p-4 text-left">
+                <div>
+                  <span class="bg-amber-500 text-slate-950 font-black text-[10px] px-2.5 py-0.5 rounded uppercase">ক্যাম্পাস অ্যাসেম্বলি</span>
+                  <p class="text-white text-xs font-bold mt-1">সুশৃঙ্খল পরিবেশ ও আধুনিক পাঠদান কার্যক্রম</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-3">
+        <!-- অ্যাকশন বাটনসমূহ -->
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-2">
           <button type="button" onclick="document.getElementById('admission-sec').scrollIntoView({behavior:'smooth'})" class="w-full sm:w-auto bg-gradient-to-r from-blue-700 via-blue-800 to-indigo-900 hover:from-blue-800 text-white font-black px-8 py-3.5 rounded-xl text-sm shadow-xl border-2 border-amber-400 cursor-pointer transition uppercase tracking-wide">
             ONLINE ADMISSION (অনলাইন ভর্তি)
           </button>
@@ -150,6 +159,7 @@
             FEES PAYMENT (ফিস জমা)
           </button>
         </div>
+
       </div>
 
       <div class="gold-stripe w-full"></div>
@@ -197,7 +207,7 @@
           <p id="pubPrincipalMsgDisplay">"নৈতিক মূল্যবোধ ও আধুনিক প্রযুক্তির সমন্বয়ে প্রতিটি শিক্ষার্থীকে আদর্শ মানুষ হিসেবে গড়ে তোলাই আমাদের লক্ষ্য।" — মাওলানা আব্দুর রহমান</p>
         </div>
         <div class="p-3 bg-gray-50 border-t text-right">
-          <a href="javascript:void(0)" onclick="alert('অধ্যক্ষ মহোদয়ের বাণী শীঘ্রই আপডেট করা হবে।')" class="text-blue-900 font-bold text-xs hover:underline">পূর্ণাঙ্গ বাণী পড়ুন →</a>
+          <a href="javascript:void(0)" onclick="alert('অধ্যক্ষ মহোদয়ের বাণী শীঘ্রই বিস্তারিত আকারে আসছে।')" class="text-blue-900 font-bold text-xs hover:underline">পূর্ণাঙ্গ বাণী পড়ুন →</a>
         </div>
       </div>
     </div>
@@ -485,6 +495,7 @@
         </div>
       </div>
 
+      <!-- শিক্ষার্থীর ড্যাশবোর্ড -->
       <div id="studentDashboardView" style="display: none;" class="space-y-4 text-xs mt-4">
         <div class="bg-gradient-to-r from-amber-50 to-blue-50 p-5 rounded-2xl border-2 border-blue-600/50 shadow-sm">
           <div class="flex flex-col sm:flex-row items-center sm:items-start gap-4">
@@ -613,7 +624,7 @@
           <button type="button" onclick="logoutAdminDirect()" class="bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded-lg font-bold cursor-pointer">লগআউট</button>
         </div>
 
-        <!-- অ্যাডমিনের ৮টি পূর্ণাঙ্গ ট্যাব -->
+        <!-- অ্যাডমিনের পূর্ণাঙ্গ ৮টি মেনু ট্যাব -->
         <div class="flex border-b font-bold gap-2 overflow-x-auto pb-1">
           <button type="button" id="tabStudentListBtn" onclick="switchAdminTab('all_students')" class="py-2 px-3 border-b-2 border-blue-900 text-blue-900 whitespace-nowrap cursor-pointer">👥 শিক্ষার্থী তালিকা ও প্রমোশন</button>
           <button type="button" id="tabResBtn" onclick="switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📊 রেজাল্ট এন্ট্রি (অটো গ্রেড)</button>
@@ -695,7 +706,7 @@
               </div>
               <div>
                 <label class="block font-bold mb-1">পরীক্ষার নাম</label>
-                <input type="text" id="resInpExam" value="বার্ষিক পরীক্ষা ২০২৬" class="w-full border p-2.5 rounded-xl bg-white">
+                <input type="text" id="resInpExam" value="বার্ষিক পরীক্ষা ২০২৬" class="w-full border p-2.5 rounded-xl bg-white font-bold">
               </div>
             </div>
 
@@ -738,7 +749,7 @@
           </div>
         </div>
 
-        <!-- ৩. হোমপেজ ও নোটিশ কন্ট্রোল (ছবি পরিবর্তনের সহজ ইনপুট সহ) -->
+        <!-- ৩. হোমপেজ ও নোটিশ কন্ট্রোল (লোগো ও ব্যানার সরাসরি ইনপুট সহ) -->
         <div id="adminHomeControlSection" style="display: none;" class="space-y-6">
           
           <div class="bg-gray-50 p-5 rounded-2xl border space-y-3">
@@ -1030,7 +1041,6 @@
 
   <!-- ================= JAVASCRIPT CONTROLLERS ================= -->
   <script>
-    // ছবি লোডার ও ফলব্যাক ইঞ্জিন
     function initCustomImages() {
       var savedLogo = localStorage.getItem('almuslim_custom_logo');
       var savedBanner = localStorage.getItem('almuslim_custom_banner');
