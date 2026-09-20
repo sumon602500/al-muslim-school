@@ -629,17 +629,17 @@
           <button type="button" onclick="logoutAdminDirect()" class="bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded-lg font-bold cursor-pointer">লগআউট</button>
         </div>
 
-        <!-- অ্যাডমিনের ট্যাবসমূহ (ফ্লেক্স-র্যাপ দেওয়া হয়েছে যাতে স্ক্রিনশটের মতো কোনো বাটন লুকিয়ে না থাকে) -->
+        <!-- অ্যাডমিনের পূর্ণাঙ্গ মেনু ট্যাব -->
         <div class="flex flex-wrap border-b font-bold gap-2 pb-2">
-          <button type="button" id="tabStudentListBtn" onclick="window.switchAdminTab('all_students')" class="py-2 px-3 border-b-2 border-blue-900 text-blue-900 whitespace-nowrap cursor-pointer">👥 শিক্ষার্থী তালিকা</button>
-          <button type="button" id="tabAdmApproveBtn" onclick="window.switchAdminTab('adm_approvals')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📥 ভর্তি যাচাই</button>
-          <button type="button" id="tabFeeApproveBtn" onclick="window.switchAdminTab('fee_approvals')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💳 ফি যাচাই</button>
-          <button type="button" id="tabResBtn" onclick="window.switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📊 রেজাল্ট এন্ট্রি</button>
-          <button type="button" id="tabHomeControlBtn" onclick="window.switchAdminTab('home_control')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">🌐 নোটিশ ও সেটিংস</button>
-          <button type="button" id="tabManualBtn" onclick="window.switchAdminTab('manual_entry')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">➕ ম্যানুয়াল ভর্তি</button>
-          <button type="button" id="tabTchBtn" onclick="window.switchAdminTab('teachers')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">👨‍🏫 শিক্ষক প্যানেল</button>
-          <button type="button" id="tabFeeBtn" onclick="window.switchAdminTab('fees')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💰 শ্রেণি ফি</button>
-          <button type="button" id="tabSmsBtn" onclick="window.switchAdminTab('sms_engine')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📅 SMS ইঞ্জিন</button>
+          <button type="button" id="tabStudentListBtn" onclick="switchAdminTab('all_students')" class="py-2 px-3 border-b-2 border-blue-900 text-blue-900 whitespace-nowrap cursor-pointer">👥 শিক্ষার্থী তালিকা</button>
+          <button type="button" id="tabAdmApproveBtn" onclick="switchAdminTab('adm_approvals')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📥 ভর্তি যাচাই</button>
+          <button type="button" id="tabFeeApproveBtn" onclick="switchAdminTab('fee_approvals')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💳 ফি যাচাই</button>
+          <button type="button" id="tabResBtn" onclick="switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📊 রেজাল্ট এন্ট্রি</button>
+          <button type="button" id="tabHomeControlBtn" onclick="switchAdminTab('home_control')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">🌐 নোটিশ ও সেটিংস</button>
+          <button type="button" id="tabManualBtn" onclick="switchAdminTab('manual_entry')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">➕ ম্যানুয়াল ভর্তি</button>
+          <button type="button" id="tabTchBtn" onclick="switchAdminTab('teachers')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">👨‍🏫 শিক্ষক প্যানেল</button>
+          <button type="button" id="tabFeeBtn" onclick="switchAdminTab('fees')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💰 শ্রেণি ফি</button>
+          <button type="button" id="tabSmsBtn" onclick="switchAdminTab('sms_engine')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📅 SMS ইঞ্জিন</button>
         </div>
 
         <!-- ১. সকল শিক্ষার্থী তালিকা ও শ্রেণিভিত্তিক ফিল্টার -->
@@ -729,10 +729,10 @@
           </div>
         </div>
 
-        <!-- ৪. রেজাল্ট এন্ট্রি -->
+        <!-- ৪. রেজাল্ট এন্ট্রি (সার্চ ও সিলেক্ট ড্রপডাউন সহ) -->
         <div id="adminResultSection" style="display: none;" class="space-y-4">
           <div class="bg-gray-50 p-5 rounded-2xl border space-y-4">
-            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3">
+            <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 relative">
               <div>
                 <label class="block font-bold mb-1 text-blue-950">শ্রেণি নির্বাচন করুন *</label>
                 <select id="resInpClass" onchange="renderGovtSubjectsForClass()" class="w-full border-2 border-blue-600 p-2.5 rounded-xl font-bold bg-white">
@@ -753,13 +753,16 @@
                   <option value="Class 12">দ্বাদশ শ্রেণি</option>
                 </select>
               </div>
-              <div>
-                <label class="block font-bold mb-1">রোল নম্বর *</label>
-                <input type="text" id="resInpRoll" placeholder="যেমন: 01" class="w-full border p-2.5 rounded-xl bg-white font-bold text-center">
+              
+              <div class="relative">
+                <label class="block font-bold mb-1">রোল নম্বর বা নাম *</label>
+                <input type="text" id="resInpRoll" oninput="searchStudentsForResult(this.value)" placeholder="রোল বা নাম লিখে খুঁজুন..." class="w-full border p-2.5 rounded-xl bg-white font-bold text-center" autocomplete="off">
+                <div id="resultStudentSuggestions" class="absolute left-0 right-0 bg-white border border-blue-300 rounded-xl shadow-2xl mt-1 max-h-48 overflow-y-auto z-50 hidden"></div>
               </div>
+
               <div>
                 <label class="block font-bold mb-1">শিক্ষার্থীর নাম *</label>
-                <input type="text" id="resInpName" placeholder="নাম লিখুন" class="w-full border p-2.5 rounded-xl bg-white font-bold">
+                <input type="text" id="resInpName" placeholder="নাম অটো আসবে" class="w-full border p-2.5 rounded-xl bg-white font-bold">
               </div>
               <div>
                 <label class="block font-bold mb-1">পরীক্ষার নাম</label>
@@ -1011,7 +1014,7 @@
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT CONTROLLERS (Global Attached) ================= -->
+  <!-- ================= JAVASCRIPT CONTROLLERS ================= -->
   <script>
     window.openStudentModalDirect = function() {
       document.getElementById('studentLoginFormView').style.display = 'block';
@@ -1265,7 +1268,7 @@
       recalculateAllMarksAndGPA();
     }
 
-    // ১০০% নিখুঁত অটো গ্রেড ও GPA ক্যালকুলেটর
+    // ১০০% নিখুঁত অটো গ্রেড ও GPA ক্যালকুলেটর (ফাঁকা ঘর অটো-স্কিপ, GPA 0.00 সমস্যা চিরতরে সমাধান)
     function handleRealtimeMarkInput(inputEl, fullMarks) {
       var valStr = inputEl.value.trim();
       var badge = inputEl.closest('tr').querySelector('.auto-grade-badge');
@@ -1317,7 +1320,7 @@
 
       for (var i = 0; i < markInputs.length; i++) {
         var valStr = markInputs[i].value.trim();
-        if (valStr === '') continue; // Faka ghor gulo skip korbe, tai GPA nosto hobe na!
+        if (valStr === '') continue; // ফাঁকা ঘরগুলো স্বয়ংক্রিয়ভাবে স্কিপ হবে
 
         var mVal = parseNumberRobust(valStr);
         var tr = markInputs[i].closest('tr');
@@ -1421,6 +1424,52 @@
       }
     }
 
+    // রেজাল্ট এন্ট্রির জন্য ডাইনামিক স্টুডেন্ট সার্চ ও সিলেক্ট
+    function searchStudentsForResult(query) {
+      var box = document.getElementById('resultStudentSuggestions');
+      if (!query || query.trim() === '') {
+        box.classList.add('hidden');
+        box.innerHTML = '';
+        return;
+      }
+
+      var students = getStoredStudents();
+      var q = query.trim().toLowerCase();
+      var matches = students.filter(function(s) {
+        return String(s.roll_no).toLowerCase().includes(q) || s.name.toLowerCase().includes(q);
+      });
+
+      if (matches.length === 0) {
+        box.classList.add('hidden');
+        box.innerHTML = '';
+        return;
+      }
+
+      var html = '';
+      for (var i = 0; i < matches.length; i++) {
+        var st = matches[i];
+        html += '<div onclick="selectStudentForResult(\'' + st.class_name + '\', \'' + st.roll_no + '\', \'' + st.name.replace(/'/g, "\\'") + '\')" class="p-2.5 hover:bg-blue-50 cursor-pointer border-b text-xs font-bold flex justify-between items-center">' +
+                  '<span>' + st.name + ' (রোল: ' + st.roll_no + ')</span>' +
+                  '<span class="text-[10px] bg-blue-100 text-blue-900 px-2 py-0.5 rounded font-mono">' + st.class_name + '</span>' +
+                '</div>';
+      }
+      box.innerHTML = html;
+      box.classList.remove('hidden');
+    }
+
+    function selectStudentForResult(className, rollNo, studentName) {
+      var classSelect = document.getElementById('resInpClass');
+      if (classSelect) { classSelect.value = className; }
+      document.getElementById('resInpRoll').value = rollNo;
+      document.getElementById('resInpName').value = studentName;
+      
+      renderGovtSubjectsForClass();
+
+      var box = document.getElementById('resultStudentSuggestions');
+      box.classList.add('hidden');
+      box.innerHTML = '';
+    }
+
     // প্রমোশন
     function openStudentPromotionModal(studentId) {
       promotingStudentId = studentId;
@@ -1463,7 +1512,7 @@
       loadAdminStudentsList();
     }
 
-    // শিক্ষার্থী ডিলিট বা রিমুভ অপশন
+    // শিক্ষার্থী ডিলিট অপশন
     function deleteStudentPermanently(studentId) {
       if (!confirm('আপনি কি নিশ্চিতভাবে এই শিক্ষার্থীকে ডেটাবেজ থেকে চিরতরে ডিলিট করতে চান?')) return;
       var list = getStoredStudents();
@@ -1476,7 +1525,7 @@
       loadAdminStudentsList();
     }
 
-    // শ্রেণি অনুযায়ী শিক্ষার্থী ফিল্টার ও ডিলিট বাটন সহ তালিকা
+    // শ্রেণি অনুযায়ী শিক্ষার্থী ফিল্টার
     function loadAdminStudentsList() {
       var selectedClass = document.getElementById('filterClassDropdown').value;
       fetchStudentsFromDatabase(function(list) {
@@ -1625,6 +1674,32 @@
       document.getElementById('manPhotoPreviewBox').classList.add('hidden');
 
       switchAdminTab('all_students');
+    }
+
+    // শ্রেণিভিত্তিক ফি টেবিল রেন্ডার
+    function renderAdminFeeTable() {
+      var tbody = document.getElementById('adminFeeTableBody');
+      if (!tbody) return;
+      tbody.innerHTML = '';
+      var idx = 0;
+      for (var cls in currentFeesMap) {
+        idx++;
+        var f = currentFeesMap[cls];
+        var tr = document.createElement('tr');
+        tr.className = 'hover:bg-gray-50';
+        tr.innerHTML = '<td class="p-2.5 font-bold">' + cls + '</td>' +
+                       '<td class="p-2.5"><input type="number" id="admF_' + idx + '" value="' + f.admission + '" class="w-24 border p-1 rounded-lg font-bold text-pink-700 bg-white"> ৳</td>' +
+                       '<td class="p-2.5"><input type="number" id="monF_' + idx + '" value="' + f.monthly + '" class="w-24 border p-1 rounded-lg font-bold text-blue-900 bg-white"> ৳</td>' +
+                       '<td class="p-2.5 text-center"><button type="button" onclick="saveUpdatedFee(\'' + cls + '\', ' + idx + ')" class="bg-blue-900 text-white px-3 py-1 rounded-lg font-bold cursor-pointer">আপডেট</button></td>';
+        tbody.appendChild(tr);
+      }
+    }
+
+    function saveUpdatedFee(cls, idx) {
+      var a = parseInt(document.getElementById('admF_' + idx).value) || 0;
+      var m = parseInt(document.getElementById('monF_' + idx).value) || 0;
+      currentFeesMap[cls] = { admission: a, monthly: m };
+      alert(cls + '-এর ফি সফলভাবে আপডেট হয়েছে!');
     }
 
     // স্টুডেন্ট পোর্টাল থেকে মার্কশিট ডাউনলোড (PDF)
