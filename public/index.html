@@ -1319,21 +1319,10 @@
 
       for (var i = 0; i < markInputs.length; i++) {
         var valStr = markInputs[i].value.trim();
-        if (valStr === '') continue; // Faka ghor automatic skip thase
+        if (valStr === '') continue; // Faka ghor gulo auto-skip hobe
 
         var mVal = parseNumberRobust(valStr);
-        var tr = markInputs[i].closest('tr');
-        var fullMark = tr ? parseNumberRobust(tr.querySelector('.sub-full-marks').innerText) || 100 : 100;
-        var pct = (fullMark > 0) ? (mVal / fullMark) * 100 : 0;
-        
-        var pt = 0.0;
-        if (pct >= 80) { pt = 5.0; }
-        else if (pct >= 70) { pt = 4.0; }
-        else if (pct >= 60) { pt = 3.5; }
-        else if (pct >= 50) { pt = 3.0; }
-        else if (pct >= 40) { pt = 2.0; }
-        else if (pct >= 33) { pt = 1.0; }
-        else { pt = 0.0; }
+        var pt = parseFloat(markInputs[i].getAttribute('data-point')) || 0.0;
 
         total += mVal;
         totalPoints += pt;
