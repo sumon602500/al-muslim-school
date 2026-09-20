@@ -629,22 +629,21 @@
           <button type="button" onclick="logoutAdminDirect()" class="bg-red-50 text-red-600 border border-red-200 px-3 py-1 rounded-lg font-bold cursor-pointer">লগআউট</button>
         </div>
 
-        <!-- অ্যাডমিনের পূর্ণাঙ্গ মেনু ট্যাব -->
-        <div class="flex border-b font-bold gap-2 overflow-x-auto pb-1">
-          <button type="button" id="tabStudentListBtn" onclick="switchAdminTab('all_students')" class="py-2 px-3 border-b-2 border-blue-900 text-blue-900 whitespace-nowrap cursor-pointer">👥 শিক্ষার্থী তালিকা ও প্রমোশন</button>
-          <button type="button" id="tabAdmApproveBtn" onclick="switchAdminTab('adm_approvals')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📥 ভর্তি আবেদন যাচাই ও অনুমোদন</button>
-          <button type="button" id="tabFeeApproveBtn" onclick="switchAdminTab('fee_approvals')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💳 মাসিক ফি যাচাই ও অনুমোদন</button>
-          <button type="button" id="tabResBtn" onclick="switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📊 রেজাল্ট এন্ট্রি (অটো গ্রেড)</button>
-          <button type="button" id="tabHomeControlBtn" onclick="switchAdminTab('home_control')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">🌐 নোটিশ ও সেটিংস</button>
-          <button type="button" id="tabManualBtn" onclick="switchAdminTab('manual_entry')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">➕ ম্যানুয়ালি শিক্ষার্থী ভর্তি</button>
-          <button type="button" id="tabTchBtn" onclick="switchAdminTab('teachers')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">👨‍🏫 শিক্ষক ম্যানেজমেন্ট</button>
-          <button type="button" id="tabFeeBtn" onclick="switchAdminTab('fees')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💰 শ্রেণিভিত্তিক ফি</button>
-          <button type="button" id="tabSmsBtn" onclick="switchAdminTab('sms_engine')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📅 ১ তারিখের SMS</button>
+        <!-- অ্যাডমিনের ট্যাবসমূহ (ফ্লেক্স-র্যাপ দেওয়া হয়েছে যাতে স্ক্রিনশটের মতো কোনো বাটন লুকিয়ে না থাকে) -->
+        <div class="flex flex-wrap border-b font-bold gap-2 pb-2">
+          <button type="button" id="tabStudentListBtn" onclick="window.switchAdminTab('all_students')" class="py-2 px-3 border-b-2 border-blue-900 text-blue-900 whitespace-nowrap cursor-pointer">👥 শিক্ষার্থী তালিকা</button>
+          <button type="button" id="tabAdmApproveBtn" onclick="window.switchAdminTab('adm_approvals')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📥 ভর্তি যাচাই</button>
+          <button type="button" id="tabFeeApproveBtn" onclick="window.switchAdminTab('fee_approvals')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💳 ফি যাচাই</button>
+          <button type="button" id="tabResBtn" onclick="window.switchAdminTab('results')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📊 রেজাল্ট এন্ট্রি</button>
+          <button type="button" id="tabHomeControlBtn" onclick="window.switchAdminTab('home_control')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">🌐 নোটিশ ও সেটিংস</button>
+          <button type="button" id="tabManualBtn" onclick="window.switchAdminTab('manual_entry')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">➕ ম্যানুয়াল ভর্তি</button>
+          <button type="button" id="tabTchBtn" onclick="window.switchAdminTab('teachers')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">👨‍🏫 শিক্ষক প্যানেল</button>
+          <button type="button" id="tabFeeBtn" onclick="window.switchAdminTab('fees')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">💰 শ্রেণি ফি</button>
+          <button type="button" id="tabSmsBtn" onclick="window.switchAdminTab('sms_engine')" class="py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer">📅 SMS ইঞ্জিন</button>
         </div>
 
         <!-- ১. সকল শিক্ষার্থী তালিকা ও শ্রেণিভিত্তিক ফিল্টার -->
         <div id="adminStudentListSection" class="space-y-4">
-          
           <div class="bg-white p-4 rounded-2xl border shadow-xs space-y-3">
             <h5 class="font-bold text-gray-800 text-xs flex items-center">
               <i class="fa-solid fa-filter mr-2 text-blue-900"></i> শ্রেণি নির্বাচন করে নির্দিষ্ট ক্লাসের শিক্ষার্থী তালিকা দেখুন:
@@ -811,7 +810,7 @@
           </div>
         </div>
 
-        <!-- ৬. ম্যানুয়ালি শিক্ষার্থী ভর্তি (Choose File সহ) -->
+        <!-- ৬. ম্যানুয়ালি শিক্ষার্থী ভর্তি -->
         <div id="adminManualEntrySection" style="display: none;" class="space-y-3">
           <div class="bg-gray-50 p-5 rounded-2xl border space-y-4">
             <h5 class="font-bold text-blue-950 text-sm border-b pb-2 flex items-center">
@@ -925,7 +924,7 @@
           <div class="bg-white p-4 rounded-2xl border shadow-xs space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
               <h5 class="font-bold text-blue-950 text-xs">SMS প্রাপক শিক্ষার্থীদের তালিকা:</h5>
-              <span id="smsRecipientCount" class="text-[11px] bg-blue-100 text-blue-900 font-bold px-2.5 py-0.5 rounded-full"></span>
+              <span id="smsRecipientCount" class="text-[11px] bg-blue-100 text-blue-900 font-bold px-2 py-0.5 rounded-full"></span>
             </div>
             <div class="overflow-x-auto border rounded-xl">
               <table class="w-full text-left text-xs">
@@ -1012,7 +1011,7 @@
     </div>
   </div>
 
-  <!-- ================= JAVASCRIPT CONTROLLERS ================= -->
+  <!-- ================= JAVASCRIPT CONTROLLERS (Global Attached) ================= -->
   <script>
     window.openStudentModalDirect = function() {
       document.getElementById('studentLoginFormView').style.display = 'block';
@@ -1266,7 +1265,7 @@
       recalculateAllMarksAndGPA();
     }
 
-    // ১০০% নিখুঁত অটো গ্রেড ও GPA ক্যালকুলেটর (GPA 0.00 চিরতরে ফিক্সড)
+    // ১০০% নিখুঁত অটো গ্রেড ও GPA ক্যালকুলেটর
     function handleRealtimeMarkInput(inputEl, fullMarks) {
       var val = parseNumberRobust(inputEl.value);
       var fm = parseNumberRobust(fullMarks) || 100;
@@ -1908,6 +1907,56 @@
       document.getElementById('admUser').value = '';
       document.getElementById('admPass').value = '';
     }
+
+    // অ্যাডমিন ট্যাব পরিবর্তন করার গ্লোবাল ফাংশন
+    window.switchAdminTab = function(tab) {
+      var sections = ['adminStudentListSection', 'adminAdmissionApprovalSection', 'adminFeeApprovalSection', 'adminResultSection', 'adminHomeControlSection', 'adminTeacherSection', 'adminManualEntrySection', 'adminFeeSection', 'adminSmsSection'];
+      var buttons = ['tabStudentListBtn', 'tabAdmApproveBtn', 'tabFeeApproveBtn', 'tabResBtn', 'tabHomeControlBtn', 'tabTchBtn', 'tabManualBtn', 'tabFeeBtn', 'tabSmsBtn'];
+
+      for (var i = 0; i < sections.length; i++) {
+        var el = document.getElementById(sections[i]);
+        if (el) el.style.display = 'none';
+      }
+      for (var j = 0; j < buttons.length; j++) {
+        var btn = document.getElementById(buttons[j]);
+        if (btn) btn.className = 'py-2 px-3 text-gray-500 whitespace-nowrap cursor-pointer';
+      }
+
+      if (tab === 'all_students') {
+        document.getElementById('adminStudentListSection').style.display = 'block';
+        document.getElementById('tabStudentListBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+        loadAdminStudentsList();
+      } else if (tab === 'adm_approvals') {
+        document.getElementById('adminAdmissionApprovalSection').style.display = 'block';
+        document.getElementById('tabAdmApproveBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+        loadAdminAdmissionApprovals();
+      } else if (tab === 'fee_approvals') {
+        document.getElementById('adminFeeApprovalSection').style.display = 'block';
+        document.getElementById('tabFeeApproveBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+        loadAdminFeeApprovals();
+      } else if (tab === 'results') {
+        document.getElementById('adminResultSection').style.display = 'block';
+        document.getElementById('tabResBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+        renderGovtSubjectsForClass();
+      } else if (tab === 'home_control') {
+        document.getElementById('adminHomeControlSection').style.display = 'block';
+        document.getElementById('tabHomeControlBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+      } else if (tab === 'teachers') {
+        document.getElementById('adminTeacherSection').style.display = 'block';
+        document.getElementById('tabTchBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+        loadAdminTeachers();
+      } else if (tab === 'manual_entry') {
+        document.getElementById('adminManualEntrySection').style.display = 'block';
+        document.getElementById('tabManualBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+      } else if (tab === 'fees') {
+        document.getElementById('adminFeeSection').style.display = 'block';
+        document.getElementById('tabFeeBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+        renderAdminFeeTable();
+      } else {
+        document.getElementById('adminSmsSection').style.display = 'block';
+        document.getElementById('tabSmsBtn').className = 'py-2 px-3 border-b-2 border-blue-900 text-blue-900 font-bold whitespace-nowrap cursor-pointer';
+      }
+    };
   </script>
 </body>
 </html>
