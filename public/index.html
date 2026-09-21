@@ -1275,7 +1275,6 @@
       
       if (valStr === '') {
         inputEl.setAttribute('data-grade', '--');
-        inputEl.setAttribute('data-point', '0');
         if (badge) {
           badge.innerText = '--';
           badge.className = 'px-2.5 py-1 rounded-full text-xs bg-gray-100 text-gray-600 auto-grade-badge inline-block';
@@ -1289,19 +1288,17 @@
       var percentage = (fm > 0) ? (val / fm) * 100 : 0;
       
       var grade = 'F';
-      var point = 0.0;
       var badgeColor = 'bg-red-100 text-red-700 font-black';
 
-      if (percentage >= 80) { grade = 'A+'; point = 5.0; badgeColor = 'bg-emerald-600 text-white font-black'; }
-      else if (percentage >= 70) { grade = 'A'; point = 4.0; badgeColor = 'bg-emerald-100 text-emerald-800 font-bold'; }
-      else if (percentage >= 60) { grade = 'A-'; point = 3.5; badgeColor = 'bg-blue-100 text-blue-800 font-bold'; }
-      else if (percentage >= 50) { grade = 'B'; point = 3.0; badgeColor = 'bg-amber-100 text-amber-800 font-bold'; }
-      else if (percentage >= 40) { grade = 'C'; point = 2.0; badgeColor = 'bg-yellow-100 text-yellow-800 font-bold'; }
-      else if (percentage >= 33) { grade = 'D'; point = 1.0; badgeColor = 'bg-orange-100 text-orange-800 font-bold'; }
-      else { grade = 'F'; point = 0.0; badgeColor = 'bg-red-100 text-red-700 font-black'; }
+      if (percentage >= 80) { grade = 'A+'; badgeColor = 'bg-emerald-600 text-white font-black'; }
+      else if (percentage >= 70) { grade = 'A'; badgeColor = 'bg-emerald-100 text-emerald-800 font-bold'; }
+      else if (percentage >= 60) { grade = 'A-'; badgeColor = 'bg-blue-100 text-blue-800 font-bold'; }
+      else if (percentage >= 50) { grade = 'B'; badgeColor = 'bg-amber-100 text-amber-800 font-bold'; }
+      else if (percentage >= 40) { grade = 'C'; badgeColor = 'bg-yellow-100 text-yellow-800 font-bold'; }
+      else if (percentage >= 33) { grade = 'D'; badgeColor = 'bg-orange-100 text-orange-800 font-bold'; }
+      else { grade = 'F'; badgeColor = 'bg-red-100 text-red-700 font-black'; }
 
       inputEl.setAttribute('data-grade', grade);
-      inputEl.setAttribute('data-point', point);
 
       if (badge) {
         badge.innerText = grade;
@@ -1319,7 +1316,7 @@
 
       for (var i = 0; i < markInputs.length; i++) {
         var valStr = markInputs[i].value.trim();
-        if (valStr === '') continue; // ফাঁকা ঘরগুলো স্বয়ংক্রিয়ভাবে স্কিপ হবে
+        if (valStr === '') continue; // Faka ghor gulo auto-skip hobe
 
         var mVal = parseNumberRobust(valStr);
         var tr = markInputs[i].closest('tr');
