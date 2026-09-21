@@ -1319,7 +1319,7 @@
 
       for (var i = 0; i < markInputs.length; i++) {
         var valStr = markInputs[i].value.trim();
-        if (valStr === '') continue; // Faka ghor dɛn go auto-skip
+        if (valStr === '') continue; // ফাঁকা ঘরগুলো স্বয়ংক্রিয়ভাবে স্কিপ হবে
 
         var mVal = parseNumberRobust(valStr);
         var tr = markInputs[i].closest('tr');
