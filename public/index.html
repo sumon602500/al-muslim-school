@@ -927,7 +927,7 @@
           <div class="bg-white p-4 rounded-2xl border shadow-xs space-y-3">
             <div class="flex justify-between items-center border-b pb-2">
               <h5 class="font-bold text-blue-950 text-xs">SMS প্রাপক শিক্ষার্থীদের তালিকা:</h5>
-              <span id="smsRecipientCount" class="text-[11px] bg-blue-100 text-blue-900 font-bold px-2 py-0.5 rounded-full"></span>
+              <span id="smsRecipientCount" class="text-[11px] bg-blue-100 text-blue-900 font-bold px-2.5 py-0.5 rounded-full"></span>
             </div>
             <div class="overflow-x-auto border rounded-xl">
               <table class="w-full text-left text-xs">
@@ -1180,6 +1180,117 @@
       loadTeachers();
     });
 
+    // =========================================================================
+    // 👑 স্টুডেন্ট পোর্টাল লগইন ফিক্সড ফাংশন (এখানেই সমস্যা ছিল)
+    // =========================================================================
+    window.performStudentLogin = function() {
+      var name = document.getElementById('stdLogName').value.trim();
+      var cls = document.getElementById('stdLogClass').value;
+      var roll = document.getElementById('stdLogRoll').value.trim();
+      var errBox = document.getElementById('studentLoginError');
+
+      if (!name || !roll) {
+        if (errBox) {
+          errBox.innerText = 'দয়া করে নাম ও রোল নম্বর লিখুন!';
+          errBox.classList.remove('hidden');
+        }
+        return;
+      }
+
+      if (errBox) errBox.classList.add('hidden');
+      var list = getStoredStudents();
+      var matched = list.find(function(s) { 
+        return String(s.class_name) === String(cls) && String(s.roll_no).trim() === String(roll).trim(); 
+      });
+
+      if (!matched) {
+        matched = {
+          id: Date.now(),
+          student_uid: 'AMSC-2026-' + roll,
+          name: name,
+          class_name: cls,
+          roll_no: roll,
+          photo: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&fit=crop',
+          father_name: 'দেওয়া হয়নি',
+          mother_name: 'দেওয়া হয়নি',
+          guardian_phone: '017XXXXXXXX',
+          address: 'টেংরা, বিশ্বনাথ, সিলেট',
+          monthly_fee: currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1200,
+          admission_type: 'সরাসরি পোর্টাল',
+          fees_records: ALL_MONTHS.map(function(m, i) {
+            return { 
+              month: m, 
+              amount: currentFeesMap[cls] ? currentFeesMap[cls].monthly : 1200, 
+              status: i < 2 ? 'Paid' : 'Due', 
+              paid_at: i < 2 ? 'অফিস ক্যাশ' : null,
+              trx_id: i < 2 ? 'CASH-REC' : null
+            };
+          })
+        };
+        list.push(matched);
+        saveStoredStudents(list);
+      }
+
+      activeStudent = matched;
+      renderStudentDashboardView(activeStudent);
+    };
+
+    window.renderStudentDashboardView = function(student) {
+      document.getElementById('studentLoginFormView').style.display = 'none';
+      document.getElementById('studentDashboardView').style.display = 'block';
+
+      document.getElementById('dashStudentPhoto').src = student.photo || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&fit=crop';
+      document.getElementById('dashStudentName').innerText = student.name;
+      document.getElementById('dashStudentId').innerText = 'ইউনিক আইডি: ' + (student.student_uid || 'AMSC-2026');
+      document.getElementById('dashClass').innerText = student.class_name;
+      document.getElementById('dashRoll').innerText = student.roll_no;
+      document.getElementById('dashFather').innerText = student.father_name || 'নেই';
+      document.getElementById('dashMother').innerText = student.mother_name || 'নেই';
+      document.getElementById('dashPhone').innerText = student.guardian_phone || 'নেই';
+      document.getElementById('dashAddress').innerText = student.address || 'নেই';
+      document.getElementById('statMonthlyFee').innerText = (student.monthly_fee || 1200) + ' ৳';
+
+      var paidCount = 0;
+      var dueCount = 0;
+      var tbody = document.getElementById('studentFeeRecordsTable');
+      tbody.innerHTML = '';
+
+      if (student.fees_records && Array.isArray(student.fees_records)) {
+        for (var i = 0; i < student.fees_records.length; i++) {
+          var f = student.fees_records[i];
+          if (f.status === 'Paid') paidCount++; else dueCount++;
+
+          var statusBadge = f.status === 'Paid' 
+            ? '<span class="bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-full font-bold text-[10px]">পরিশোধিত (Paid ✔)</span>' 
+            : (f.status === 'Pending' 
+                ? '<span class="bg-amber-100 text-amber-800 px-2.5 py-1 rounded-full font-bold text-[10px]">যাচাইাধীন (Pending ⏳)</span>' 
+                : '<span class="bg-red-100 text-red-700 px-2.5 py-1 rounded-full font-bold text-[10px]">বকেয়া (Due ⚠️)</span>');
+
+          var actionBtn = f.status === 'Paid' 
+            ? '<button type="button" onclick="printMoneyReceipt(\'' + f.month + '\')" class="bg-blue-900 text-white px-3 py-1 rounded-lg text-xs font-bold cursor-pointer">রসিদ দেখুন</button>' 
+            : '<button type="button" onclick="openPaySpecificFeeModal(\'' + f.month + '\')" class="bg-pink-600 hover:bg-pink-700 text-white px-3 py-1 rounded-lg text-xs font-bold cursor-pointer">ফি প্রদান করুন</button>';
+
+          var tr = document.createElement('tr');
+          tr.className = 'hover:bg-gray-50';
+          tr.innerHTML = '<td class="p-2.5 font-bold">' + f.month + ' ২০২৬</td>' +
+                         '<td class="p-2.5 font-bold text-blue-950">' + f.amount + ' ৳</td>' +
+                         '<td class="p-2.5">' + statusBadge + '</td>' +
+                         '<td class="p-2.5 text-gray-600 text-[11px]">' + (f.paid_at ? f.paid_at + ' (' + (f.trx_id || '') + ')' : '--') + '</td>' +
+                         '<td class="p-2.5 text-center">' + actionBtn + '</td>';
+          tbody.appendChild(tr);
+        }
+      }
+
+      document.getElementById('statPaidMonths').innerText = paidCount + ' টি';
+      document.getElementById('statDueMonths').innerText = dueCount + ' টি';
+    };
+
+    window.logoutStudentDirect = function() {
+      document.getElementById('studentDashboardView').style.display = 'none';
+      document.getElementById('studentLoginFormView').style.display = 'block';
+      activeStudent = null;
+    };
+
     function getStoredPendingAdmissions() {
       try {
         var a = localStorage.getItem('almuslim_pending_admissions_clean');
@@ -1268,7 +1379,6 @@
       recalculateAllMarksAndGPA();
     }
 
-    // ১০০% নিখুঁত অটো গ্রেড ও GPA ক্যালকুলেটর (ফাঁকা ঘর অটো-স্কিপ, GPA 0.00 সমস্যা চিরতরে সমাধান)
     function handleRealtimeMarkInput(inputEl, fullMarks) {
       recalculateAllMarksAndGPA();
     }
@@ -1281,14 +1391,13 @@
 
       for (var i = 0; i < markInputs.length; i++) {
         var valStr = markInputs[i].value.trim();
-        if (valStr === '' || isNaN(valStr)) continue; // ফাঁকা ঘরগুলো স্বয়ংক্রিয়ভাবে বাদ যাবে
+        if (valStr === '' || isNaN(valStr)) continue;
 
-        var mVal = parseFloat(valStr) || 0;
-        
-        // টেবিলের একই সারি থেকে পূর্ণমান বের করা
+        var mVal = parseNumberRobust(valStr);
         var tr = markInputs[i].closest('tr');
         var fullMarkCell = tr ? tr.querySelector('.sub-full-marks') : null;
-        var fullMark = fullMarkCell ? parseFloat(fullMarkCell.innerText) || 100 : 100;
+        var fullMark = fullMarkCell ? parseNumberRobust(fullMarkCell.innerText) : 100;
+        if (fullMark <= 0) fullMark = 100;
         
         var percentage = (fullMark > 0) ? (mVal / fullMark) * 100 : 0;
         
@@ -1302,7 +1411,6 @@
         else if (percentage >= 33) { grade = 'D'; pt = 1.0; }
         else { grade = 'F'; pt = 0.0; }
 
-        // গ্রেড ব্যাজ আপডেট করা
         var badge = tr ? tr.querySelector('.auto-grade-badge') : null;
         if (badge) {
           badge.innerText = grade;
@@ -1331,6 +1439,7 @@
       if (avgMarksEl) avgMarksEl.innerText = avg + '%';
       if (gpaEl) gpaEl.innerText = 'GPA: ' + gpa;
     }
+
     function addNewCustomSubjectRow() {
       var tbody = document.getElementById('subjectRowsContainer');
       var rowCount = tbody.children.length + 1;
