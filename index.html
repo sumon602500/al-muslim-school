@@ -1,0 +1,2102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>NexusTrade Pro — VIP Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ডিপ-ডার্ক প্রিমিয়াম ব্যাকগ্রাউন্ড এবং স্পটলাইট রেডিয়াল গ্রেডিয়েন্ট */
+        body { 
+            background-color: #030508; 
+            color: #f8fafc; 
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            background-image: radial-gradient(circle at 50% 0%, #1a1500 0%, transparent 70%);
+        }
+
+        /* ব্যাকগ্রাউন্ড ব্লব (আভা) */
+        .bg-blobs {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -20; overflow: hidden;
+        }
+        .blob {
+            position: absolute; border-radius: 50%; filter: blur(150px);
+            opacity: 0.12; animation: moveBlobs 20s infinite alternate linear;
+        }
+        .blob-1 { top: -10%; left: -10%; width: 50vw; height: 50vw; background: #ca8a04; }
+        .blob-2 { bottom: -10%; right: -10%; width: 60vw; height: 60vw; background: #a16207; animation-delay: -5s; }
+        .blob-3 { top: 40%; left: 40%; width: 40vw; height: 40vw; background: #854d0e; animation-delay: -10s; }
+
+        @keyframes moveBlobs {
+            0% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(10%, 15%) scale(1.1); }
+            100% { transform: translate(-10%, -10%) scale(0.9); }
+        }
+
+        /* Glass Panel - নতুন মিনিমালিস্ট প্রিমিয়াম বক্স স্টাইল */
+        .glass-card { 
+            background: rgba(10, 14, 23, 0.4); 
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(250, 204, 21, 0.1);
+            border-radius: 24px;
+        }
+
+        /* Glowing text for stats */
+        .neon-text-green { text-shadow: 0 0 15px rgba(16, 185, 129, 0.5); }
+        .neon-text-red { text-shadow: 0 0 15px rgba(244, 63, 94, 0.5); }
+        .neon-text-gold { text-shadow: 0 0 15px rgba(250, 204, 21, 0.5); }
+
+        /* Magic Orb Button */
+        .magic-orb {
+            background: radial-gradient(circle at 30% 30%, #fef08a, #eab308, #854d0e);
+            box-shadow: 0 0 30px rgba(234, 179, 8, 0.3), inset 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none; outline: none; cursor: pointer;
+        }
+        .magic-orb:hover:not(:disabled) {
+            box-shadow: 0 0 50px rgba(234, 179, 8, 0.6), inset 0 0 20px rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
+        }
+        .magic-orb:disabled { opacity: 0.7; filter: grayscale(50%); transform: scale(0.95); cursor: not-allowed; }
+
+        /* Target Market Pills */
+        .market-pill {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #64748b;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+        .market-pill.active {
+            background: rgba(250, 204, 21, 0.1);
+            border: 1px solid #facc15;
+            color: #facc15;
+            box-shadow: inset 0 0 10px rgba(250, 204, 21, 0.1);
+        }
+
+        /* DYNAMIC ISLAND CSS ANIMATION */
+        .island-menu { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .tab-btn { color: #64748b; padding: 8px 12px; border-radius: 100px; transition: all 0.3s ease; font-weight: 600; border: 1px solid transparent; }
+        .tab-btn.active { background: rgba(250, 204, 21, 0.1); color: #facc15; box-shadow: inset 0 0 15px rgba(250, 204, 21, 0.05); border: 1px solid rgba(250, 204, 21, 0.2); }
+        @media (min-width: 640px) { .tab-btn { padding: 10px 18px; } }
+
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: rgba(250,204,21,0.2); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: rgba(250,204,21,0.4); }
+    
+/* Royal Gold V3: reference-oriented structural layout, no trading logic changed */
+:root{--rg-gold:#ffcb21;--rg-edge:#f5a900;--rg-black:#050505}
+body{background:#030303!important;background-image:radial-gradient(ellipse at 45% 0%,#241700 0%,#050505 45%,#000 100%)!important}
+.glass-card{background:linear-gradient(140deg,#100d06 0%,#050505 65%,#120b02 100%)!important;border:1px solid #cf8c05!important;border-radius:22px!important;box-shadow:inset 0 0 15px #f9b90016,0 0 13px #ffb90035,0 0 2px #ffd750!important}
+header{padding:10px 16px!important}header>div{max-width:none!important;border-radius:16px!important;min-height:75px}
+header h1{font-size:25px!important}header p{font-size:10px!important}
+#rg-title{display:flex;align-items:center;justify-content:center;gap:9px;border:1px solid #f6ae00;border-radius:12px;background:linear-gradient(90deg,#100a00,#3c2500,#100a00);box-shadow:0 0 13px #ffbc006b;color:#ffdf57;font-weight:900;padding:12px 25px;text-transform:uppercase}
+#rg-top-info{display:flex;align-items:center;gap:10px}#rg-top-info>span{border:1px solid #69552b;border-radius:22px;background:#090909;padding:10px 15px;font-size:12px;font-weight:800;white-space:nowrap}
+#rg-top-info .rg-online{color:#00ef8c}
+#rg-sidebar{position:fixed;top:99px;bottom:35px;left:12px;width:185px;border:1px solid #c88b05;border-radius:20px;padding:15px 9px;background:linear-gradient(155deg,#160e01,#050505 60%,#1a1000);box-shadow:0 0 14px #e6a9006b;z-index:35;display:flex;flex-direction:column;gap:10px}
+#rg-sidebar button,#rg-sidebar a{display:flex;align-items:center;gap:11px;padding:13px 12px;color:#fff;font-size:14px;font-weight:800;background:linear-gradient(110deg,#17140e,#050505);border:1px solid #504124;border-radius:12px;text-align:left;cursor:pointer}
+#rg-sidebar button i,#rg-sidebar a i{color:#ffce28;width:20px;text-align:center}
+#rg-sidebar .rg-selected{color:#171000;background:linear-gradient(100deg,#ffdc4a,#e5a200);box-shadow:0 0 15px #ffbd00;border-color:#ffea75}
+#rg-sidebar .rg-selected i{color:#1a1200}
+#rg-sidebar .rg-brand{margin-top:auto;text-align:center;color:#f7d260;font-weight:900;font-size:13px;padding:20px 0}
+#rg-banner{margin:4px 16px 16px 210px;min-height:80px;border:1px solid #e6a400;border-radius:18px;background:linear-gradient(95deg,#120e05 0%,#0b0905 45%,#4d3100 85%,#110b00 100%);box-shadow:0 0 14px #ffb90070;display:flex;align-items:center;justify-content:space-between;padding:12px 26px}
+#rg-banner strong{font-size:23px;font-weight:900}#rg-banner small{color:#e7b73d;font-weight:800;letter-spacing:1px}
+#rg-banner .rg-bars{font-size:34px;color:#ffc520;text-shadow:0 0 16px #ffbe00}
+#rg-footer{margin:22px 16px 0 210px;display:flex;justify-content:space-around;gap:10px;border:1px solid #db9b08;border-radius:20px;padding:16px 12px;background:#080806;box-shadow:0 0 12px #ffb90060;color:#f6e9bc;font-size:12px;font-weight:800}
+#rg-footer b{color:#00ee87}
+body>div.px-4.mb-8{display:none!important}
+main{max-width:none!important;margin-left:200px!important;padding:0 16px 20px 10px!important}
+#sec-manual:not(.hidden){display:grid;grid-template-columns:minmax(260px,.95fr) minmax(320px,1.27fr) minmax(350px,1.5fr);gap:16px!important;align-items:stretch}
+#sec-manual>.md\:col-span-5,#sec-manual>.md\:col-span-7{grid-column:auto!important;min-width:0;gap:15px!important}
+#rg-result-column{min-width:0}
+#sec-manual .magic-orb{width:220px!important;height:220px!important;background:radial-gradient(circle at 45% 40%,#1a1000 0%,#090703 55%,#030303 65%)!important;border:10px double #ffc31b!important;box-shadow:0 0 0 10px #9b650033,0 0 0 16px #e6a50030,inset 0 0 30px #ffbc006e,0 0 35px #ffc400a8!important;color:#ffdb55!important}
+#sec-manual .magic-orb i{font-size:42px!important}
+#sec-manual .magic-orb span{font-size:12px!important}
+#signal-card{padding:16px!important;border:2px solid #f7b500!important;box-shadow:0 0 20px #ffbc0080,inset 0 0 18px #ffb90022!important}
+#signal-card #card-pair{font-size:22px!important}
+#signal-card #card-direction{font-size:21px!important;min-height:53px;clip-path:polygon(4% 0,96% 0,100% 50%,96% 100%,4% 100%,0 50%);border-radius:0!important}
+#signal-card #card-direction:has(.fa-arrow-down),#signal-card #card-direction[class*=rose]{box-shadow:inset 0 0 20px #ff233566,0 0 13px #f22!important}
+#signal-card .grid.grid-cols-3>div{border:1px solid #b68a21!important;background:#120e07!important;border-radius:10px!important}
+#signal-card img{min-height:155px;object-fit:cover}
+#sec-manual .md\:col-span-7>.glass-card:first-child{min-height:195px}
+#sec-manual .md\:col-span-7>.glass-card:nth-child(2){flex:1;min-height:400px}
+#sec-manual .md\:col-span-7 .grid.grid-cols-4>div{padding:10px 2px;background:#100e09;border-radius:12px}
+#sec-manual .md\:col-span-7 .grid.grid-cols-4 span[id]{font-size:30px!important}
+#rg-result-column .rg-empty{height:100%;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#e1b84d;text-align:center;padding:25px}
+@media(max-width:1200px){ #rg-top-info .rg-clock,#rg-top-info .rg-date{display:none}#rg-title{padding:10px}#sec-manual{grid-template-columns:minmax(230px,1fr) minmax(300px,1.2fr)}#sec-manual>.md\:col-span-7{grid-column:1/-1!important;display:grid;grid-template-columns:1fr 1.3fr}}
+@media(max-width:800px){ #rg-sidebar{position:relative;top:auto;bottom:auto;left:auto;width:auto;margin:8px 12px;flex-direction:row;flex-wrap:wrap;padding:8px;gap:6px}#rg-sidebar button,#rg-sidebar a{font-size:11px;padding:9px}#rg-sidebar .rg-brand{display:none}#rg-banner{margin:10px 12px}#rg-title,#rg-top-info{display:none}main{margin-left:0!important;padding:0 12px!important}#sec-manual{grid-template-columns:1fr!important}#sec-manual>.md\:col-span-7{grid-column:auto!important;display:flex}#rg-footer{margin:14px 12px;flex-wrap:wrap;font-size:10px}header h1{font-size:18px!important}}
+
+
+/* Royal Gold V3 reference fidelity pass: visual-only overrides */
+@media(min-width:1201px){
+ #rg-sidebar{width:190px;top:101px;bottom:36px;border-radius:26px;background:linear-gradient(160deg,#100b02,#020202 60%,#120900);box-shadow:0 0 0 1px #ffdf5d55,inset 0 0 24px #d991001c,0 0 20px #ffa50038}
+ main{margin-left:205px!important;padding-right:17px!important}
+ #rg-banner{margin-left:215px}
+ #rg-footer{margin-left:215px}
+ #sec-manual{grid-template-columns:minmax(285px,0.94fr) minmax(370px,1.28fr) minmax(400px,1.52fr);gap:16px!important}
+ #sec-manual>.md\:col-span-5>.glass-card:first-child{min-height:622px}
+ #sec-manual>.md\:col-span-7>.glass-card:first-child{min-height:180px}
+ #sec-manual>.md\:col-span-7>.glass-card:nth-child(2){min-height:425px}
+}
+#rg-banner{position:relative;overflow:hidden;background:linear-gradient(90deg,#060606 0%,#100b02 49%,#392000 82%,#080500 100%);border-color:#ffcf37;box-shadow:0 0 16px #ffb6005c,inset 0 -2px 12px #f3a90039}
+#rg-banner:after{content:"";position:absolute;right:18px;bottom:0;width:36%;height:72%;opacity:.7;pointer-events:none;background:repeating-linear-gradient(90deg,transparent 0 11px,#ffc526 12px 15px,transparent 16px 23px);clip-path:polygon(0 85%,7% 68%,13% 80%,20% 38%,28% 55%,35% 17%,42% 49%,49% 29%,56% 60%,64% 14%,71% 42%,78% 8%,86% 33%,94% 0,100% 25%,100% 100%,0 100%);filter:drop-shadow(0 0 6px #ffbc00)}
+#rg-banner>div{position:relative;z-index:1}
+#rg-sidebar button,#rg-sidebar a{border-radius:13px;min-height:46px}
+#rg-sidebar .rg-brand:before{content:"♛";display:block;font-size:45px;color:#ffd348;text-shadow:0 0 16px #ffc400}
+#sec-manual .glass-card{border-color:#ffc322!important;box-shadow:0 0 0 1px #ffdb5a40,0 0 18px #ffb90046,inset 0 0 18px #ffad0014!important}
+#sec-manual .magic-orb{position:relative;border:7px solid #ffd444!important;outline:2px solid #a86a00;outline-offset:13px;background:radial-gradient(circle,#120d04 0%,#050505 70%)!important;box-shadow:0 0 0 16px #b880001c,0 0 0 24px #ffc9000a,0 0 26px 6px #ffb900aa,inset 0 0 22px #ffc90055!important;animation:rg-pulse 3s ease-in-out infinite}
+#sec-manual .magic-orb:before{content:"";position:absolute;inset:-23px;border-radius:50%;border:2px dashed #ffca37a6;pointer-events:none;animation:rg-spin 35s linear infinite}
+#sec-manual .magic-orb:after{content:"";position:absolute;inset:-10px;border-radius:50%;border:5px solid transparent;border-top-color:#fff4a4;border-bottom-color:#f8a900;filter:drop-shadow(0 0 6px #ffc500);pointer-events:none}
+@keyframes rg-spin{to{transform:rotate(360deg)}}@keyframes rg-pulse{50%{box-shadow:0 0 0 16px #b880001c,0 0 0 24px #ffc9000a,0 0 38px 10px #ffb900bd,inset 0 0 28px #ffc90070}}
+#signal-card{background:linear-gradient(145deg,#100a02,#020304 48%,#130b02)!important;border-radius:24px!important;box-shadow:0 0 0 1px #ffe47a,0 0 23px #ffb90090,inset 0 0 18px #e8a30028!important}
+#signal-card #card-pair{font-size:clamp(18px,1.7vw,27px)!important;text-shadow:0 0 9px #fff6}
+#signal-card #card-direction{font-size:clamp(16px,1.8vw,27px)!important;letter-spacing:.02em;filter:drop-shadow(0 0 8px #ff223366)}
+#signal-card .grid.grid-cols-3>div{background:linear-gradient(145deg,#1e1304,#050505)!important;border-color:#d4a522!important;box-shadow:inset 0 0 8px #e6a00025,0 0 7px #ffc40028}
+#signal-card .border.rounded-xl{border-color:#ffc429!important;box-shadow:0 0 12px #ffbc0040}
+#signal-card #card-confidence{border-color:#ffc829!important;color:#ffde62!important}
+#sec-manual .md\:col-span-7 .grid.grid-cols-4>div{background:radial-gradient(ellipse at bottom,#251600,#070707 75%);border:1px solid #6c501e;border-radius:13px;box-shadow:inset 0 -5px 10px #e8a00013}
+#sec-manual .md\:col-span-7 .grid.grid-cols-4 span[id]{text-shadow:0 0 12px currentColor}
+#history-list>div{border-bottom:1px solid #a478234a}
+#rg-footer{border-color:#ffd43e;box-shadow:0 0 14px #ffbf0055,inset 0 0 14px #eaa5001a}
+@media(prefers-reduced-motion:reduce){
+ #sec-manual .magic-orb,#sec-manual .magic-orb:before{animation:none!important}}
+
+
+/* Navigation visibility guarantee: hidden sections must not occupy the layout. */
+#sec-manual.hidden,#sec-auto.hidden,#sec-future.hidden,
+#sec-pricing.hidden,#sec-profile.hidden,#sec-analytics.hidden {display:none!important;}
+#sec-manual:not(.hidden){display:grid!important;}
+#sec-auto:not(.hidden),#sec-future:not(.hidden),
+#sec-pricing:not(.hidden),#sec-profile:not(.hidden),
+#sec-analytics:not(.hidden){display:grid;}
+
+/* Royal Gold V3: three dedicated history panels */
+#sec-history.hidden{display:none!important}
+#sec-history:not(.hidden){display:block!important}
+.rg-history-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.rg-history-card{min-width:0;min-height:430px;padding:19px;border:1px solid #e7ae16;border-radius:20px;background:linear-gradient(150deg,#170e02,#030303 55%,#100a02);box-shadow:0 0 15px #e9a7004c,inset 0 0 16px #c28d001a}
+.rg-history-title{display:flex;align-items:center;gap:12px;color:#ffd64b;font-weight:900;letter-spacing:.07em;font-size:14px;padding-bottom:15px;border-bottom:1px solid #8e6a2766}
+.rg-history-title i{font-size:22px}
+.rg-history-list{margin-top:15px;display:flex;flex-direction:column;gap:9px;max-height:520px;overflow-y:auto}
+.rg-history-entry{padding:12px;border:1px solid #75551b;border-radius:11px;background:#0c0b08;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.rg-history-pair{font-size:11px;font-weight:800;color:#fff;overflow-wrap:anywhere}
+.rg-history-meta{font-size:10px;color:#bfa971;margin-top:4px}
+.rg-history-status{font-size:10px;font-weight:900;padding:5px 8px;border-radius:7px;border:1px solid currentColor;white-space:nowrap}
+.rg-history-empty{padding:42px 8px;text-align:center;font-size:12px;color:#ac9970}
+@media(max-width:1100px){.rg-history-grid{grid-template-columns:1fr}.rg-history-card{min-height:220px}}
+
+/* Royal Gold V3: Auto uses the same three-column composition as Manual. */
+#sec-auto.hidden{display:none!important}
+#sec-auto:not(.hidden) .auto-ready-panel{display:none}
+#sec-auto:not(.hidden) #loop-signal-card.hidden + #auto-ready-panel{display:flex}
+#sec-auto #loop-signal-card:not(.hidden){display:block}
+#sec-auto .magic-orb{position:relative;border:6px solid #ffce36!important;outline:2px solid #9b6800;outline-offset:11px;background:radial-gradient(circle,#171005,#040404 72%)!important;color:#ffda55!important;box-shadow:0 0 0 16px #bf8a001c,0 0 24px 6px #ffb90091,inset 0 0 24px #ffba0052!important}
+#sec-auto .magic-orb:before{content:"";position:absolute;inset:-20px;border:2px dashed #e9b52b99;border-radius:50%;pointer-events:none}
+#sec-auto #loop-signal-card{background:linear-gradient(145deg,#100a02,#020304 50%,#130b02)!important;border-color:#ffca37!important;box-shadow:0 0 0 1px #ffdf6b66,0 0 19px #ffb90068,inset 0 0 20px #c98c001a!important}
+#sec-auto #loop-card-pair{font-size:clamp(18px,1.8vw,27px)!important;text-shadow:0 0 8px #ffffff45}
+#sec-auto #loop-card-direction{font-size:clamp(17px,1.7vw,26px)!important;border-radius:13px!important;filter:drop-shadow(0 0 6px #ffcc0033)}
+#sec-auto #loop-signal-card .grid.grid-cols-3>div{background:linear-gradient(140deg,#1a1204,#040404)!important;border:1px solid #aa7d22!important;box-shadow:inset 0 0 9px #e0a00024}
+#sec-auto #loop-signal-card img{max-height:280px;object-fit:contain}
+#sec-auto .glass-card{border-color:#f5bc28!important;box-shadow:0 0 0 1px #ffdb5b3c,0 0 17px #ffb90042,inset 0 0 16px #b8780018!important}
+#sec-auto #loop-history-list{max-height:480px}
+@media(min-width:1100px){
+ #sec-auto:not(.hidden){display:grid!important;grid-template-columns:minmax(255px,0.92fr) minmax(325px,1.18fr) minmax(360px,1.38fr)!important;grid-template-rows:auto minmax(340px,1fr);gap:16px!important;align-items:stretch}
+ #sec-auto>.md\:col-span-5,#sec-auto>.md\:col-span-7{display:contents}
+ #sec-auto>.md\:col-span-5>.glass-card:first-child{grid-column:1;grid-row:1 / span 2;min-height:570px;justify-content:center}
+ #sec-auto #loop-signal-card,#sec-auto #auto-ready-panel{grid-column:2;grid-row:1 / span 2;min-height:570px}
+ #sec-auto>.md\:col-span-7>.glass-card:first-child{grid-column:3;grid-row:1;align-self:start}
+ #sec-auto>.md\:col-span-7>.glass-card:last-child{grid-column:3;grid-row:2;min-height:380px}
+}
+@media(min-width:700px) and (max-width:1099px){
+ #sec-auto:not(.hidden){display:grid!important;grid-template-columns:1fr 1fr!important;gap:16px}
+ #sec-auto>.md\:col-span-5,#sec-auto>.md\:col-span-7{grid-column:auto / span 1;display:flex;flex-direction:column}
+}
+@media(max-width:699px){ #sec-auto:not(.hidden){display:flex!important;flex-direction:column;gap:16px}}
+
+
+/* Royal Gold compact desktop view: visual scale only, never browser zoom setting. */
+@media (min-width: 1000px) {
+  html { zoom: 0.67; }
+}
+@media (max-width: 999px) {
+  html { zoom: 1; }
+}
+#rg-telegram-connect i {color:#28a9e0!important}
+#rg-telegram-connect {border-color:#236887!important}
+#rg-telegram-connect:hover {background:linear-gradient(100deg,#14384c,#060e14)!important;box-shadow:0 0 12px #1689c177}
+/* Dashboard feature overview and Telegram controls */
+#sec-dashboard.hidden{display:none!important}
+.rg-overview-hero{border:1px solid #e6ae25;border-radius:22px;padding:28px;background:linear-gradient(115deg,#1b1002,#060606 60%,#251400);box-shadow:0 0 20px #ffc00045,inset 0 0 25px #ffc00016}
+.rg-overview-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.rg-overview-card{min-height:205px;display:flex;flex-direction:column;align-items:flex-start;text-align:left;padding:23px;border:1px solid #bd8b22;border-radius:18px;background:linear-gradient(145deg,#140d02,#070707 70%);box-shadow:0 0 12px #ffb80030;gap:11px;color:#fff}
+.rg-overview-card:hover,.rg-overview-card:focus-visible{border-color:#ffe478;box-shadow:0 0 18px #ffbe0066}
+.rg-overview-card>i{font-size:29px;color:#ffd348}
+.rg-overview-card strong{font-size:19px;color:#fff}
+.rg-overview-card small{font-size:12px;color:#bdb5a1}
+.rg-overview-card span{margin-top:auto;font-size:12px;color:#ffd348;font-weight:800}
+.rg-tg-toggle{display:flex;gap:12px;align-items:center;margin:10px 0 16px;padding:12px;border:1px solid #237d91;border-radius:12px;color:#d1f2fa;font-size:13px;font-weight:700}
+.rg-tg-toggle input{width:20px;height:20px;accent-color:#10b981}
+@media(max-width:850px){.rg-overview-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:540px){.rg-overview-grid{grid-template-columns:1fr}}
+
+/* Typography-only readability refinement. Preserve the existing compact 0.67 scale. */
+@media (min-width:1000px) {
+  #rg-sidebar button, #rg-sidebar a {font-size:18px!important;font-weight:900!important;letter-spacing:.1px;line-height:1.25;text-shadow:none!important;}
+  #rg-sidebar button i, #rg-sidebar a i {font-size:18px!important;flex-shrink:0;}
+  #rg-sidebar .rg-brand p {font-size:16px!important;line-height:1.4;}
+  #rg-sidebar .rg-brand small {font-size:13px!important;}
+  #rg-title {font-size:17px!important;line-height:1.3;letter-spacing:.1px;}
+  #rg-top-info>span {font-size:16px!important;font-weight:900!important;letter-spacing:0!important;padding:10px 13px;}
+  header h1 {font-size:28px!important;}
+  header p {font-size:14px!important;letter-spacing:.4px!important;}
+  #rg-banner strong {font-size:26px!important;}
+  #rg-banner small {font-size:15px!important;letter-spacing:.4px!important;}
+  #rg-footer {font-size:15px!important;}
+  #rg-telegram-connect {font-size:17px!important;}
+  #sec-auto .text-\[9px\], #sec-manual .text-\[9px\], #sec-future .text-\[9px\] {font-size:13px!important;}
+  #sec-auto .text-\[10px\], #sec-manual .text-\[10px\], #sec-future .text-\[10px\] {font-size:14px!important;}
+  #sec-auto .text-\[11px\], #sec-manual .text-\[11px\], #sec-future .text-\[11px\] {font-size:15px!important;}
+  #sec-auto .text-xs, #sec-manual .text-xs, #sec-future .text-xs {font-size:15px!important;}
+  .rg-history-meta, .rg-history-status {font-size:14px!important;}
+  .rg-history-pair {font-size:15px!important;}
+  .rg-history-title {font-size:18px!important;}
+  .rg-overview-card small,.rg-overview-card span {font-size:16px!important;}
+}
+</style>
+<style>
+.rg-live-panel{background:#0b0803;border:1px solid #d6a600;border-radius:15px;padding:16px;box-shadow:0 0 16px #e6a90020;color:#f7e8b4}
+.rg-live-head,.rg-live-controls,.rg-live-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.rg-live-head strong{color:#ffd32d;font-size:14px}.rg-live-head small,.rg-live-quote small{display:block;color:#b5a47b;font-size:10px;margin-top:5px}.rg-live-quote{text-align:right}.rg-live-quote span{font-size:22px;font-weight:900;color:#ffda43;font-family:monospace}.rg-live-controls{justify-content:flex-start;margin:14px 0 8px}.rg-live-controls select,.rg-live-controls button,.rg-live-interval{background:#141007;color:#f8d14a;border:1px solid #725a0b;border-radius:8px;padding:8px 10px;font-size:12px}.rg-live-controls button{cursor:pointer}.rg-live-interval{border-color:#42370e}#rg-live-chart{height:390px;width:100%;position:relative;background:#080805;border-radius:9px}.rg-live-footer{color:#a99564;font-size:10px;margin-top:9px}@media(max-width:640px){ #rg-live-chart{height:310px}.rg-live-head{align-items:flex-start}}
+</style>
+</head>
+<body class="min-h-screen pb-24 relative selection:bg-yellow-500/30">
+
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+    
+    <canvas id="particleCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none z-[-10]"></canvas>
+
+    <div id="global-copy-toast" class="fixed top-24 left-1/2 -translate-x-1/2 bg-slate-900/90 backdrop-blur border border-yellow-500/50 text-yellow-400 text-sm font-bold px-5 py-2.5 rounded-full shadow-[0_0_20px_rgba(250,204,21,0.4)] z-50 flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300 transform scale-95">
+        <i class="fa-solid fa-circle-check"></i>
+        <span id="toast-text">Copied to Clipboard!</span>
+    </div>
+
+    <header class="pt-6 pb-4 px-4 relative z-40">
+        <div class="max-w-4xl mx-auto glass-card px-4 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-3 overflow-hidden">
+                <div class="w-11 h-11 rounded-xl overflow-hidden shadow-[0_0_15px_rgba(250,204,21,0.2)] flex-shrink-0 border border-slate-700 bg-slate-900 flex justify-center items-center">
+                    <img src="https://i.ibb.co/bRQLRfDH/dc6c4ac8-f2f3-4710-94da-2d397bf69214.jpg" alt="NexusTrade Pro Logo" class="w-full h-full object-cover">
+                </div>
+                <div class="overflow-hidden">
+                    <h1 class="font-black text-base sm:text-lg tracking-wide text-white flex items-center gap-2 whitespace-nowrap drop-shadow-md">
+                        NexusTrade
+                        <span class="text-[10px] bg-gradient-to-r from-amber-400 to-amber-600 text-white font-black px-2 py-0.5 rounded shadow-lg uppercase">PRO</span>
+                    </h1>
+                    <p class="text-[10px] text-yellow-400 font-black mt-1 flex items-center whitespace-nowrap tracking-widest uppercase">
+                        <i class="fa-solid fa-bolt mr-1.5 text-yellow-400 animate-pulse drop-shadow-[0_0_5px_rgba(250,204,21,0.8)]"></i> Elite Server Online
+                    </p>
+                </div>
+            </div>
+            <div id="rg-title"><i class="fa-solid fa-crown"></i> Royal Gold V3 Ultra Premium</div><div id="rg-top-info"><span class="rg-online">● Server : Online</span><span class="rg-clock">◷ <span id="rg-clock"></span></span><span class="rg-date">▣ <span id="rg-date"></span></span></div><div class="flex items-center gap-2 flex-shrink-0">
+                {% if user.role == 'admin' %}
+                <a href="/admin" class="text-amber-400 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 p-2.5 rounded-xl transition">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </a>
+                {% endif %}
+                <a href="/logout" onclick="clearLocalAuthCache()" class="text-slate-400 hover:text-white bg-slate-800/50 hover:bg-slate-700 p-2.5 rounded-xl border border-slate-700 transition">
+                    <i class="fa-solid fa-power-off"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+    <aside id="rg-sidebar" aria-label="Main navigation">
+      <button class="rg-selected" onclick="switchTab('dashboard')"><i class="fa-solid fa-house"></i>Dashboard</button>
+      <button onclick="switchTab('auto')"><i class="fa-solid fa-chart-simple"></i>Auto Signal</button>
+      <button onclick="switchTab('manual')"><i class="fa-solid fa-crosshairs"></i>Manual Signal</button>
+      <button onclick="switchTab('future')"><i class="fa-solid fa-layer-group"></i>Future Signal</button>
+      <button onclick="switchTab('pricing')"><i class="fa-solid fa-gem"></i>VIP Plan</button>
+      <button onclick="showRoyalHistory()"><i class="fa-solid fa-clock-rotate-left"></i>History</button>
+      <button onclick="switchTab('profile')"><i class="fa-solid fa-gear"></i>Settings</button>
+      <button type="button" id="rg-telegram-connect" onclick="{% if session.get('role') == 'admin' %}openTelegramSettings(){% else %}openUserTelegramSettings(){% endif %}"><i class="fa-brands fa-telegram"></i>Telegram Connect</button>
+      {% if user.role == 'admin' %}<a href="/admin"><i class="fa-solid fa-crown"></i>Admin Panel</a>{% endif %}
+      <div class="rg-brand"><i class="fa-solid fa-crown fa-3x"></i><p>NEXUSTRADE</p><small>ELITE TERMINAL</small></div>
+    </aside>
+    <div id="rg-banner"><div><span class="rg-bars"><i class="fa-solid fa-chart-column"></i></span> &nbsp; <strong>MARKET ANALYZER</strong><div><small>REAL-TIME MARKET INTELLIGENCE</small></div></div><div class="rg-bars">▂▅▃▆▄▇▅▃▆▇</div></div>
+
+    <div class="px-4 mb-8 relative z-50 flex justify-center">
+        <div class="group relative">
+            <div class="island-menu w-36 h-12 bg-[#050810] border border-yellow-500/30 rounded-full flex items-center justify-center overflow-hidden group-hover:w-[350px] sm:group-hover:w-[580px] group-hover:h-16 group-hover:bg-[#0a0e17] shadow-[0_0_15px_rgba(250,204,21,0.2)] group-hover:shadow-[0_0_30px_rgba(250,204,21,0.4)] cursor-pointer backdrop-blur-md">
+                <span class="text-yellow-400 text-sm font-black group-hover:hidden flex items-center gap-2 uppercase tracking-widest">
+                    <i class="fa-solid fa-compass animate-pulse"></i> Menu
+                </span>
+                <nav class="hidden group-hover:flex items-center justify-around w-full px-2 text-[11px] sm:text-xs font-bold uppercase tracking-widest text-slate-400">
+                    <button onclick="switchTab('manual')" id="tab-manual" class="tab-btn flex-shrink-0 flex items-center gap-1.5 hover:text-yellow-400"><i class="fa-solid fa-crosshairs"></i> <span class="hidden sm:inline">Manual</span></button>
+                    <button onclick="switchTab('auto')" id="tab-auto" class="tab-btn flex-shrink-0 flex items-center gap-1.5 hover:text-yellow-400"><i class="fa-solid fa-bolt"></i> <span class="hidden sm:inline">Auto</span></button>
+                    <button onclick="switchTab('future')" id="tab-future" class="tab-btn flex-shrink-0 flex items-center gap-1.5 hover:text-yellow-400"><i class="fa-solid fa-layer-group"></i> <span class="hidden sm:inline">Future</span></button>
+                    <button onclick="switchTab('pricing')" id="tab-pricing" class="tab-btn flex-shrink-0 flex items-center gap-1.5 text-amber-400/80 hover:text-yellow-400"><i class="fa-solid fa-gem"></i> <span class="hidden sm:inline">VIP</span></button>
+                    <button onclick="switchTab('profile')" id="tab-profile" class="tab-btn flex-shrink-0 flex items-center gap-1.5 hover:text-yellow-400"><i class="fa-solid fa-user-astronaut"></i> <span class="hidden sm:inline">Profile</span></button>
+                    {% if user.role == 'admin' %}
+                    <button onclick="switchTab('analytics')" id="tab-analytics" class="tab-btn flex-shrink-0 flex items-center gap-1.5 hover:text-yellow-400"><i class="fa-solid fa-chart-pie"></i> <span class="hidden sm:inline">Stats</span></button>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-5xl mx-auto px-4 relative z-20">
+
+        <!-- ================= 1. MANUAL SIGNAL SECTION ================= -->
+                <!-- Dashboard overview: navigation only, no fabricated signal results. -->
+        <section id="sec-dashboard" class="space-y-5">
+          <div class="rg-overview-hero">
+            <div class="text-yellow-300 text-xs font-black tracking-widest mb-2"><i class="fa-solid fa-crown mr-2"></i>ROYAL GOLD V3 ULTRA PREMIUM</div>
+            <h2 class="text-2xl md:text-3xl font-black text-white mb-2">NexusTrade Pro Dashboard</h2>
+            <p class="text-sm text-amber-100/70">Your trading terminal — select a feature below to get started.</p>
+          </div>
+          <div class="rg-overview-grid">
+            <button type="button" onclick="switchTab('auto')" class="rg-overview-card"><i class="fa-solid fa-bolt"></i><strong>Auto Signal</strong><small>Auto engine, signals and telemetry</small><span>Open Auto Signal →</span></button>
+            <button type="button" onclick="switchTab('manual')" class="rg-overview-card"><i class="fa-solid fa-crosshairs"></i><strong>Manual Signal</strong><small>Analyze confluence and view charts</small><span>Open Manual Signal →</span></button>
+            <button type="button" onclick="switchTab('future')" class="rg-overview-card"><i class="fa-solid fa-layer-group"></i><strong>Future Signal</strong><small>Scheduled signals and batches</small><span>Open Future Signal →</span></button>
+            <button type="button" onclick="switchTab('history')" class="rg-overview-card"><i class="fa-solid fa-clock-rotate-left"></i><strong>Signal History</strong><small>Auto, Manual and Future records</small><span>Open History →</span></button>
+            <button type="button" onclick="switchTab('pricing')" class="rg-overview-card"><i class="fa-solid fa-gem"></i><strong>VIP Plans</strong><small>Membership packages and purchases</small><span>View VIP Plans →</span></button>
+            <button type="button" onclick="switchTab('profile')" class="rg-overview-card"><i class="fa-solid fa-gear"></i><strong>Settings</strong><small>Account preferences and configuration</small><span>Open Settings →</span></button>
+          </div>
+          <!-- Added dashboard chart; original overview and navigation remain unchanged. -->
+          <div class="rg-live-panel">
+            <div class="rg-live-head"><div><strong><i class="fa-solid fa-chart-candlestick"></i> LIVE PRICE · CANDLE CHART</strong><small> XCharts market API · candle close (not executable tick price)</small></div><div class="rg-live-quote"><span id="rg-live-price">—</span><small id="rg-live-status">Connecting…</small></div></div>
+            <div class="rg-live-controls"><select id="rg-live-broker" aria-label="Market"><option value="quotex">Quotex OTC</option><option value="pocket">Pocket OTC</option><option value="real">Real Forex</option></select><select id="rg-live-pair" aria-label="Pair"><option value="">Loading assets…</option></select><span class="rg-live-interval">1m candles</span><button type="button" id="rg-live-fit">Reset view</button></div>
+            <div id="rg-live-chart" role="img" aria-label="Interactive OHLC candlestick chart"></div>
+            <div class="rg-live-footer"><span id="rg-live-ohlc">Hover over a candle for OHLC</span><span>Scroll to zoom · Drag to pan</span></div>
+          </div>
+        </section>
+        <section id="sec-manual" class="hidden grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+            <div class="md:col-span-5 flex flex-col gap-6">
+                <div class="glass-card p-6 md:p-8 relative overflow-hidden flex flex-col justify-center items-center text-center">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full blur-[40px]"></div>
+                    
+                    <h2 class="text-[11px] font-bold text-slate-400 tracking-widest uppercase mb-5"><i class="fa-solid fa-server text-yellow-500 mr-2"></i> Target Market</h2>
+                    
+                    <div class="flex flex-wrap justify-center gap-2 mb-8 relative z-10 w-full">
+                        <button onclick="setMarket('quotex')" id="mkt-quotex" class="market-pill active px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex-1">Quotex OTC</button>
+                        <button onclick="setMarket('pocket')" id="mkt-pocket" class="market-pill px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex-1">Pocket OTC</button>
+                        
+                        <button onclick="setMarket('real')" id="mkt-real" class="market-pill px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex items-center justify-center gap-1 flex-1">
+                            Real Mkt {% if not is_real_open %}<span class="text-rose-400 text-[10px]">(X)</span>{% endif %}
+                        </button>
+                    </div>
+
+                    <button onclick="requestAutoSignal()" id="btn-scan" class="magic-orb w-36 h-36 md:w-40 md:h-40 rounded-full flex flex-col items-center justify-center text-[#050810] mx-auto group">
+                        <i class="fa-solid fa-fingerprint text-3xl md:text-4xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Analyze<br>Confluence</span>
+                    </button>
+                    <p class="text-[10px] text-yellow-500/50 mt-5 tracking-widest font-mono animate-pulse">SYSTEM READY</p>
+                    <button type="button" onclick="{% if session.get('role') == 'admin' %}openTelegramSettings(){% else %}openUserTelegramSettings(){% endif %}" class="mt-4 px-5 py-2.5 rounded-xl bg-sky-500/10 border border-sky-500/40 text-sky-400 hover:bg-sky-500/20 text-xs font-bold tracking-wider transition"><i class="fa-brands fa-telegram mr-2"></i>Telegram</button>
+                </div>
+
+                <div id="signal-card" class="hidden glass-card p-6 relative overflow-hidden">
+                    <div class="absolute -top-16 -right-16 w-32 h-32 bg-yellow-500/10 rounded-full blur-[40px] pointer-events-none"></div>
+                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-3 relative z-10">
+                        <span id="card-market" class="text-[10px] font-black px-2.5 py-1 bg-slate-800 text-yellow-400 rounded uppercase tracking-widest border border-slate-700 shadow-inner">QUOTEX</span>
+                        <span id="card-confidence" class="text-[10px] font-black text-amber-400 flex items-center gap-1 bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/20"><i class="fa-solid fa-bolt"></i> 98%</span>
+                    </div>
+                    <div class="text-center py-4 relative z-10">
+                        <div class="text-slate-400 text-[10px] font-bold mb-2 tracking-widest uppercase">Target Asset</div>
+                        <div onclick="copyTextToClipboard(document.getElementById('card-pair').innerText)" class="inline-flex items-center gap-2 px-6 py-2 bg-slate-900/60 rounded-xl border border-slate-700 hover:border-yellow-500/50 cursor-pointer transition shadow-lg group">
+                            <span id="card-pair" class="text-xl md:text-2xl font-black tracking-widest text-white font-mono">NZD/CHF</span>
+                            <i class="fa-regular fa-copy text-slate-500 group-hover:text-yellow-400 transition"></i>
+                        </div>
+                        <div id="card-direction" class="mt-4 inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-lg font-black bg-yellow-500/10 text-yellow-400 border border-yellow-500/30 tracking-widest uppercase shadow-md">CALL ▲</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 text-center relative z-10 mb-4">
+                        <div class="bg-[#050810]/50 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[9px] uppercase font-bold tracking-widest">Expiry</span><span class="font-black text-white text-xs mt-1 block">1 Min</span></div>
+                        <div class="bg-[#050810]/50 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[9px] uppercase font-bold tracking-widest">Time</span><span id="card-time" class="font-black text-yellow-400 text-xs font-mono mt-1 block">--:--</span></div>
+                        <div class="bg-amber-500/5 p-2 rounded-lg border border-amber-500/20"><span class="text-amber-500 block text-[9px] uppercase font-bold tracking-widest">Risk</span><span class="font-black text-amber-400 text-xs mt-1 block">1-STEP</span></div>
+                    </div>
+                    
+                    <div class="border border-slate-700/80 rounded-xl overflow-hidden bg-[#030508] p-1.5 relative z-10">
+                        <div class="flex justify-between items-center px-2 py-1 mb-1 text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                            <span><i class="fa-solid fa-chart-simple text-yellow-400 mr-1"></i> Chart</span>
+                            <span id="chart-status-indicator" class="text-yellow-400 flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></span> Analyzing</span>
+                        </div>
+                        <div class="relative w-full rounded-lg overflow-hidden bg-black flex items-center justify-center min-h-[120px]">
+                            <img id="autoChartImg" src="" alt="Market Snapshot" class="w-full h-auto object-cover rounded-lg cursor-pointer hover:scale-105 transition opacity-90 hover:opacity-100"><div id="autoChartImgLive" style="display:none;width:100%;height:205px;min-height:205px"></div>
+                            <div id="chart-loader" class="absolute inset-0 bg-[#030508]/80 backdrop-blur-sm flex items-center justify-center text-xs text-yellow-400 font-bold tracking-widest"><i class="fa-solid fa-circle-notch animate-spin mr-1.5"></i> Loading</div>
+                        </div>
+                    </div>
+                    
+                    <div id="card-status" class="mt-4 bg-[#050810]/80 border border-slate-800 p-3.5 rounded-xl shadow-md transition-all duration-300 text-center z-10 relative">
+                        <span class="text-slate-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-regular fa-clock"></i> Waiting for trigger...</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="md:col-span-7 flex flex-col gap-6">
+                <div class="glass-card p-5 md:p-6">
+                    <div class="flex justify-between items-center mb-5">
+                        <h2 class="text-[11px] font-bold text-slate-400 tracking-widest uppercase"><i class="fa-solid fa-chart-line text-yellow-500 mr-2"></i> Telemetry</h2>
+                        <div class="flex items-center gap-2">
+                            <select id="score-day-select" onchange="syncManualDateFilter(this.value)" class="bg-transparent border border-slate-700 text-yellow-400 text-[10px] font-bold outline-none font-mono rounded px-2 py-1 cursor-pointer">
+                                <option value="today">Today</option><option value="all">All Dates</option>
+                            </select>
+                            <button onclick="resetSessionHistory()" class="text-[9px] text-slate-500 hover:text-rose-400 border border-slate-700 bg-slate-800 px-2 py-1.5 rounded transition uppercase tracking-wide"><i class="fa-solid fa-rotate-left"></i></button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 text-center divide-x divide-slate-800/50">
+                        <div><span class="text-[9px] text-slate-500 block uppercase tracking-widest font-bold mb-1">Win</span><span id="stat-direct" class="text-xl sm:text-3xl font-black text-emerald-400 font-mono neon-text-green">0</span></div>
+                        <div><span class="text-[9px] text-slate-500 block uppercase tracking-widest font-bold mb-1">MTG</span><span id="stat-mtg" class="text-xl sm:text-3xl font-black text-amber-400 font-mono neon-text-gold">0</span></div>
+                        <div><span class="text-[9px] text-slate-500 block uppercase tracking-widest font-bold mb-1">Loss</span><span id="stat-loss" class="text-xl sm:text-3xl font-black text-rose-500 font-mono neon-text-red">0</span></div>
+                        <div><span class="text-[9px] text-slate-500 block uppercase tracking-widest font-bold mb-1">Accuracy</span><span id="stat-rate" class="text-xl sm:text-2xl font-black text-white font-mono">0%</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 md:p-6 flex-1 flex flex-col min-h-[300px]">
+                    <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800/50">
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-[11px] font-bold text-slate-400 tracking-widest uppercase"><i class="fa-solid fa-clock-rotate-left text-yellow-500 mr-2"></i> Execution Log</h2>
+                            <span id="history-total-count" class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-mono hidden sm:inline-block">0</span>
+                        </div>
+                        <div class="hidden">
+                            <select id="history-day-select" class="hidden"><option value="today">Today</option><option value="all">All Dates</option></select>
+                        </div>
+                        <button type="button" onclick="sendTelegramSessionReport('manual')" class="text-[9px] text-sky-400 hover:text-white border border-sky-500/40 rounded px-2 py-1.5 font-bold uppercase"><i class="fa-brands fa-telegram mr-1"></i>End Session &amp; Report</button>
+                        <button onclick="resetSpecificDayHistory()" id="btn-reset-day" class="text-[9px] text-slate-500 hover:text-rose-500 transition font-bold uppercase tracking-widest"><i class="fa-solid fa-trash-can mr-1"></i> Clear</button>
+                    </div>
+                    <div id="history-list" class="space-y-2 overflow-y-auto max-h-[400px] pr-1">
+                        <div id="history-empty" class="text-center py-10 text-xs text-slate-500 font-medium">No trades executed in this session.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Royal Gold V3 separate history page -->
+        <section id="sec-history" class="hidden" aria-label="Signal History">
+          <div class="mb-5 rounded-xl border border-yellow-600/60 bg-black/70 p-5">
+            <h2 class="text-xl font-black text-yellow-400 tracking-wider"><i class="fa-solid fa-clock-rotate-left mr-2"></i>SIGNAL HISTORY</h2>
+            <p class="text-xs text-yellow-100/60 mt-2">Auto, Manual and Future signal records</p>
+          </div>
+          <div class="rg-history-grid">
+            <article class="rg-history-card"><h3 class="rg-history-title"><i class="fa-solid fa-bolt"></i>AUTO HISTORY</h3><div id="rg-auto-history" class="rg-history-list"></div></article>
+            <article class="rg-history-card"><h3 class="rg-history-title"><i class="fa-solid fa-bullseye"></i>MANUAL HISTORY</h3><div id="rg-manual-history" class="rg-history-list"></div></article>
+            <article class="rg-history-card"><h3 class="rg-history-title"><i class="fa-solid fa-layer-group"></i>FUTURE HISTORY</h3><div id="rg-future-history" class="rg-history-list"></div></article>
+          </div>
+        </section>
+
+        <!-- ================= 2. AUTO SIGNAL SECTION ================= -->
+        <section id="sec-auto" class="hidden grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+            <div class="md:col-span-5 flex flex-col gap-6">
+                <div class="glass-card p-6 md:p-8 relative overflow-hidden flex flex-col justify-center items-center text-center">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-yellow-500/10 rounded-full blur-[40px]"></div>
+                    <h2 class="text-[11px] font-bold text-slate-400 tracking-widest uppercase mb-5"><i class="fa-solid fa-microchip text-yellow-500 mr-2"></i> Auto Engine</h2>
+                    
+                    <div class="flex flex-wrap justify-center gap-2 mb-8 relative z-10 w-full">
+                        <button onclick="setAutoMarket('quotex')" id="auto-mkt-quotex" class="market-pill active px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex-1">Quotex OTC</button>
+                        <button onclick="setAutoMarket('pocket')" id="auto-mkt-pocket" class="market-pill px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex-1">Pocket OTC</button>
+                        
+                        <button onclick="setAutoMarket('real')" id="auto-mkt-real" class="market-pill px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex items-center justify-center gap-1 flex-1">Real Mkt</button>
+                    </div>
+
+                    <button onclick="startAutoLoop()" id="btn-loop-start" class="magic-orb w-36 h-36 md:w-40 md:h-40 rounded-full flex flex-col items-center justify-center text-[#050810] mx-auto group">
+                        <i class="fa-solid fa-play text-3xl md:text-4xl mb-2 ml-1 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Start<br>Engine</span>
+                    </button>
+                    
+                    <div class="mt-6 flex items-center justify-between w-full max-w-[200px] border-t border-slate-800 pt-4">
+                        <span id="auto-loop-status-badge" class="text-[9px] text-slate-500 font-bold uppercase tracking-wider"><i class="fa-solid fa-circle text-[6px] text-rose-500 align-middle mr-1"></i> Stopped</span>
+                        <button onclick="stopAutoLoop()" id="btn-loop-stop" class="text-[10px] text-rose-500 hover:text-white border border-rose-500/30 hover:bg-rose-500 px-3 py-1.5 rounded transition font-bold uppercase tracking-wider" disabled><i class="fa-solid fa-stop"></i> Stop</button>
+                    </div>
+                </div>
+
+                <div id="loop-signal-card" class="hidden glass-card p-6 relative overflow-hidden">
+                    <div class="absolute -top-16 -right-16 w-32 h-32 bg-yellow-500/10 rounded-full blur-[40px] pointer-events-none"></div>
+                    <div class="flex justify-between items-center border-b border-slate-700/50 pb-3 relative z-10">
+                        <span id="loop-card-market" class="text-[10px] font-black px-2.5 py-1 bg-slate-800 text-yellow-400 rounded uppercase tracking-widest border border-slate-700 shadow-inner">QUOTEX</span>
+                        <span id="loop-card-confidence" class="text-[10px] font-black text-amber-400 flex items-center gap-1 bg-amber-500/10 px-2.5 py-1 rounded border border-amber-500/20"><i class="fa-solid fa-bolt"></i> 98%</span>
+                    </div>
+                    <div class="text-center py-4 relative z-10">
+                        <div onclick="copyTextToClipboard(document.getElementById('loop-card-pair').innerText)" class="inline-flex items-center gap-2 px-6 py-2 bg-slate-900/60 rounded-xl border border-slate-700 hover:border-yellow-500/50 cursor-pointer transition shadow-lg group">
+                            <span id="loop-card-pair" class="text-xl md:text-2xl font-black tracking-widest text-white font-mono">--/--</span>
+                            <i class="fa-regular fa-copy text-slate-500 group-hover:text-yellow-400 transition"></i>
+                        </div>
+                        <div id="loop-card-direction" class="mt-4 inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-lg font-black bg-slate-800 text-slate-500 border border-slate-700 tracking-widest uppercase shadow-md">--</div>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 text-center relative z-10 mb-4">
+                        <div class="bg-[#050810]/50 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[9px] uppercase font-bold tracking-widest">Expiry</span><span class="font-black text-white text-xs mt-1 block">1 Min</span></div>
+                        <div class="bg-[#050810]/50 p-2 rounded-lg border border-slate-800"><span class="text-slate-400 block text-[9px] uppercase font-bold tracking-widest">Time</span><span id="loop-card-time" class="font-black text-yellow-400 text-xs font-mono mt-1 block">--:--</span></div>
+                        <div class="bg-amber-500/5 p-2 rounded-lg border border-amber-500/20"><span class="text-amber-500 block text-[9px] uppercase font-bold tracking-widest">Risk</span><span class="font-black text-amber-400 text-xs mt-1 block">1-STEP</span></div>
+                    </div>
+                    
+                    <div class="border border-slate-700/80 rounded-xl overflow-hidden bg-[#030508] p-1.5 relative z-10">
+                        <div class="flex justify-between items-center px-2 py-1 mb-1 text-[9px] text-slate-400 font-bold uppercase tracking-widest">
+                            <span><i class="fa-solid fa-chart-line text-yellow-400 mr-1"></i> Chart</span>
+                            <span id="loop-chart-status-indicator" class="text-yellow-400 flex items-center gap-1.5"></span>
+                        </div>
+                        <div class="relative w-full rounded-lg overflow-hidden bg-black flex items-center justify-center min-h-[120px]">
+                            <img id="loopChartImg" src="" alt="Snapshot" class="w-full h-auto object-cover rounded-lg cursor-pointer hover:scale-105 transition opacity-90 hover:opacity-100"><div id="loopChartImgLive" style="display:none;width:100%;height:205px;min-height:205px"></div>
+                            <div id="loop-chart-loader" class="absolute inset-0 bg-[#030508]/80 backdrop-blur-sm flex items-center justify-center text-xs text-yellow-400 font-bold tracking-widest"><i class="fa-solid fa-circle-notch animate-spin mr-1.5"></i></div>
+                        </div>
+                    </div>
+
+                    <div id="loop-card-status" class="mt-4 bg-[#050810]/80 border border-slate-800 p-3.5 rounded-xl shadow-md transition-all duration-300 text-center z-10 relative">
+                        <span class="text-slate-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-regular fa-clock"></i> Waiting for trigger...</span>
+                    </div>
+                </div>
+                <div id="auto-ready-panel" class="glass-card auto-ready-panel flex flex-col items-center justify-center text-center gap-3 p-8" aria-label="Auto signal ready">
+                    <i class="fa-solid fa-chart-line text-4xl text-yellow-400"></i>
+                    <h3 class="text-yellow-400 text-sm font-black tracking-widest">READY FOR AUTO SIGNAL</h3>
+                    <p class="text-slate-400 text-xs">Start Auto Engine to display the signal card and market chart here.</p>
+                </div>
+            </div>
+
+            <div class="md:col-span-7 flex flex-col gap-6">
+                <div class="glass-card p-5 md:p-6">
+                    <div class="flex justify-between items-center mb-5">
+                        <h2 class="text-[11px] font-bold text-slate-400 tracking-widest uppercase"><i class="fa-solid fa-microchip text-yellow-500 mr-2"></i> Auto Telemetry</h2>
+                        <div class="flex items-center gap-2">
+                            <select id="loop-score-day-select" onchange="syncLoopDateFilter(this.value)" class="bg-transparent border border-slate-700 text-yellow-400 text-[10px] font-bold outline-none font-mono rounded px-2 py-1 cursor-pointer">
+                                <option value="today">Today</option><option value="all">All Dates</option>
+                            </select>
+                            <button onclick="resetLoopHistory()" class="text-[9px] text-slate-500 hover:text-rose-400 border border-slate-700 bg-slate-800 px-2 py-1.5 rounded transition uppercase tracking-wide"><i class="fa-solid fa-rotate-left"></i></button>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-4 gap-2 text-center divide-x divide-slate-800/50">
+                        <div><span class="text-[9px] text-slate-500 block uppercase tracking-widest font-bold mb-1">Win</span><span id="loop-stat-direct" class="text-xl sm:text-3xl font-black text-emerald-400 font-mono neon-text-green">0</span></div>
+                        <div><span class="text-[9px] text-slate-500 block uppercase tracking-widest font-bold mb-1">MTG</span><span id="loop-stat-mtg" class="text-xl sm:text-3xl font-black text-amber-400 font-mono neon-text-gold">0</span></div>
+                        <div><span class="text-[9px] text-slate-500 block uppercase tracking-widest font-bold mb-1">Loss</span><span id="loop-stat-loss" class="text-xl sm:text-3xl font-black text-rose-500 font-mono neon-text-red">0</span></div>
+                        <div><span class="text-[9px] text-slate-500 block uppercase tracking-widest font-bold mb-1">Accuracy</span><span id="loop-stat-rate" class="text-xl sm:text-2xl font-black text-white font-mono">0%</span></div>
+                    </div>
+                </div>
+
+                <div class="glass-card p-5 md:p-6 flex-1 flex flex-col min-h-[300px]">
+                    <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800/50">
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-[11px] font-bold text-slate-400 tracking-widest uppercase"><i class="fa-solid fa-list text-yellow-500 mr-2"></i> Auto Log</h2>
+                            <span id="loop-history-total-count" class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-mono hidden sm:inline-block">0</span>
+                        </div>
+                        <div class="hidden"><select id="loop-history-day-select" class="hidden"><option value="today">Today</option></select></div>
+                        <button type="button" onclick="sendTelegramSessionReport('auto')" class="text-[9px] text-sky-400 hover:text-white border border-sky-500/40 rounded px-2 py-1.5 font-bold uppercase"><i class="fa-brands fa-telegram mr-1"></i>End Session &amp; Report</button>
+                        <button onclick="resetSpecificDayLoopHistory()" id="btn-reset-loop-day" class="text-[9px] text-slate-500 hover:text-rose-500 transition font-bold uppercase tracking-widest"><i class="fa-solid fa-trash-can mr-1"></i> Clear</button>
+                    </div>
+                    <div id="loop-history-list" class="space-y-2 overflow-y-auto max-h-[400px] pr-1">
+                        <div id="loop-history-empty" class="text-center py-10 text-xs text-slate-500 font-medium">No auto trades executed yet.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 3. FUTURE SIGNALS SECTION ================= -->
+        <section id="sec-future" class="hidden grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-8">
+            <div class="md:col-span-5 flex flex-col gap-6">
+                <div class="glass-card p-6 md:p-8 relative overflow-hidden flex flex-col justify-center items-center text-center">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-indigo-500/10 rounded-full blur-[40px]"></div>
+                    <h2 class="text-[11px] font-bold text-slate-400 tracking-widest uppercase mb-5"><i class="fa-solid fa-layer-group text-indigo-400 mr-2"></i> Scanner Target</h2>
+                    
+                    <div class="flex flex-wrap justify-center gap-2 mb-8 relative z-10 w-full">
+                        <button onclick="setFutureMarket('quotex')" id="fut-mkt-quotex" class="market-pill active px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex-1">Quotex OTC</button>
+                        <button onclick="setFutureMarket('pocket')" id="fut-mkt-pocket" class="market-pill px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex-1">Pocket OTC</button>
+                        
+                        <button onclick="setFutureMarket('real')" id="fut-mkt-real" class="market-pill px-4 py-2 rounded-full text-[11px] font-bold tracking-wide transition-transform active:scale-95 flex items-center justify-center gap-1 flex-1">Real Mkt</button>
+                    </div>
+
+                    <button onclick="requestFutureBatch()" id="btn-gen-future" class="magic-orb w-36 h-36 md:w-40 md:h-40 rounded-full flex flex-col items-center justify-center text-[#050810] mx-auto group">
+                        <i class="fa-solid fa-wand-magic-sparkles text-3xl md:text-4xl mb-2 group-hover:scale-110 transition-transform"></i>
+                        <span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Generate<br>Batch</span>
+                    </button>
+                    <p class="text-[10px] text-indigo-400/80 mt-5 tracking-widest font-mono">Gens Left: {{ sub.future_gen_limit - used_future }}</p>
+                </div>
+
+                <div id="future-action-bar" class="hidden glass-card p-4 flex justify-between items-center">
+                    <span id="future-live-summary-badge" class="font-mono text-[9px] text-indigo-400 font-black tracking-widest uppercase">📋 Active Target</span>
+                    <div class="flex items-center gap-2">
+                        <button onclick="copyFullFutureList()" class="px-3 py-1.5 bg-slate-800 hover:bg-slate-700 text-white font-bold rounded flex items-center gap-1.5 text-[9px] border border-slate-700 transition"><i class="fa-regular fa-copy"></i> Copy</button>
+                        <button onclick="downloadFutureListTxt()" class="px-3 py-1.5 bg-yellow-500/10 hover:bg-yellow-500/20 text-yellow-400 font-bold rounded flex items-center gap-1.5 text-[9px] border border-yellow-500/30 transition"><i class="fa-solid fa-download"></i> .txt</button>
+                    </div>
+                </div>
+                <div id="future-container" class="space-y-2 max-h-[300px] overflow-y-auto pr-1"></div>
+            </div>
+
+            <div class="md:col-span-7 flex flex-col gap-6">
+                <div class="glass-card p-5 md:p-6 flex-1 flex flex-col">
+                    <div class="flex justify-between items-center mb-4 pb-3 border-b border-slate-800/50">
+                        <div class="flex items-center gap-3">
+                            <h2 class="text-[11px] font-bold text-slate-400 tracking-widest uppercase"><i class="fa-solid fa-clock-rotate-left text-indigo-400 mr-2"></i> Batch Log</h2>
+                            <span id="future-batch-count" class="text-[9px] bg-slate-800 text-slate-400 px-2 py-0.5 rounded-full font-mono">0</span>
+                        </div>
+                    </div>
+                    <div id="future-batches-container" class="space-y-3 overflow-y-auto pr-1 max-h-[600px]">
+                        <div class="text-center text-xs font-medium text-slate-500 py-10">No batches generated yet.</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 4. PRICING SECTION ================= -->
+        <section id="sec-pricing" class="hidden space-y-6">
+            <div class="text-center py-4">
+                <h2 class="text-2xl font-black text-white tracking-wide"><i class="fa-solid fa-crown text-yellow-500 mr-2"></i> VIP Membership</h2>
+                <p class="text-xs text-slate-400 mt-2 font-medium tracking-widest uppercase">Choose plan · Submit payment proof · Admin approves · Then generate Future Signals</p>
+                <p class="text-xs text-amber-300 mt-2">Upgrade Plan requires Admin payment approval before your Future Signal limit changes.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 max-w-4xl mx-auto">
+                {% for code, p in plans.items() %}
+                {% set is_popular = 'MONTHLY' in p[0].upper() %}
+                
+                <div class="relative p-[1px] rounded-2xl overflow-hidden group hover:-translate-y-1 transition-all duration-300 {% if is_popular %}shadow-[0_0_30px_rgba(250,204,21,0.15)]{% else %}shadow-lg{% endif %}">
+                    <div class="absolute inset-0 transition-opacity duration-500 {% if is_popular %}bg-gradient-to-br from-yellow-400/40 via-amber-600/40 to-yellow-400/40 opacity-100{% else %}bg-gradient-to-r from-yellow-500/0 via-yellow-400/30 to-yellow-500/0 opacity-0 group-hover:opacity-100{% endif %}"></div>
+                    
+                    <div class="relative bg-[#050810]/90 backdrop-blur p-6 rounded-2xl h-full border transition-all {% if is_popular %}border-yellow-500/40 group-hover:border-yellow-400/60{% else %}border-slate-800 group-hover:border-slate-600{% endif %}">
+                        
+                        {% if is_popular %}
+                        <div class="absolute top-0 right-0 bg-gradient-to-r from-yellow-400 to-amber-500 text-slate-900 text-[9px] font-black px-4 py-1.5 rounded-bl-xl rounded-tr-xl tracking-widest uppercase shadow-md flex items-center gap-1">
+                            <i class="fa-solid fa-star text-[8px]"></i> Most Popular
+                        </div>
+                        {% endif %}
+
+                        <div class="flex justify-between items-start mb-4 {% if is_popular %}mt-2{% endif %}">
+                            <div>
+                                <h3 class="font-black text-[13px] text-white tracking-widest uppercase">{{ p[0] }}</h3>
+                                <p class="text-[9px] text-yellow-500 font-bold mt-1 bg-yellow-500/10 inline-block px-2 py-0.5 rounded border border-yellow-500/20 uppercase tracking-widest">{{ p[4] }} Days {% if code in ['future_basic', 'future_pro'] %}Future Signal{% else %}VIP{% endif %}</p>
+                            </div>
+                            <div class="text-right">
+                                <span class="text-2xl font-black text-amber-400 font-mono drop-shadow-md">{{ p[5] }}</span>
+                            </div>
+                        </div>
+
+                        <div class="space-y-2 text-[11px] text-slate-300 font-medium mb-6 bg-slate-900/40 p-3 rounded-xl border border-slate-800/50">
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-yellow-500/10 flex items-center justify-center border border-yellow-500/20"><i class="fa-solid fa-bolt text-yellow-400 text-[8px]"></i></div> Scans: <b class="text-white ml-auto font-mono">{{ p[1] }} / day</b></div>
+                            <div class="flex items-center gap-3"><div class="w-5 h-5 rounded-full bg-indigo-500/10 flex items-center justify-center border border-indigo-500/20"><i class="fa-solid fa-layer-group text-indigo-400 text-[8px]"></i></div> Future: <b class="text-white ml-auto font-mono">{{ p[2] }} Batches / day{% if code in ['future_basic', 'future_pro'] %} · {{ p[3] }} signals each{% endif %}</b></div>
+                        </div>
+
+                        <button onclick="openCheckout('{{ code }}', '{{ p[0] }}', '{{ p[5] }}')" class="w-full py-3 text-[11px] font-black tracking-widest uppercase rounded-lg transition-all duration-300 {% if is_popular %}bg-gradient-to-r from-yellow-500 to-amber-500 text-slate-900 shadow-[0_0_20px_rgba(250,204,21,0.25)] group-hover:shadow-[0_0_25px_rgba(250,204,21,0.5)]{% else %}bg-slate-800 hover:bg-gradient-to-r hover:from-yellow-500 hover:to-amber-500 text-slate-300 hover:text-slate-900 border border-slate-700 hover:border-transparent hover:shadow-[0_0_20px_rgba(250,204,21,0.4)]{% endif %}">
+                            Select Plan &amp; Submit Payment
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="glass-card p-5 md:p-6 space-y-4 max-w-4xl mx-auto">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                    <h3 class="text-[11px] font-black text-white uppercase tracking-widest flex items-center gap-2"><i class="fa-solid fa-comments text-yellow-400"></i> Reviews</h3>
+                    <div class="flex items-center gap-2">
+                        <span class="text-[9px] bg-amber-500/10 text-amber-400 font-bold px-2 py-1 rounded border border-amber-500/20">⭐ 4.9/5</span>
+                        <button onclick="openReviewModal()" class="text-[9px] bg-yellow-500 text-slate-900 font-bold px-3 py-1 rounded transition hover:opacity-90 flex items-center gap-1 uppercase tracking-wide"><i class="fa-solid fa-pen"></i> Write</button>
+                    </div>
+                </div>
+                <div id="pricing-feedback-list-container" class="space-y-2 max-h-64 overflow-y-auto pr-1"></div>
+            </div>
+        </section>
+
+        <!-- ================= 5. PROFILE SECTION ================= -->
+        <section id="sec-profile" class="hidden space-y-6 max-w-2xl mx-auto">
+            <div class="glass-card p-8 text-center space-y-5 relative overflow-hidden">
+                <div class="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-yellow-500/10 to-transparent"></div>
+                
+                <div class="relative w-24 h-24 mx-auto z-10">
+                    {% if user.username.lower() == 'sumon6025' or user.role == 'admin' %}
+                    <img src="https://i.ibb.co/20b8fz5X/Gemini-Generated-Image-kf8b6skf8b6skf8b-edit-595029155043620.png" alt="Admin" class="w-24 h-24 rounded-full object-cover border-2 border-yellow-500 shadow-[0_0_20px_rgba(250,204,21,0.3)] cursor-pointer hover:scale-105 transition" onclick="openImageModal(this.src)">
+                    {% else %}
+                    <div class="w-24 h-24 rounded-full bg-gradient-to-br from-yellow-500 to-amber-600 text-slate-900 font-black text-4xl flex items-center justify-center mx-auto border-2 border-yellow-400/50 shadow-[0_0_20px_rgba(250,204,21,0.3)]">
+                        {{ user.username[0].upper() }}
+                    </div>
+                    {% endif %}
+                    <span class="absolute bottom-1 right-1 w-5 h-5 bg-yellow-400 border-4 border-[#050810] rounded-full animate-pulse shadow-[0_0_10px_#facc15]"></span>
+                </div>
+
+                <div class="z-10 relative">
+                    <h3 class="text-xl font-black text-white tracking-wide">@{{ user.username }}</h3>
+                    <div class="mt-2">
+                        {% if user.role == 'admin' %}
+                        <span class="text-[10px] font-black px-3 py-1 bg-amber-500/10 text-amber-400 rounded-lg border border-amber-500/30 inline-block tracking-widest uppercase">👑 SYSTEM ADMIN</span>
+                        {% else %}
+                        <span id="profile-plan-badge" class="text-[10px] font-black px-3 py-1 bg-[#0a0e17] text-yellow-400 rounded-lg border border-slate-700 inline-block tracking-widest uppercase">{{ sub.plan_name }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 text-left z-10 relative mt-6">
+                    <div class="bg-[#050810]/50 p-4 rounded-xl border border-slate-800">
+                        <span class="text-slate-500 text-[9px] uppercase font-bold tracking-widest block mb-1">Account ID</span>
+                        <span class="font-mono text-white font-bold text-xs">{{ unique_id }}</span>
+                    </div>
+                    <div class="bg-[#050810]/50 p-4 rounded-xl border border-slate-800">
+                        <span class="text-slate-500 text-[9px] uppercase font-bold tracking-widest block mb-1">Node</span>
+                        <span class="font-mono text-yellow-400 font-bold text-xs">{% if user.role == 'admin' %}PRO-01{% else %}NET-02{% endif %}</span>
+                    </div>
+                    <div class="bg-[#050810]/50 p-4 rounded-xl border border-slate-800">
+                        <span class="text-slate-500 text-[9px] uppercase font-bold tracking-widest block mb-1">Expiry</span>
+                        <span id="profile-expiry-badge" class="font-bold text-white text-xs">{{ sub.expiry_date }}</span>
+                    </div>
+                    <div class="bg-[#050810]/50 p-4 rounded-xl border border-slate-800">
+                        <span class="text-slate-500 text-[9px] uppercase font-bold tracking-widest block mb-1">Daily Quota</span>
+                        <span id="profile-quota-badge" class="font-black text-yellow-400 text-xs">{{ used_auto }} / {% if user.role == 'admin' %}&infin;{% else %}{{ sub.daily_credit_limit }}{% endif %}</span>
+                    </div>
+                </div>
+
+                <div class="bg-[#050810]/50 p-5 rounded-xl border border-slate-800 text-left space-y-3 z-10 relative">
+                    <span class="text-[11px] font-bold text-white flex items-center gap-2 uppercase tracking-widest"><i class="fa-solid fa-chart-pie text-yellow-400"></i> Performance Matrix</span>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="bg-[#0a0e17] p-3 rounded-lg border border-slate-800/80">
+                            <span class="text-[9px] text-slate-500 block font-bold tracking-widest">TOTAL TRADES</span>
+                            <span id="profile-scans-count" class="font-black text-white text-base mt-1 block">0</span>
+                        </div>
+                        <div class="bg-[#0a0e17] p-3 rounded-lg border border-slate-800/80">
+                            <span class="text-[9px] text-slate-500 block font-bold tracking-widest">ACCURACY</span>
+                            <span id="profile-accuracy-rate" class="font-black text-indigo-400 text-base mt-1 block neon-text-green">0%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-left z-10 relative mt-4">
+                    <label class="text-[9px] text-slate-500 font-bold block mb-2 uppercase tracking-widest">Timezone Configuration</label>
+                    <select onchange="updateTz(this.value)" class="w-full bg-[#050810] border border-slate-800 rounded-xl p-3 text-xs text-white outline-none focus:border-yellow-500 font-mono cursor-pointer">
+                        <option value="0" {% if tz_offset == 0 %}selected{% endif %}>UTC+0 (London, GMT)</option>
+                        <option value="1" {% if tz_offset == 1 %}selected{% endif %}>UTC+1 (Berlin, Paris)</option>
+                        <option value="2" {% if tz_offset == 2 %}selected{% endif %}>UTC+2 (Cairo, Athens)</option>
+                        <option value="3" {% if tz_offset == 3 %}selected{% endif %}>UTC+3 (Moscow, Riyadh)</option>
+                        <option value="3.5" {% if tz_offset == 3.5 %}selected{% endif %}>UTC+3:30 (Tehran)</option>
+                        <option value="4" {% if tz_offset == 4 %}selected{% endif %}>UTC+4 (Dubai, Abu Dhabi)</option>
+                        <option value="4.5" {% if tz_offset == 4.5 %}selected{% endif %}>UTC+4:30 (Kabul)</option>
+                        <option value="5" {% if tz_offset == 5 %}selected{% endif %}>UTC+5 (Pakistan, Tashkent)</option>
+                        <option value="5.5" {% if tz_offset == 5.5 %}selected{% endif %}>UTC+5:30 (India IST)</option>
+                        <option value="5.75" {% if tz_offset == 5.75 %}selected{% endif %}>UTC+5:45 (Nepal)</option>
+                        <option value="6" {% if tz_offset == 6 %}selected{% endif %}>UTC+6 (Bangladesh BST)</option>
+                        <option value="6.5" {% if tz_offset == 6.5 %}selected{% endif %}>UTC+6:30 (Yangon)</option>
+                        <option value="7" {% if tz_offset == 7 %}selected{% endif %}>UTC+7 (Jakarta, Bangkok)</option>
+                        <option value="8" {% if tz_offset == 8 %}selected{% endif %}>UTC+8 (Singapore, Beijing)</option>
+                        <option value="9" {% if tz_offset == 9 %}selected{% endif %}>UTC+9 (Tokyo, Seoul)</option>
+                        <option value="9.5" {% if tz_offset == 9.5 %}selected{% endif %}>UTC+9:30 (Adelaide)</option>
+                        <option value="10" {% if tz_offset == 10 %}selected{% endif %}>UTC+10 (Sydney, Melbourne)</option>
+                        <option value="11" {% if tz_offset == 11 %}selected{% endif %}>UTC+11 (Solomon Islands)</option>
+                        <option value="12" {% if tz_offset == 12 %}selected{% endif %}>UTC+12 (Auckland, Fiji)</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-2 gap-3 pt-2 z-10 relative">
+                    <button onclick="{% if user.role == 'admin' %}openTelegramSafe('https://t.me/MD_SUMON_MT4'){% else %}openUserTelegramSettings(){% endif %}" class="w-full py-3 bg-[#0a0e17] hover:bg-[#111827] text-yellow-400 border border-slate-800 rounded-xl text-[10px] font-bold uppercase tracking-widest transition flex items-center justify-center gap-2"><i class="fa-brands fa-telegram"></i> Telegram</button>
+                    <button onclick="resetSessionHistory()" class="w-full py-3 bg-[#0a0e17] hover:bg-rose-500/10 text-slate-500 hover:text-rose-400 border border-slate-800 hover:border-rose-500/30 rounded-xl text-[10px] font-bold uppercase tracking-widest transition flex items-center justify-center gap-2"><i class="fa-solid fa-trash-can"></i> Factory Reset</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 6. ADMIN ANALYTICS ================= -->
+        {% if user.role == 'admin' %}
+        <section id="sec-analytics" class="hidden space-y-6 max-w-2xl mx-auto">
+            <div class="glass-card p-6 md:p-8">
+                <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-5">
+                    <div class="flex items-center gap-3">
+                        <span class="text-2xl drop-shadow-md">📊</span>
+                        <div>
+                            <h2 class="text-xs font-black text-white tracking-widest uppercase">SYSTEM ANALYTICS</h2>
+                            <p class="text-[9px] text-yellow-400 font-mono mt-0.5 tracking-widest">Global Execution Stats</p>
+                        </div>
+                    </div>
+                    <button onclick="loadAnalyticsData()" class="text-[9px] bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded transition font-bold uppercase tracking-wide border border-slate-700"><i class="fa-solid fa-rotate mr-1"></i> Sync</button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div class="bg-[#050810]/50 p-5 rounded-2xl border border-slate-800 relative">
+                        <div class="flex justify-between items-center pr-8 mb-2">
+                            <div class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">AUTO TALLY</div>
+                            <button onclick="confirmResetMode('auto')" class="text-[8px] text-slate-500 hover:text-rose-400 border border-slate-700 bg-slate-800 px-2 py-0.5 rounded transition uppercase tracking-wide">Reset</button>
+                        </div>
+                        <div id="an-auto-total" class="text-2xl font-black text-white">0</div>
+                        <div id="an-auto-sub" class="text-[10px] text-slate-400 mt-1 font-mono">W: 0 | L: 0 (0%)</div>
+                        <span class="absolute right-4 bottom-4 bg-slate-800/50 p-2 rounded text-yellow-400"><i class="fa-solid fa-bolt text-xs"></i></span>
+                    </div>
+
+                    <div class="bg-[#050810]/50 p-5 rounded-2xl border border-slate-800 relative">
+                        <div class="flex justify-between items-center pr-8 mb-2">
+                            <div class="text-[9px] font-bold text-slate-500 uppercase tracking-widest">FUTURE TALLY</div>
+                            <button onclick="confirmResetMode('future')" class="text-[8px] text-slate-500 hover:text-rose-400 border border-slate-700 bg-slate-800 px-2 py-0.5 rounded transition uppercase tracking-wide">Reset</button>
+                        </div>
+                        <div id="an-future-total" class="text-2xl font-black text-white">0</div>
+                        <div id="an-future-sub" class="text-[10px] text-slate-400 mt-1 font-mono">W: 0 | L: 0 (0%)</div>
+                        <span class="absolute right-4 bottom-4 bg-slate-800/50 p-2 rounded text-indigo-400"><i class="fa-solid fa-list-check text-xs"></i></span>
+                    </div>
+                </div>
+
+                <div class="bg-[#050810]/50 p-5 rounded-2xl border border-slate-800 mt-4">
+                    <div class="text-[9px] font-bold text-slate-500 mb-2 uppercase tracking-widest">GLOBAL ACCURACY</div>
+                    <div id="an-overall-rate" class="text-3xl font-black text-amber-400 font-mono neon-text-gold">0.0%</div>
+                    <div id="an-overall-total" class="text-[10px] text-slate-400 mt-1 font-mono">Total Logs: 0</div>
+                    
+                    <div class="flex justify-between text-[10px] font-bold font-mono mt-4 mb-1"><span id="an-bar-wins" class="text-emerald-400">W: 0</span><span id="an-bar-losses" class="text-rose-400">L: 0</span></div>
+                    <div class="w-full bg-slate-800 rounded-full h-2 overflow-hidden"><div id="an-progress-fill" class="bg-gradient-to-r from-emerald-400 to-yellow-400 h-full transition-all duration-500" style="width: 0%;"></div></div>
+                </div>
+
+                <div class="bg-[#050810]/50 p-5 rounded-2xl border border-slate-800 mt-4">
+                    <div class="text-[10px] font-bold text-slate-400 mb-4 flex justify-between items-center uppercase tracking-widest border-b border-slate-800 pb-2">
+                        <span>🪙 Pair Metrics</span><span id="an-pairs-count-badge" class="text-[9px] text-yellow-400 font-mono bg-yellow-500/10 px-2 py-0.5 rounded border border-yellow-500/20">0 Pairs</span>
+                    </div>
+                    <div id="an-pairs-container" class="flex flex-col gap-2 max-h-48 overflow-y-auto pr-1 text-[10px]">
+                        <span class="text-slate-500 font-medium text-center py-4">No data yet.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+    </main>
+    <div id="rg-footer"><span>🟢 LIVE MARKET</span><span>✦ QUOTEX OTC</span><span>⚙ ANALYSIS ENGINE : <b>ACTIVE</b></span><span>⚙ SIGNAL ENGINE : <b>READY</b></span><span>▤ DATABASE STATUS</span></div>
+
+    <div class="fixed bottom-6 right-5 z-50">
+        <button onclick="toggleSupportModal()" class="w-12 h-12 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 active:scale-95 cursor-pointer bg-[#050810] border border-slate-700 shadow-[0_0_15px_rgba(250,204,21,0.15)] group">
+            <i class="fa-solid fa-headset text-xl text-yellow-500 group-hover:text-yellow-400"></i>
+        </button>
+    </div>
+
+    <div id="support-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-end sm:items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full p-6 space-y-5 relative">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-yellow-500 to-amber-600 text-[#050810] flex justify-center items-center font-black text-lg">S</div>
+                    <div>
+                        <h3 class="text-xs font-black text-white uppercase tracking-widest">VIP DESK</h3>
+                        <p class="text-[9px] text-yellow-400 font-bold tracking-widest uppercase mt-0.5">Online</p>
+                    </div>
+                </div>
+                <button onclick="toggleSupportModal()" class="text-slate-500 hover:text-white text-2xl font-bold transition">&times;</button>
+            </div>
+            <div class="space-y-2 text-xs">
+                <div onclick="openTelegramSafe('https://t.me/MD_SUMON_MT4')" class="flex items-center justify-between p-4 rounded-xl bg-[#050810] hover:bg-slate-900 border border-slate-800 transition cursor-pointer group">
+                    <div class="flex items-center gap-3"><i class="fa-brands fa-telegram text-2xl text-sky-400"></i><span class="font-bold text-white text-xs tracking-wide">Telegram (@MD_SUMON_MT4)</span></div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-600 group-hover:text-yellow-400"></i>
+                </div>
+                <a href="https://wa.me/971503762824" target="_blank" class="flex items-center justify-between p-4 rounded-xl bg-[#050810] hover:bg-slate-900 border border-slate-800 transition group">
+                    <div class="flex items-center gap-3"><i class="fa-brands fa-whatsapp text-2xl text-emerald-400"></i><span class="font-bold text-white text-xs tracking-wide">WhatsApp (+971 50 376 2824)</span></div>
+                    <i class="fa-solid fa-arrow-up-right-from-square text-slate-600 group-hover:text-yellow-400"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="market-closed-modal" class="hidden fixed inset-0 bg-black/90 backdrop-blur-md z-[60] flex items-center justify-center p-4 transition-all">
+        <div class="glass-card max-w-sm w-full p-8 text-center space-y-5 border-rose-500/30 relative">
+            <div class="absolute -top-10 -left-10 w-32 h-32 bg-rose-500/10 rounded-full blur-[40px]"></div>
+            
+            <div class="w-20 h-20 mx-auto bg-[#0a0e17] text-rose-500 flex items-center justify-center rounded-full text-4xl border border-rose-500/30 shadow-[0_0_20px_rgba(244,63,94,0.2)]">
+                <i class="fa-solid fa-lock"></i>
+            </div>
+            
+            <h3 class="text-lg font-black text-white tracking-widest uppercase mt-4">MARKET CLOSED</h3>
+            <p class="text-[11px] text-slate-400 font-medium leading-relaxed px-4">
+                The Real Market is currently offline or unavailable. Please select an OTC market to continue trading.
+            </p>
+            
+            <button onclick="closeMarketModal()" class="w-full mt-6 py-4 bg-rose-500 hover:bg-rose-400 text-slate-900 font-black text-[11px] tracking-widest uppercase rounded-lg shadow-[0_0_15px_rgba(244,63,94,0.3)] transition active:scale-95">
+                ACKNOWLEDGE
+            </button>
+        </div>
+    </div>
+
+    <div id="review-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full p-6 space-y-4 relative">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-xs font-black text-white uppercase tracking-widest">SUBMIT FEEDBACK</h3>
+                <button onclick="closeReviewModal()" class="text-slate-500 hover:text-white text-2xl font-bold transition">&times;</button>
+            </div>
+            <div>
+                <label class="text-[9px] text-slate-500 font-bold block mb-2 uppercase tracking-widest">Rating</label>
+                <div class="flex gap-2 text-xl text-amber-400 cursor-pointer" id="review-star-container">
+                    <i class="fa-solid fa-star" onclick="setReviewRating(1)"></i><i class="fa-solid fa-star" onclick="setReviewRating(2)"></i><i class="fa-solid fa-star" onclick="setReviewRating(3)"></i><i class="fa-solid fa-star" onclick="setReviewRating(4)"></i><i class="fa-solid fa-star" onclick="setReviewRating(5)"></i>
+                </div>
+            </div>
+            <div class="grid grid-cols-2 gap-3">
+                <div>
+                    <label class="text-[9px] text-slate-500 font-bold block mb-2 uppercase tracking-widest">Profit</label>
+                    <input type="text" id="rev-profit" placeholder="+$150" class="w-full bg-[#050810] border border-slate-800 rounded-lg p-2.5 text-xs text-white outline-none focus:border-yellow-500 font-mono">
+                </div>
+                <div>
+                    <label class="text-[9px] text-slate-500 font-bold block mb-2 uppercase tracking-widest">Broker</label>
+                    <select id="rev-broker" class="w-full bg-[#050810] border border-slate-800 rounded-lg p-2.5 text-xs text-white outline-none focus:border-yellow-500">
+                        <option>Quotex OTC</option>
+                        <option>Pocket OTC</option>
+                        <option>Real Market</option>
+                    </select>
+                </div>
+            </div>
+            <div>
+                <label class="text-[9px] text-slate-500 font-bold block mb-2 uppercase tracking-widest">Feedback</label>
+                <textarea id="rev-comment" rows="3" placeholder="Write..." class="w-full bg-[#050810] border border-slate-800 rounded-lg p-2.5 text-xs text-white outline-none focus:border-yellow-500 resize-none"></textarea>
+            </div>
+            <button onclick="submitUserReview()" class="w-full py-3 bg-yellow-500 hover:bg-yellow-400 text-slate-900 font-black text-[11px] tracking-widest uppercase rounded-lg transition active:scale-95">POST REVIEW</button>
+        </div>
+    </div>
+
+    <div id="limit-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full p-6 text-center space-y-4">
+            <div class="w-16 h-16 mx-auto bg-amber-500/10 text-amber-500 flex items-center justify-center rounded-full text-3xl border border-amber-500/20 mb-2"><i class="fa-solid fa-lock"></i></div>
+            <h3 class="text-base font-black text-white tracking-widest uppercase">Quota Reached!</h3>
+            <p id="limit-modal-msg" class="text-xs text-slate-400">Upgrade your plan to unlock more scans.</p>
+            <div class="space-y-2 pt-3">
+                <button onclick="goToPricingFromLimit()" class="w-full py-3 bg-amber-500 hover:bg-amber-400 text-slate-900 font-black text-[11px] tracking-widest uppercase rounded-lg transition">UPGRADE NOW</button>
+                <button onclick="closeLimitModal()" class="w-full py-3 bg-[#050810] border border-slate-800 text-slate-400 hover:text-white text-[11px] font-bold rounded-lg uppercase tracking-widest transition">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="checkout-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full p-6 space-y-5 relative">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 id="modal-title" class="text-[11px] font-bold text-white uppercase tracking-widest">Invoice</h3>
+                <button onclick="closeCheckout()" class="text-slate-500 hover:text-white text-2xl transition">&times;</button>
+            </div>
+            <div class="text-[11px] space-y-2 text-slate-400">
+                <div onclick="copyTextToClipboard('782760909')" class="p-3 rounded-lg bg-[#050810] border border-slate-800 hover:border-yellow-500/50 cursor-pointer flex justify-between items-center transition group">
+                    <div><span class="text-amber-500 font-bold block mb-0.5 uppercase tracking-widest text-[9px]">Binance Pay</span><span class="text-white font-mono text-sm">782760909</span></div>
+                    <span class="bg-slate-800 px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wide group-hover:bg-yellow-500/20 group-hover:text-yellow-400 transition">Copy</span>
+                </div>
+                <div onclick="copyTextToClipboard('TXadxBUhxKDKwFBohxA4dcFQR3hhmsTfDy')" class="p-3 rounded-lg bg-[#050810] border border-slate-800 hover:border-yellow-500/50 cursor-pointer flex justify-between items-center transition group">
+                    <div class="overflow-hidden pr-2"><span class="text-sky-500 font-bold block mb-0.5 uppercase tracking-widest text-[9px]">USDT TRC20</span><span class="text-[10px] text-white font-mono block truncate">TXadxBUhxKDKwFBohxA4dcFQR3hhmsTfDy</span></div>
+                    <span class="bg-slate-800 px-2 py-1 rounded text-[9px] font-bold uppercase tracking-wide group-hover:bg-yellow-500/20 group-hover:text-yellow-400 transition">Copy</span>
+                </div>
+            </div>
+            <div>
+                <input type="text" id="tx-input" placeholder="Enter TxID / Hash" class="w-full bg-[#050810] border border-slate-800 rounded-lg p-3 text-xs text-white outline-none focus:border-yellow-500 font-mono">
+            </div>
+            <button onclick="submitProof()" class="w-full py-3.5 bg-yellow-500 text-slate-900 text-[11px] font-black tracking-widest uppercase rounded-lg transition hover:opacity-90">Submit Proof</button>
+        </div>
+    </div>
+
+    <div id="payment-proof-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full p-6 text-center space-y-4">
+            <div class="w-16 h-16 mx-auto bg-emerald-500/10 text-emerald-400 flex items-center justify-center rounded-full text-3xl border border-emerald-500/20 mb-2"><i class="fa-solid fa-check-double"></i></div>
+            <h3 class="text-base font-black text-white tracking-widest uppercase">Proof Submitted</h3>
+            <p class="text-xs text-slate-400">Admin is verifying your transaction. You will be upgraded shortly.</p>
+            <button onclick="closePaymentProofModal()" class="w-full py-3 mt-2 bg-slate-800 text-white font-bold text-[11px] tracking-widest uppercase rounded-lg transition">Close</button>
+        </div>
+    </div>
+
+    <div id="vip-approval-modal" class="hidden fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4">
+        <div class="glass-card max-w-sm w-full p-8 text-center space-y-5 border-yellow-500/40">
+            <div class="w-20 h-20 mx-auto bg-yellow-500/10 text-yellow-500 flex items-center justify-center rounded-full text-4xl border border-yellow-500/30 mb-2 shadow-[0_0_20px_rgba(250,204,21,0.2)] animate-pulse">👑</div>
+            <h3 class="text-lg font-black text-white tracking-widest uppercase">VIP ACTIVATED!</h3>
+            <p id="vip-activated-plan-text" class="text-xs text-yellow-400 font-bold bg-[#050810] py-2 rounded-lg border border-yellow-500/20">Plan: {{ sub.plan_name }}</p>
+            <button onclick="closeVipApprovalModal()" class="w-full py-3.5 bg-yellow-500 text-[#050810] font-black text-[11px] tracking-widest uppercase rounded-lg transition hover:scale-105">START TRADING</button>
+        </div>
+    </div>
+
+    <div id="image-lightbox-modal" class="hidden fixed inset-0 bg-black/95 backdrop-blur-md z-50 flex items-center justify-center p-4" onclick="closeImageModal()">
+        <img id="lightbox-img-src" src="" class="w-full max-w-sm rounded-2xl border border-yellow-500/50 shadow-[0_0_30px_rgba(250,204,21,0.2)] object-cover">
+    </div>
+    <div id="chartMovieModal" style="display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background:rgba(3,5,8,0.95); align-items:center; justify-content:center;">
+        <div style="position:relative; max-width:95%; max-height:95%; width:100%;">
+            <span onclick="closeChartModal()" style="position:absolute; top:-50px; right:0; color:#64748b; font-size:40px; cursor:pointer; font-weight:300;">&times;</span>
+            <img id="modalChartImg" src="" style="width:100%; border-radius:16px; border:1px solid rgba(250,204,21,0.3); box-shadow:0 0 30px rgba(250,204,21,0.15); object-fit:contain;">
+        </div>
+    </div>
+
+    <script>
+        let audioCtx = null;
+        function initAudio() {
+            if (!audioCtx) {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                if (AudioContext) audioCtx = new AudioContext();
+            }
+        }
+        function playNotificationSound() {
+            try {
+                if (!audioCtx) initAudio();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                const osc = audioCtx.createOscillator();
+                const gainNode = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(800, audioCtx.currentTime); 
+                osc.frequency.exponentialRampToValueAtTime(1200, audioCtx.currentTime + 0.1);
+                gainNode.gain.setValueAtTime(0.2, audioCtx.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.2);
+                osc.connect(gainNode);
+                gainNode.connect(audioCtx.destination);
+                osc.start();
+                osc.stop(audioCtx.currentTime + 0.2);
+            } catch(e) { console.log("Sound error:", e); }
+        }
+
+        const canvas = document.getElementById('particleCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let particlesArray = [];
+        const yellowColors = ['#facc15', '#eab308', '#fde047', '#ca8a04']; 
+
+        let mouse = { x: null, y: null, radius: 120 };
+        window.addEventListener('mousemove', function(event) { mouse.x = event.x; mouse.y = event.y; });
+        window.addEventListener('mouseout', function() { mouse.x = null; mouse.y = null; });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 1.5 + 0.5;
+                this.speedX = (Math.random() * 1 - 0.5) * 0.5;
+                this.speedY = (Math.random() * 1 - 0.5) * 0.5;
+                this.color = yellowColors[Math.floor(Math.random() * yellowColors.length)];
+                this.baseX = this.x;
+                this.baseY = this.y;
+            }
+            update() {
+                if (mouse.x != null && mouse.y != null) {
+                    let dx = mouse.x - this.x;
+                    let dy = mouse.y - this.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < mouse.radius) {
+                        const forceDirectionX = dx / distance;
+                        const forceDirectionY = dy / distance;
+                        const force = (mouse.radius - distance) / mouse.radius;
+                        const directionX = forceDirectionX * force * 3;
+                        const directionY = forceDirectionY * force * 3;
+                        this.x -= directionX;
+                        this.y -= directionY;
+                    }
+                }
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = this.color;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 12000;
+            if (numberOfParticles > 150) numberOfParticles = 150;
+            for (let i = 0; i < numberOfParticles; i++) { particlesArray.push(new Particle()); }
+        }
+
+        function connectParticles() {
+            for (let a = 0; a < particlesArray.length; a++) {
+                for (let b = a; b < particlesArray.length; b++) {
+                    let distance = ((particlesArray[a].x - particlesArray[b].x) * (particlesArray[a].x - particlesArray[b].x)) +
+                                   ((particlesArray[a].y - particlesArray[b].y) * (particlesArray[a].y - particlesArray[b].y));
+                    if (distance < 12000) {
+                        let opacityValue = 1 - (distance / 12000);
+                        ctx.strokeStyle = `rgba(250, 204, 21, ${opacityValue * 0.15})`;
+                        ctx.lineWidth = 0.8;
+                        ctx.beginPath();
+                        ctx.moveTo(particlesArray[a].x, particlesArray[a].y);
+                        ctx.lineTo(particlesArray[b].x, particlesArray[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) { particlesArray[i].update(); particlesArray[i].draw(); }
+            connectParticles();
+            requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; initParticles(); });
+        initParticles(); animateParticles();
+
+        let currentBroker = 'quotex';
+        let currentAutoBroker = 'quotex';
+        let currentFutureBroker = 'quotex';
+        let isRealMarketAvailable = {{ 'true' if is_real_open else 'false' }};
+        let selectedPlan = '';
+        let countdownInterval = null;
+        let activeFutureSignals = [];
+        let futureBatches = [];
+        let futureScannerInterval = null;
+        let sessionStats = { direct: 0, mtg: 0, loss: 0, history: [] };
+        let autoLoopActive = false;
+        let autoLoopTimer = null;
+        let loopSessionStats = { direct: 0, mtg: 0, loss: 0, history: [] };
+        let activePlanName = "{{ sub.plan_name }}";
+        let analyticsAutoRefreshTimer = null;
+        let selectedHistoryDate = 'today';
+        let selectedLoopHistoryDate = 'today';
+        let currentReviewRating = 5;
+
+        let vipFeedbacks = [
+            { name: "Tanvir Ahmed", user: "tanvir_ctg", time: "8m ago", broker: "Quotex OTC", profit: "+$165", text: "Boss! Future signal e straight 6 ta win. Loss recover." },
+            { name: "Sabbir Hossain", user: "sabbir_fx", time: "19m ago", broker: "Pocket Option OTC", profit: "+$240", text: "Auto signal accuracy fire 🔥 10 trades, 8 direct ITM." },
+            { name: "MD Shakil Khan", user: "shakil_vip", time: "35m ago", broker: "Quotex OTC", profit: "+$85", text: "Downloaded future list, $85 profit in 1 hour." },
+            { name: "Arif Hossain (DXB)", user: "arif_trader", time: "1h ago", broker: "Real Market", profit: "+$320", text: "Lifetime plan active. Real market confluence is deadly accurate." },
+            { name: "Kamrul Islam", user: "kamrul_fx", time: "2h 45m ago", broker: "Quotex OTC", profit: "+$210", text: "15 trades, 13 profit! Upgrading to Yearly VIP tomorrow." }
+        ];
+
+        document.addEventListener("DOMContentLoaded", function() {
+            document.body.addEventListener('click', initAudio, { once: true });
+            const chartImg = document.getElementById("autoChartImg");
+            const loopChartImg = document.getElementById("loopChartImg");
+            const modal = document.getElementById("chartMovieModal");
+            const modalImg = document.getElementById("modalChartImg");
+
+            if(chartImg) { chartImg.onclick = function() { if (this.src && this.src.trim() !== "" && !this.src.endsWith("/")) { modal.style.display = "flex"; modalImg.src = this.src; } } }
+            if(loopChartImg) { loopChartImg.onclick = function() { if (this.src && this.src.trim() !== "" && !this.src.endsWith("/")) { modal.style.display = "flex"; modalImg.src = this.src; } } }
+            renderVipFeedbackList();
+        });
+
+        function clearLocalAuthCache() { try { localStorage.removeItem('md_sumon_session_stats'); localStorage.removeItem('md_sumon_loop_stats'); } catch(e) {} }
+        function closeChartModal() { document.getElementById("chartMovieModal").style.display = "none"; }
+        window.addEventListener('click', function(event) { const modal = document.getElementById("chartMovieModal"); if (event.target === modal) modal.style.display = "none"; });
+        function openTelegramSafe(url) { try { const win = window.open(url, '_blank'); if (!win || win.closed || typeof win.closed === 'undefined') window.location.href = url; } catch (e) { window.location.href = url; } }
+        function toggleSupportModal() { document.getElementById('support-modal').classList.toggle('hidden'); }
+        function openImageModal(imgUrl) { document.getElementById('lightbox-img-src').src = imgUrl; document.getElementById('image-lightbox-modal').classList.remove('hidden'); }
+        function closeImageModal() { document.getElementById('image-lightbox-modal').classList.add('hidden'); }
+        function showLimitModal(msg) { if (msg) document.getElementById('limit-modal-msg').innerText = msg; document.getElementById('limit-modal').classList.remove('hidden'); }
+        function closeLimitModal() { document.getElementById('limit-modal').classList.add('hidden'); }
+        function goToPricingFromLimit() { closeLimitModal(); switchTab('pricing'); }
+        function closePaymentProofModal() { document.getElementById('payment-proof-modal').classList.add('hidden'); }
+        
+        function showMarketModal() {
+            document.getElementById('market-closed-modal').classList.remove('hidden');
+        }
+        function closeMarketModal() {
+            document.getElementById('market-closed-modal').classList.add('hidden');
+        }
+        
+        function checkVipApproval() {
+            const isApproved = "{{ 'true' if sub.plan_name != 'FREE PLAN' and user.role != 'admin' else 'false' }}";
+            const key = 'md_sumon_vip_seen_' + activePlanName;
+            if (isApproved === 'true' && !localStorage.getItem(key)) { document.getElementById('vip-approval-modal').classList.remove('hidden'); }
+        }
+        function closeVipApprovalModal() { localStorage.setItem('md_sumon_vip_seen_' + activePlanName, 'true'); document.getElementById('vip-approval-modal').classList.add('hidden'); location.reload(); }
+
+        function startLiveSubscriptionSync() {
+            setInterval(async () => {
+                try {
+                    const res = await fetch('/api/user-status?t=' + Date.now()); const data = await res.json();
+                    if (data.status === 'success' && data.plan_name !== activePlanName && data.plan_name !== 'FREE PLAN') {
+                        activePlanName = data.plan_name;
+                        if (document.getElementById('vip-activated-plan-text')) document.getElementById('vip-activated-plan-text').innerText = 'Plan: ' + data.plan_name;
+                        if (document.getElementById('profile-plan-badge')) document.getElementById('profile-plan-badge').innerText = data.plan_name;
+                        if (document.getElementById('profile-expiry-badge')) document.getElementById('profile-expiry-badge').innerText = data.expiry_date;
+                        if (document.getElementById('profile-quota-badge')) document.getElementById('profile-quota-badge').innerText = `0 / ${data.daily_credit_limit}`;
+                        document.getElementById('vip-approval-modal').classList.remove('hidden');
+                    }
+                } catch (err) {}
+            }, 7000);
+        }
+
+        function copyTextToClipboard(textToCopy) {
+            if (!textToCopy) return;
+            const cleanSearch = textToCopy.replace(/\(OTC\)/g, "").replace(/\//g, "").replace(/\s+/g, "").trim();
+            
+            function showToast() {
+                const toast = document.getElementById('global-copy-toast'); 
+                document.getElementById('toast-text').innerText = `Copied: ${cleanSearch}`;
+                toast.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+                setTimeout(() => { toast.classList.add('opacity-0', 'pointer-events-none', 'scale-95'); }, 1600);
+            }
+
+            if (navigator.clipboard && window.isSecureContext) {
+                navigator.clipboard.writeText(cleanSearch).then(showToast).catch(err => useFallbackCopy(cleanSearch));
+            } else {
+                useFallbackCopy(cleanSearch);
+            }
+
+            function useFallbackCopy(text) {
+                const textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed"; 
+                textArea.style.opacity = "0";
+                document.body.appendChild(textArea);
+                textArea.focus(); 
+                textArea.select();
+                try { document.execCommand('copy'); showToast(); } catch (err) { console.error("Copy failed!", err); }
+                document.body.removeChild(textArea);
+            }
+        }
+
+        function renderVipFeedbackList() {
+            const container = document.getElementById('pricing-feedback-list-container'); if (!container) return;
+            let savedCustom = []; try { const custom = localStorage.getItem('md_sumon_user_reviews'); if (custom) savedCustom = JSON.parse(custom); } catch(e) {}
+            const allReviews = [...savedCustom, ...vipFeedbacks]; let html = '';
+            allReviews.forEach(r => {
+                const profitBadge = r.profit ? `<span class="text-emerald-400 font-mono text-[9px] border border-emerald-500/30 bg-emerald-500/10 px-2 py-0.5 rounded font-bold">🚀 ${r.profit}</span>` : '';
+                html += `<div class="bg-[#050810]/50 p-3.5 rounded-xl border border-slate-800/80 mb-2 transition"><div class="flex justify-between items-center mb-1.5"><span class="text-[10px] font-black text-white uppercase tracking-wider">${r.name} <span class="text-slate-500 font-medium ml-1 lowercase">@${r.user}</span></span><span class="text-[9px] text-slate-500 font-mono">${r.time}</span></div><p class="text-[11px] text-slate-300 leading-relaxed">${r.text}</p><div class="flex justify-between items-center mt-2 pt-2 border-t border-slate-800"><span class="text-[9px] text-slate-500 font-bold uppercase tracking-wider">${r.broker}</span>${profitBadge}</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function openReviewModal() { document.getElementById('review-modal').classList.remove('hidden'); }
+        function closeReviewModal() { document.getElementById('review-modal').classList.add('hidden'); }
+        function setReviewRating(rating) {
+            currentReviewRating = rating; const stars = document.getElementById('review-star-container').children;
+            for (let i = 0; i < 5; i++) { stars[i].className = i < rating ? "fa-solid fa-star text-amber-400" : "fa-regular fa-star text-slate-700"; }
+        }
+        function submitUserReview() {
+            const comment = document.getElementById('rev-comment').value.trim(); const profit = document.getElementById('rev-profit').value.trim(); const broker = document.getElementById('rev-broker').value;
+            if (!comment) return alert("Write a review!");
+            const newReview = { name: "{{ user.username }}", user: "{{ user.username }}".toLowerCase(), time: "Just now", broker: broker, profit: profit || "+$90", text: comment };
+            let saved = []; try { const s = localStorage.getItem('md_sumon_user_reviews'); if (s) saved = JSON.parse(s); } catch(e) {}
+            saved.unshift(newReview); localStorage.setItem('md_sumon_user_reviews', JSON.stringify(saved));
+            closeReviewModal(); renderVipFeedbackList();
+        }
+
+        function formatFutureSignalsAsText() {
+            if (!activeFutureSignals || activeFutureSignals.length === 0) return "";
+            let text = `👑 NexusTrade Pro — FUTURE BATCH 👑\n🌐 Market: ${(activeFutureSignals[0].broker_type || currentFutureBroker).toUpperCase()}\n`;
+            text += `━━━━━━━━━━━━━━━━━━━━━\n`;
+            activeFutureSignals.forEach((s, idx) => { let st = s.status === 'WIN' ? '✅ WIN' : s.status === 'MTG' ? '🟡 MTG' : s.status === 'LOSS' ? '❌ LOSS' : '⏳ PEND'; text += `#${idx+1} | ${s.time_str} | ${s.pair.padEnd(14, ' ')} | ${s.direction} | ${st}\n`; });
+            text += `━━━━━━━━━━━━━━━━━━━━━\n✈️ t.me/MD_SUMON_MT4\n`; return text;
+        }
+        function copyFullFutureList() {
+            const content = formatFutureSignalsAsText(); if (!content) return;
+            navigator.clipboard.writeText(content).then(() => {
+                const toast = document.getElementById('global-copy-toast'); document.getElementById('toast-text').innerText = "List Copied!";
+                toast.classList.remove('opacity-0', 'pointer-events-none', 'scale-95'); setTimeout(() => { toast.classList.add('opacity-0', 'pointer-events-none', 'scale-95'); }, 1800);
+            });
+        }
+        function downloadFutureListTxt() {
+            const content = formatFutureSignalsAsText(); if (!content) return;
+            const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([content], { type: 'text/plain;charset=utf-8' })); a.download = `FUTURE_SIGNALS.txt`;
+            document.body.appendChild(a); a.click(); document.body.removeChild(a);
+        }
+
+        function refreshChartSnapshot(pair, direction, status = "PENDING", entryTs = 0, phase = "primary", signalBroker = currentBroker) {
+            window.signalLiveChartUpdate?.('manual',pair,direction,status,entryTs,phase,signalBroker);
+            const img = document.getElementById('autoChartImg'); const loader = document.getElementById('chart-loader'); const statusInd = document.getElementById('chart-status-indicator');
+            if (loader) loader.classList.remove('hidden');
+            img.src = `/api/chart-snapshot?pair=${encodeURIComponent(pair)}&direction=${encodeURIComponent(direction)}&status=${encodeURIComponent(status)}&broker=${signalBroker}&entry_ts=${entryTs}&phase=${phase}&t=${Date.now()}`;
+            img.onload = () => {
+                if (loader) loader.classList.add('hidden');
+                if (statusInd) {
+                    if (status === 'WIN') statusInd.innerHTML = `<span class="text-emerald-400 font-black"><i class="fa-solid fa-check"></i> WIN</span>`;
+                    else if (status === 'LOSS') statusInd.innerHTML = `<span class="text-rose-400 font-black"><i class="fa-solid fa-xmark"></i> LOSS</span>`;
+                    else statusInd.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></span> Analyzing`;
+                }
+            };
+        }
+
+        function refreshLoopChartSnapshot(pair, direction, status = "PENDING", entryTs = 0, phase = "primary", signalBroker = currentAutoBroker) {
+            window.signalLiveChartUpdate?.('auto',pair,direction,status,entryTs,phase,signalBroker);
+            const img = document.getElementById('loopChartImg'); const loader = document.getElementById('loop-chart-loader'); const statusInd = document.getElementById('loop-chart-status-indicator');
+            if (loader) loader.classList.remove('hidden');
+            img.src = `/api/chart-snapshot?pair=${encodeURIComponent(pair)}&direction=${encodeURIComponent(direction)}&status=${encodeURIComponent(status)}&broker=${signalBroker}&entry_ts=${entryTs}&phase=${phase}&t=${Date.now()}`;
+            img.onload = () => {
+                if (loader) loader.classList.add('hidden');
+                if (statusInd) {
+                    if (status === 'WIN') statusInd.innerHTML = `<span class="text-emerald-400 font-black"><i class="fa-solid fa-check"></i> WIN</span>`;
+                    else if (status === 'LOSS') statusInd.innerHTML = `<span class="text-rose-400 font-black"><i class="fa-solid fa-xmark"></i> LOSS</span>`;
+                    else statusInd.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-yellow-400 animate-pulse"></span> Analyzing`;
+                }
+            };
+        }
+
+        async function loadSessionFromStorage() {
+            try {
+                const autoRes = await fetch('/api/get-auto-history?t=' + Date.now()); const autoData = await autoRes.json();
+                if (autoData.status === 'success') {
+                    sessionStats.direct = autoData.direct || 0; sessionStats.mtg = autoData.mtg || 0; sessionStats.loss = autoData.loss || 0; sessionStats.history = autoData.history || [];
+                    loopSessionStats.direct = autoData.loop_direct || 0; loopSessionStats.mtg = autoData.loop_mtg || 0; loopSessionStats.loss = autoData.loop_loss || 0; loopSessionStats.history = autoData.loop_history || [];
+                }
+            } catch (e) {}
+
+            populateHistoryDateDropdowns(); renderScoreboard(); renderHistoryList();
+            populateLoopHistoryDateDropdowns(); renderLoopScoreboard(); renderLoopHistoryList();
+            updateProfilePerformanceSnapshot(); checkVipApproval(); startLiveSubscriptionSync(); startLiveAutoHistorySync();
+
+            try {
+                const futRes = await fetch('/api/get-future-signals?t=' + Date.now()); const futData = await futRes.json();
+                if (futData.status === 'success') {
+                    if (futData.signals && futData.signals.length > 0) {
+                        activeFutureSignals = futData.signals;
+                        const verifyRes = await fetch('/api/verify-missed-signals', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({signals: activeFutureSignals}) });
+                        const verifyData = await verifyRes.json();
+                        if (verifyData.status === 'success' && verifyData.signals) { activeFutureSignals = verifyData.signals; saveFutureSignalsToStorage(); }
+                        renderFutureSignals(); startFutureSignalsScanner();
+                    }
+                    if (futData.batches && futData.batches.length > 0) { futureBatches = futData.batches; updateBatchScoreboardStats(); renderFutureBatches(); }
+                }
+            } catch (e) {}
+        }
+
+        function startLiveAutoHistorySync() {
+            setInterval(async () => {
+                try {
+                    const res = await fetch('/api/get-auto-history?t=' + Date.now()); const data = await res.json();
+                    if (data.status === 'success') {
+                        let updated = false;
+                        if (data.history && JSON.stringify(data.history) !== JSON.stringify(sessionStats.history)) { sessionStats.history = data.history; sessionStats.direct = data.direct; sessionStats.mtg = data.mtg; sessionStats.loss = data.loss; populateHistoryDateDropdowns(); renderScoreboard(); renderHistoryList(); updated = true; }
+                        if (data.loop_history && JSON.stringify(data.loop_history) !== JSON.stringify(loopSessionStats.history)) { loopSessionStats.history = data.loop_history; loopSessionStats.direct = data.loop_direct; loopSessionStats.mtg = data.loop_loss; loopSessionStats.loss = data.loop_loss; populateLoopHistoryDateDropdowns(); renderLoopScoreboard(); renderLoopHistoryList(); updated = true; }
+                        if (updated) updateProfilePerformanceSnapshot();
+                    }
+                } catch (e) {}
+            }, 5000);
+        }
+
+        async function saveSessionToStorage() { try { await fetch('/api/save-auto-history', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(sessionStats) }); } catch (e) {} }
+        async function saveLoopSessionToStorage() { try { await fetch('/api/save-loop-history', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(loopSessionStats) }); } catch (e) {} }
+        async function saveFutureSignalsToStorage() { try { await fetch('/api/save-future-signals', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ signals: activeFutureSignals, batches: futureBatches }) }); } catch (e) {} }
+        async function saveFutureBatchesToStorage() { try { await fetch('/api/save-future-signals', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ signals: activeFutureSignals, batches: futureBatches }) }); } catch (e) {} }
+
+        function resetSessionHistory() {
+            if (confirm("Reset manual history?")) {
+                sessionStats = { direct: 0, mtg: 0, loss: 0, history: [] };
+                selectedHistoryDate = 'today'; saveSessionToStorage(); populateHistoryDateDropdowns(); renderScoreboard(); renderHistoryList(); updateProfilePerformanceSnapshot();
+            }
+        }
+        function getTodayDateString() { const now = new Date(); return `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`; }
+        function getFilteredStats(historyList, filterDate) {
+            const todayStr = getTodayDateString(); let filtered = [];
+            if (!historyList || !Array.isArray(historyList)) return { direct: 0, mtg: 0, loss: 0, total: 0, rate: 0, list: [] };
+            if (filterDate === 'today') filtered = historyList.filter(item => item.date === todayStr);
+            else if (filterDate === 'previous') filtered = historyList.filter(item => !item.date);
+            else if (filterDate !== 'all') filtered = historyList.filter(item => item.date === filterDate);
+            else filtered = historyList;
+            let d = 0, m = 0, l = 0;
+            filtered.forEach(item => { if (item.outcome === 'WIN') d++; else if (item.outcome === 'MTG') m++; else if (item.outcome === 'LOSS') l++; });
+            const total = d + m + l;
+            return { direct: d, mtg: m, loss: l, total: total, rate: total > 0 ? ((d + m) / total * 100).toFixed(1) : 0, list: filtered };
+        }
+
+        function renderScoreboard() {
+            const stats = getFilteredStats(sessionStats.history, selectedHistoryDate);
+            document.getElementById('stat-direct').innerText = stats.direct; document.getElementById('stat-mtg').innerText = stats.mtg; document.getElementById('stat-loss').innerText = stats.loss; document.getElementById('stat-rate').innerText = stats.rate + '%';
+            document.getElementById('history-total-count').innerText = stats.total; updateProfilePerformanceSnapshot();
+        }
+        function renderLoopScoreboard() {
+            const stats = getFilteredStats(loopSessionStats.history, selectedLoopHistoryDate);
+            document.getElementById('loop-stat-direct').innerText = stats.direct; document.getElementById('loop-stat-mtg').innerText = stats.mtg; document.getElementById('loop-stat-loss').innerText = stats.loss; document.getElementById('loop-stat-rate').innerText = stats.rate + '%';
+            document.getElementById('loop-history-total-count').innerText = stats.total; updateProfilePerformanceSnapshot();
+        }
+
+        function populateHistoryDateDropdowns() {
+            const dates = new Set(); let hasLegacy = false;
+            if(!sessionStats.history) sessionStats.history = [];
+            sessionStats.history.forEach(item => { if (item.date) { if (item.date !== getTodayDateString()) dates.add(item.date); } else hasLegacy = true; });
+            let html = `<option value="today" ${selectedHistoryDate === 'today' ? 'selected' : ''}>Today</option>`;
+            Array.from(dates).sort().reverse().forEach(d => { html += `<option value="${d}" ${d === selectedHistoryDate ? 'selected' : ''}>${d}</option>`; });
+            if (hasLegacy) html += `<option value="previous" ${selectedHistoryDate === 'previous' ? 'selected' : ''}>Previous</option>`; html += `<option value="all" ${selectedHistoryDate === 'all' ? 'selected' : ''}>All</option>`;
+            document.getElementById('score-day-select').innerHTML = html; document.getElementById('history-day-select').innerHTML = html;
+        }
+        function syncManualDateFilter(val) { selectedHistoryDate = val; document.getElementById('score-day-select').value = val; document.getElementById('history-day-select').value = val; renderScoreboard(); renderHistoryList(); }
+        function resetSpecificDayHistory() {
+            if (selectedHistoryDate === 'all') return alert("Select a specific date!");
+            if (confirm("Delete history for selected date?")) {
+                const todayStr = getTodayDateString();
+                if (selectedHistoryDate === 'today') sessionStats.history = sessionStats.history.filter(i => i.date !== todayStr);
+                else if (selectedHistoryDate === 'previous') sessionStats.history = sessionStats.history.filter(i => !!i.date);
+                else sessionStats.history = sessionStats.history.filter(i => i.date !== selectedHistoryDate);
+                let d = 0, m = 0, l = 0; sessionStats.history.forEach(i => { if(i.outcome === 'WIN') d++; else if(i.outcome==='MTG') m++; else l++; });
+                sessionStats.direct = d; sessionStats.mtg = m; sessionStats.loss = l;
+                selectedHistoryDate = 'today'; saveSessionToStorage(); populateHistoryDateDropdowns(); renderScoreboard(); renderHistoryList(); updateProfilePerformanceSnapshot();
+            }
+        }
+
+        function populateLoopHistoryDateDropdowns() {
+            const dates = new Set(); let hasLegacy = false;
+            if(!loopSessionStats.history) loopSessionStats.history = [];
+            loopSessionStats.history.forEach(item => { if (item.date) { if (item.date !== getTodayDateString()) dates.add(item.date); } else hasLegacy = true; });
+            let html = `<option value="today" ${selectedLoopHistoryDate === 'today' ? 'selected' : ''}>Today</option>`;
+            Array.from(dates).sort().reverse().forEach(d => { html += `<option value="${d}" ${d === selectedLoopHistoryDate ? 'selected' : ''}>${d}</option>`; });
+            if (hasLegacy) html += `<option value="previous" ${selectedLoopHistoryDate === 'previous' ? 'selected' : ''}>Previous</option>`; html += `<option value="all" ${selectedLoopHistoryDate === 'all' ? 'selected' : ''}>All</option>`;
+            document.getElementById('loop-score-day-select').innerHTML = html; document.getElementById('loop-history-day-select').innerHTML = html;
+        }
+        function syncLoopDateFilter(val) { selectedLoopHistoryDate = val; document.getElementById('loop-score-day-select').value = val; document.getElementById('loop-history-day-select').value = val; renderLoopScoreboard(); renderLoopHistoryList(); }
+        function resetSpecificDayLoopHistory() {
+            if (selectedLoopHistoryDate === 'all') return;
+            if (confirm("Delete history?")) {
+                const todayStr = getTodayDateString();
+                if (selectedLoopHistoryDate === 'today') loopSessionStats.history = loopSessionStats.history.filter(i => i.date !== todayStr);
+                else if (selectedLoopHistoryDate === 'previous') loopSessionStats.history = loopSessionStats.history.filter(i => !!i.date);
+                else loopSessionStats.history = loopSessionStats.history.filter(i => i.date !== selectedLoopHistoryDate);
+                let d = 0, m = 0, l = 0; loopSessionStats.history.forEach(i => { if(i.outcome === 'WIN') d++; else if(i.outcome==='MTG') m++; else l++; });
+                loopSessionStats.direct = d; loopSessionStats.mtg = m; loopSessionStats.loss = l;
+                selectedLoopHistoryDate = 'today'; saveLoopSessionToStorage(); populateLoopHistoryDateDropdowns(); renderLoopScoreboard(); renderLoopHistoryList(); updateProfilePerformanceSnapshot();
+            }
+        }
+
+        function updateProfilePerformanceSnapshot() {
+            const tWins = sessionStats.direct + sessionStats.mtg + loopSessionStats.direct + loopSessionStats.mtg;
+            const tScans = tWins + sessionStats.loss + loopSessionStats.loss;
+            document.getElementById('profile-scans-count').innerText = tScans;
+            document.getElementById('profile-accuracy-rate').innerText = tScans > 0 ? ((tWins / tScans) * 100).toFixed(1) + '%' : '0%';
+        }
+
+        function renderHistoryList() {
+            const listEl = document.getElementById('history-list'); const stats = getFilteredStats(sessionStats.history, selectedHistoryDate);
+            if (!stats.list.length) return listEl.innerHTML = `<div class="text-center py-10 text-xs text-slate-500 font-medium">No trades executed.</div>`;
+            let html = '';
+            stats.list.slice().reverse().forEach((item) => {
+                let borderClass = item.outcome === 'WIN' ? 'border-emerald-500' : item.outcome === 'MTG' ? 'border-amber-500' : 'border-rose-500';
+                let badgeClass = item.outcome === 'WIN' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : item.outcome === 'MTG' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+                let label = item.outcome === 'WIN' ? 'WIN' : item.outcome === 'MTG' ? 'MTG' : 'LOSS';
+                let dirText = item.direction === 'CALL' ? 'CALL ▲' : 'PUT ▼';
+                let dirColor = item.direction === 'CALL' ? 'text-emerald-400' : 'text-rose-400';
+                html += `<div class="flex justify-between items-center group hover:bg-white/5 p-2.5 rounded-lg transition cursor-default border-l-2 ${borderClass} mb-2 bg-[#050810]/50"><div class="flex items-center gap-3 overflow-hidden"><span class="text-slate-500 font-mono text-[9px] sm:text-[10px]">${item.time}</span><span class="font-bold text-white font-mono text-xs sm:text-sm cursor-pointer hover:text-yellow-400 tracking-wide transition" onclick="copyTextToClipboard('${item.pair}')">${item.pair}</span></div><div class="flex items-center gap-3"><span class="${dirColor} font-black text-[9px] sm:text-[10px] uppercase tracking-widest hidden sm:inline-block">${dirText}</span><span class="${badgeClass} text-[8px] sm:text-[9px] font-bold px-2 py-1 rounded border">${label}</span></div></div>`;
+            });
+            listEl.innerHTML = html;
+        }
+
+        function renderLoopHistoryList() {
+            const listEl = document.getElementById('loop-history-list'); const stats = getFilteredStats(loopSessionStats.history, selectedLoopHistoryDate);
+            if (!stats.list.length) return listEl.innerHTML = `<div class="text-center py-10 text-xs text-slate-500 font-medium">No auto trades executed.</div>`;
+            let html = '';
+            stats.list.slice().reverse().forEach((item) => {
+                let borderClass = item.outcome === 'WIN' ? 'border-emerald-500' : item.outcome === 'MTG' ? 'border-amber-500' : 'border-rose-500';
+                let badgeClass = item.outcome === 'WIN' ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : item.outcome === 'MTG' ? 'bg-amber-500/10 text-amber-400 border-amber-500/20' : 'bg-rose-500/10 text-rose-400 border-rose-500/20';
+                let label = item.outcome === 'WIN' ? 'WIN' : item.outcome === 'MTG' ? 'MTG' : 'LOSS';
+                let dirText = item.direction === 'CALL' ? 'CALL ▲' : 'PUT ▼';
+                let dirColor = item.direction === 'CALL' ? 'text-emerald-400' : 'text-rose-400';
+                html += `<div class="flex justify-between items-center group hover:bg-white/5 p-2.5 rounded-lg transition cursor-default border-l-2 ${borderClass} mb-2 bg-[#050810]/50"><div class="flex items-center gap-3 overflow-hidden"><span class="text-slate-500 font-mono text-[9px] sm:text-[10px]">${item.time}</span><span class="font-bold text-white font-mono text-xs sm:text-sm cursor-pointer hover:text-yellow-400 tracking-wide transition" onclick="copyTextToClipboard('${item.pair}')">${item.pair}</span></div><div class="flex items-center gap-3"><span class="${dirColor} font-black text-[9px] sm:text-[10px] uppercase tracking-widest hidden sm:inline-block">${dirText}</span><span class="${badgeClass} text-[8px] sm:text-[9px] font-bold px-2 py-1 rounded border">${label}</span></div></div>`;
+            });
+            listEl.innerHTML = html;
+        }
+
+        async function sendTelegramSessionReport(mode) {
+            const filter = mode === 'auto' ? selectedLoopHistoryDate : selectedHistoryDate;
+            if (filter === 'all' || filter === 'previous') { alert('Select Today or a specific date first.'); return; }
+            const date = filter === 'today' ? getTodayDateString() : filter;
+            if (!confirm('End ' + mode + ' session and send the saved results for ' + date + ' to Telegram?')) return;
+            try {
+                // Wait for any outstanding history save before reading the server-side record.
+                if (mode === 'auto') await saveLoopSessionToStorage();
+                else await saveSessionToStorage();
+                const response = await fetch('/api/telegram/end-session', {method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({mode, date})});
+                const result = await response.json();
+                if (!response.ok || result.status !== 'success') throw new Error(result.message || 'Report failed');
+                alert(result.message);
+            } catch (error) { alert('Telegram report error: ' + error.message); }
+        }
+
+        function recordTradeResult(pair, direction, timeStr, outcome) {
+            try {
+                if (!sessionStats.history) sessionStats.history = [];
+                if (outcome === 'WIN') sessionStats.direct++; else if (outcome === 'MTG') sessionStats.mtg++; else sessionStats.loss++;
+                sessionStats.history.push({ date: getTodayDateString(), pair: pair, direction: direction, time: timeStr, outcome: outcome });
+                saveSessionToStorage(); populateHistoryDateDropdowns(); renderScoreboard(); renderHistoryList(); updateProfilePerformanceSnapshot();
+            } catch(e) { console.error("Manual History Error:", e); }
+        }
+
+        function recordLoopTradeResult(pair, direction, timeStr, outcome) {
+            try {
+                if (!loopSessionStats.history) loopSessionStats.history = [];
+                if (outcome === 'WIN') loopSessionStats.direct++; else if (outcome === 'MTG') loopSessionStats.mtg++; else loopSessionStats.loss++;
+                loopSessionStats.history.push({ date: getTodayDateString(), pair: pair, direction: direction, time: timeStr, outcome: outcome });
+                saveLoopSessionToStorage(); populateLoopHistoryDateDropdowns(); renderLoopScoreboard(); renderLoopHistoryList(); updateProfilePerformanceSnapshot();
+            } catch(e) { console.error("Auto History Error:", e); }
+        }
+
+        function startAutoLoop() {
+            if (autoLoopActive) return; autoLoopActive = true;
+            const btn = document.getElementById('btn-loop-start'); btn.disabled = true; btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-3xl md:text-4xl mb-2 ml-1"></i><span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Running</span>`;
+            document.getElementById('btn-loop-stop').disabled = false;
+            const badge = document.getElementById('auto-loop-status-badge'); badge.innerHTML = `<i class="fa-solid fa-circle text-[6px] text-emerald-400 align-middle mr-1 animate-pulse"></i> Running`;
+            document.getElementById('loop-signal-card').classList.remove('hidden'); runNextAutoLoopSignal();
+        }
+        function stopAutoLoop() {
+            autoLoopActive = false; if (autoLoopTimer) clearTimeout(autoLoopTimer);
+            const btn = document.getElementById('btn-loop-start'); btn.disabled = false; btn.innerHTML = `<i class="fa-solid fa-play text-3xl md:text-4xl mb-2 ml-1 group-hover:scale-110 transition-transform"></i><span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Start<br>Engine</span>`;
+            document.getElementById('btn-loop-stop').disabled = true;
+            const badge = document.getElementById('auto-loop-status-badge'); badge.innerHTML = `<i class="fa-solid fa-circle text-[6px] text-rose-500 align-middle mr-1"></i> Stopped`;
+            document.getElementById('loop-card-status').innerHTML = `<span class="text-slate-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-stop"></i> Stopped</span>`;
+        }
+
+        async function runNextAutoLoopSignal() {
+            if (!autoLoopActive) return;
+            const statusBox = document.getElementById('loop-card-status'); statusBox.innerHTML = `<span class="text-yellow-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-circle-notch animate-spin"></i> Scanning confluence...</span>`;
+            try {
+                const res = await fetch('/api/generate-auto-signal', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({broker_type: currentAutoBroker}) }); const data = await res.json();
+                if (!autoLoopActive) return;
+                if (data.status === 'limit_reached') { showLimitModal(data.message); stopAutoLoop(); }
+                else if (data.status === 'success') {
+                    playNotificationSound();
+                    document.getElementById('loop-card-market').innerText = data.broker_type.toUpperCase(); document.getElementById('loop-card-pair').innerText = data.clean_pair;
+                    document.getElementById('loop-card-direction').innerText = data.direction === 'CALL' ? 'CALL (BUY)' : 'PUT (SELL)'; document.getElementById('loop-card-direction').className = data.direction === 'CALL' ? 'mt-4 inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-lg font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 tracking-widest shadow-md uppercase' : 'mt-4 inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-lg font-black bg-rose-500/10 text-rose-400 border border-rose-500/30 tracking-widest shadow-md uppercase';
+                    document.getElementById('loop-card-confidence').innerHTML = `<i class="fa-solid fa-bolt"></i> ${data.confidence}% MATCH`; document.getElementById('loop-card-time').innerText = data.entry_time;
+                    refreshLoopChartSnapshot(data.pair_raw, data.direction, "PENDING", data.entry_timestamp, "primary", data.broker_type);
+                    startLoopCandleSync(data.entry_timestamp, data.pair_raw, data.clean_pair, data.direction, data.entry_time, data.broker_type);
+                } else { if (autoLoopActive) autoLoopTimer = setTimeout(runNextAutoLoopSignal, 5000); }
+            } catch (err) { if (autoLoopActive) autoLoopTimer = setTimeout(runNextAutoLoopSignal, 5000); }
+        }
+
+        function startLoopCandleSync(entryTs, pairRaw, cleanPair, direction, entryTimeStr, brokerType) {
+            const statusBox = document.getElementById('loop-card-status'); let primaryChecked = false; let mtgChecked = false;
+            const loopCandleInterval = setInterval(async () => {
+                if (!autoLoopActive) { clearInterval(loopCandleInterval); return; }
+                const nowSec = Math.floor(Date.now() / 1000);
+                try {
+                    if (nowSec < entryTs) { 
+                        statusBox.innerHTML = `<span class="text-sky-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-hourglass-half animate-pulse"></i> Active in: ${entryTs - nowSec}s</span>`; 
+                    } 
+                    else if (nowSec < entryTs + 64) { 
+                        statusBox.innerHTML = `<span class="text-yellow-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><span class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping"></span> Execution: ${(entryTs + 64) - nowSec}s</span>`; 
+                    } 
+                    else if (nowSec >= entryTs + 64 && !primaryChecked) {
+                        primaryChecked = true; const res = await fetchResult(pairRaw, direction, entryTs, brokerType, "primary", "auto");
+                        if (res.outcome === "WIN") { 
+                            clearInterval(loopCandleInterval); 
+                            statusBox.innerHTML = `<span class="text-emerald-400 font-black text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-check-circle"></i> DIRECT WIN</span>`; 
+                            recordLoopTradeResult(cleanPair, direction, entryTimeStr, "WIN"); 
+                            refreshLoopChartSnapshot(pairRaw, direction, "WIN", entryTs, "primary", brokerType); 
+                            if (autoLoopActive) autoLoopTimer = setTimeout(runNextAutoLoopSignal, 3000); 
+                        } 
+                        else { 
+                            statusBox.innerHTML = `<span class="text-amber-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-triangle-exclamation animate-pulse"></i> MTG RUNNING...</span>`; 
+                        }
+                    } 
+                    else if (nowSec >= entryTs + 124 && !mtgChecked) {
+                        mtgChecked = true; clearInterval(loopCandleInterval); const res = await fetchResult(pairRaw, direction, entryTs, brokerType, "mtg", "auto");
+                        if (res.outcome === "MTG") { 
+                            statusBox.innerHTML = `<span class="text-amber-400 font-black text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-shield-check"></i> MTG RECOVERED</span>`; 
+                            recordLoopTradeResult(cleanPair, direction, entryTimeStr, "MTG"); 
+                            refreshLoopChartSnapshot(pairRaw, direction, "WIN", entryTs, "mtg", brokerType); 
+                        } 
+                        else { 
+                            statusBox.innerHTML = `<span class="text-rose-500 font-black text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-xmark-circle"></i> LOSS</span>`; 
+                            recordLoopTradeResult(cleanPair, direction, entryTimeStr, "LOSS"); 
+                            refreshLoopChartSnapshot(pairRaw, direction, "LOSS", entryTs, "mtg", brokerType); 
+                        }
+                        if (autoLoopActive) autoLoopTimer = setTimeout(runNextAutoLoopSignal, 3000);
+                    }
+                    
+                    if (nowSec > entryTs + 150) { clearInterval(loopCandleInterval); if (autoLoopActive) autoLoopTimer = setTimeout(runNextAutoLoopSignal, 3000); }
+                } catch(e) {
+                    console.error("Auto Sync Error:", e);
+                    if (nowSec > entryTs + 130) { clearInterval(loopCandleInterval); if (autoLoopActive) autoLoopTimer = setTimeout(runNextAutoLoopSignal, 3000); }
+                }
+            }, 1000);
+        }
+
+        function rgHistorySafe(value) {
+            return String(value == null ? '' : value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+        }
+        function rgHistoryRows(items, target, emptyMessage) {
+            const el = document.getElementById(target);
+            if (!el) return;
+            if (!Array.isArray(items) || !items.length) {
+                el.innerHTML = '<div class="rg-history-empty">' + rgHistorySafe(emptyMessage) + '</div>';
+                return;
+            }
+            el.innerHTML = items.slice().reverse().slice(0, 100).map(item => {
+                const status = String(item.outcome || item.status || 'PENDING').toUpperCase();
+                const color = status === 'WIN' ? '#16e99a' : status === 'LOSS' ? '#ff5374' : status === 'MTG' ? '#ffd048' : '#d7b76d';
+                const direction = item.direction || item.signal || '';
+                const when = item.time_str || item.time || item.dateStr || '';
+                return '<div class="rg-history-entry"><div><div class="rg-history-pair">' + rgHistorySafe(item.pair || item.asset || 'Signal') + '</div><div class="rg-history-meta">' + rgHistorySafe(when) + ' ' + rgHistorySafe(direction) + '</div></div><span class="rg-history-status" style="color:' + color + '">' + rgHistorySafe(status) + '</span></div>';
+            }).join('');
+        }
+        function renderRoyalHistory() {
+            rgHistoryRows(loopSessionStats.history, 'rg-auto-history', 'No Auto Signal history yet');
+            rgHistoryRows(sessionStats.history, 'rg-manual-history', 'No Manual Signal history yet');
+            const futureItems = Array.isArray(futureBatches) && futureBatches.length
+                ? futureBatches.flatMap(batch => Array.isArray(batch.signals) ? batch.signals : [])
+                : activeFutureSignals;
+            rgHistoryRows(futureItems, 'rg-future-history', 'No Future Signal history yet');
+        }
+        function showRoyalHistory() { switchTab('history'); }
+        function switchTab(tab) {
+            const allTabs = ['dashboard', 'manual', 'auto', 'future', 'pricing', 'profile', 'analytics', 'history'];
+            allTabs.forEach(t => { const sec = document.getElementById(`sec-${t}`); const btn = document.getElementById(`tab-${t}`); if (sec) { sec.classList.add('hidden'); sec.style.setProperty('display','none','important'); } if (btn) btn.classList.remove('active'); });
+            const activeSec = document.getElementById(`sec-${tab}`); const activeBtn = document.getElementById(`tab-${tab}`);
+            if (activeSec) { activeSec.classList.remove('hidden'); activeSec.style.removeProperty('display'); } if (activeBtn) activeBtn.classList.add('active');
+            document.querySelectorAll('#rg-sidebar button').forEach(b => b.classList.toggle('rg-selected', b.getAttribute('onclick') === "switchTab('" + tab + "')"));
+            if (tab === 'history') renderRoyalHistory();
+            if (tab === 'analytics') { loadAnalyticsData(); if (!analyticsAutoRefreshTimer) analyticsAutoRefreshTimer = setInterval(loadAnalyticsData, 5000); } else { if (analyticsAutoRefreshTimer) clearInterval(analyticsAutoRefreshTimer); analyticsAutoRefreshTimer = null; }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function setMarket(m) {
+            if (m === 'real' && !isRealMarketAvailable) {
+                showMarketModal();
+                return; 
+            }
+            currentBroker = m;
+            ['quotex', 'pocket', 'real'].forEach(x => { document.getElementById(`mkt-${x}`)?.classList.remove('active'); });
+            document.getElementById(`mkt-${m}`)?.classList.add('active');
+        }
+        function setAutoMarket(m) {
+            if (m === 'real' && !isRealMarketAvailable) {
+                showMarketModal();
+                return; 
+            }
+            currentAutoBroker = m;
+            ['quotex', 'pocket', 'real'].forEach(x => { document.getElementById(`auto-mkt-${x}`)?.classList.remove('active'); });
+            document.getElementById(`auto-mkt-${m}`)?.classList.add('active');
+        }
+        function setFutureMarket(m) {
+            if (m === 'real' && !isRealMarketAvailable) {
+                showMarketModal();
+                return; 
+            }
+            currentFutureBroker = m;
+            ['quotex', 'pocket', 'real'].forEach(x => { document.getElementById(`fut-mkt-${x}`)?.classList.remove('active'); });
+            document.getElementById(`fut-mkt-${m}`)?.classList.add('active');
+        }
+
+        async function requestAutoSignal() {
+            if (currentBroker === 'real' && !isRealMarketAvailable) {
+                showMarketModal();
+                return;
+            }
+            const btn = document.getElementById('btn-scan'); btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-3xl md:text-4xl mb-2"></i><span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Analyzing</span>`; btn.disabled = true;
+            try {
+                const res = await fetch('/api/generate-auto-signal', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({broker_type: currentBroker}) }); const data = await res.json();
+                if (data.status === 'limit_reached') showLimitModal(data.message);
+                else if (data.status === 'success') {
+                    playNotificationSound();
+                    document.getElementById('signal-card').classList.remove('hidden'); document.getElementById('card-market').innerText = data.broker_type.toUpperCase(); document.getElementById('card-pair').innerText = data.clean_pair;
+                    document.getElementById('card-direction').innerText = data.direction === 'CALL' ? 'CALL (BUY UP)' : 'PUT (SELL DOWN)'; document.getElementById('card-direction').className = data.direction === 'CALL' ? 'mt-4 inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-lg font-black bg-emerald-500/10 text-emerald-400 border border-emerald-500/30 tracking-widest shadow-md uppercase' : 'mt-4 inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl text-lg font-black bg-rose-500/10 text-rose-400 border border-rose-500/30 tracking-widest shadow-md uppercase';
+                    document.getElementById('card-confidence').innerHTML = `<i class="fa-solid fa-bolt"></i> ${data.confidence}% MATCH`; document.getElementById('card-time').innerText = data.entry_time;
+                    refreshChartSnapshot(data.pair_raw, data.direction, "PENDING", data.entry_timestamp, "primary", data.broker_type); startCandleSync(data.entry_timestamp, data.pair_raw, data.clean_pair, data.direction, data.entry_time, data.broker_type);
+                }
+            } catch (err) {}
+            btn.innerHTML = `<i class="fa-solid fa-fingerprint text-3xl md:text-4xl mb-2 group-hover:scale-110 transition-transform"></i><span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Analyze<br>Confluence</span>`; btn.disabled = false;
+        }
+
+        function startCandleSync(entryTs, pairRaw, cleanPair, direction, entryTimeStr, brokerType) {
+            if (countdownInterval) clearInterval(countdownInterval); const statusBox = document.getElementById('card-status'); let primaryChecked = false; let mtgChecked = false;
+            countdownInterval = setInterval(async () => {
+                const nowSec = Math.floor(Date.now() / 1000);
+                try {
+                    if (nowSec < entryTs) { 
+                        statusBox.innerHTML = `<span class="text-sky-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-hourglass-half animate-pulse"></i> Active in: ${entryTs - nowSec}s</span>`; 
+                    } 
+                    else if (nowSec < entryTs + 64) { 
+                        statusBox.innerHTML = `<span class="text-yellow-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><span class="w-1.5 h-1.5 bg-yellow-400 rounded-full animate-ping"></span> Execution: ${(entryTs + 64) - nowSec}s</span>`; 
+                    } 
+                    else if (nowSec >= entryTs + 64 && !primaryChecked) {
+                        primaryChecked = true; const res = await fetchResult(pairRaw, direction, entryTs, brokerType, "primary", "auto");
+                        if (res.outcome === "WIN") { 
+                            clearInterval(countdownInterval); 
+                            statusBox.innerHTML = `<span class="text-emerald-400 font-black text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-check-circle"></i> DIRECT WIN</span>`; 
+                            recordTradeResult(cleanPair, direction, entryTimeStr, "WIN"); 
+                            refreshChartSnapshot(pairRaw, direction, "WIN", entryTs, "primary", brokerType); 
+                        } 
+                        else { 
+                            statusBox.innerHTML = `<span class="text-amber-400 font-bold text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-triangle-exclamation animate-pulse"></i> MTG RUNNING...</span>`; 
+                        }
+                    } 
+                    else if (nowSec >= entryTs + 124 && !mtgChecked) {
+                        mtgChecked = true; clearInterval(countdownInterval); const res = await fetchResult(pairRaw, direction, entryTs, brokerType, "mtg", "auto");
+                        if (res.outcome === "MTG") { 
+                            statusBox.innerHTML = `<span class="text-amber-400 font-black text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-shield-check"></i> MTG RECOVERED</span>`; 
+                            recordTradeResult(cleanPair, direction, entryTimeStr, "MTG"); 
+                            refreshChartSnapshot(pairRaw, direction, "WIN", entryTs, "mtg", brokerType); 
+                        } 
+                        else { 
+                            statusBox.innerHTML = `<span class="text-rose-500 font-black text-[10px] tracking-widest uppercase flex items-center justify-center gap-2"><i class="fa-solid fa-xmark-circle"></i> LOSS</span>`; 
+                            recordTradeResult(cleanPair, direction, entryTimeStr, "LOSS"); 
+                            refreshChartSnapshot(pairRaw, direction, "LOSS", entryTs, "mtg", brokerType); 
+                        }
+                    }
+                    if (nowSec > entryTs + 150) clearInterval(countdownInterval);
+                } catch(e) {
+                    console.error("Manual Sync Error:", e);
+                    if (nowSec > entryTs + 130) clearInterval(countdownInterval);
+                }
+            }, 1000);
+        }
+
+        async function fetchResult(pair, dir, ts, broker, phase, mode = "auto") { try { const res = await fetch('/api/check-result', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ pair_raw: pair, direction: dir, entry_timestamp: ts, broker_type: broker, phase: phase, mode: mode }) }); return await res.json(); } catch (e) { return {outcome: "ERROR"}; } }
+
+        async function requestFutureBatch() {
+            if (currentFutureBroker === 'real' && !isRealMarketAvailable) {
+                showMarketModal();
+                return;
+            }
+            const container = document.getElementById('future-container'); const btn = document.getElementById('btn-gen-future'); btn.disabled = true; btn.innerHTML = `<i class="fa-solid fa-circle-notch animate-spin text-3xl md:text-4xl mb-2"></i><span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Compiling</span>`;
+            container.innerHTML = `<div class="text-center text-xs font-bold text-slate-400 tracking-widest py-8 uppercase"><i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Compiling...</div>`;
+            try {
+                const res = await fetch('/api/generate-future-signals', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({broker_type: currentFutureBroker}) }); const d = await res.json();
+                if (d.status === 'limit_reached') { showLimitModal(d.message); container.innerHTML = ''; } 
+                else if (d.status === 'success') {
+                    playNotificationSound();
+                    activeFutureSignals = d.signals.map((s, idx) => ({ ...s, id: 'fut_'+idx+'_'+s.target_ts, broker_type: currentFutureBroker, status: 'PENDING', primary_checked: false, mtg_checked: false }));
+                    if (d.telegram_msg_id) window.currentTelegramMsgId = d.telegram_msg_id; saveFutureSignalsToStorage(); renderFutureSignals();
+                    const now = new Date(); const dStr = String(now.getDate()).padStart(2, '0') + '-' + String(now.getMonth() + 1).padStart(2, '0') + '-' + String(now.getFullYear()).slice(2);
+                    futureBatches.unshift({ id: 'batch_'+Date.now(), batchNum: futureBatches.length + 1, dateStr: dStr, timeRange: `${activeFutureSignals[0].time_str}-${activeFutureSignals[activeFutureSignals.length - 1].time_str}`, signals: JSON.parse(JSON.stringify(activeFutureSignals)), telegram_msg_id: d.telegram_msg_id || null, direct: 0, mtg: 0, loss: 0, winRate: '0.0%' });
+                    saveFutureBatchesToStorage(); renderFutureBatches(); startFutureSignalsScanner();
+                }
+            } catch (err) { container.innerHTML = ''; }
+            btn.innerHTML = `<i class="fa-solid fa-wand-magic-sparkles text-3xl md:text-4xl mb-2 group-hover:scale-110 transition-transform"></i><span class="text-[9px] md:text-[10px] font-black tracking-widest uppercase text-center leading-tight">Generate<br>Batch</span>`; btn.disabled = false;
+        }
+
+        function renderFutureSignals() {
+            const container = document.getElementById('future-container'); const actionBar = document.getElementById('future-action-bar');
+            if (!activeFutureSignals.length) { container.innerHTML = ''; if (actionBar) actionBar.classList.add('hidden'); return; }
+            if (actionBar) actionBar.classList.remove('hidden'); let html = '';
+            activeFutureSignals.forEach((s, idx) => {
+                let badge = s.status === 'WIN' ? `<span class="text-emerald-400 font-bold text-[8px] bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/30 uppercase tracking-widest">✅ WIN</span>` : s.status === 'MTG' ? `<span class="text-amber-400 font-bold text-[8px] bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30 uppercase tracking-widest">🟡 MTG</span>` : s.status === 'LOSS' ? `<span class="text-rose-400 font-bold text-[8px] bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/30 uppercase tracking-widest">❌ LOSS</span>` : s.status === 'LIVE' ? `<span class="text-yellow-400 font-bold text-[8px] bg-yellow-500/10 px-1.5 py-0.5 rounded border border-yellow-500/30 animate-pulse uppercase tracking-widest">⚡ LIVE</span>` : s.status === 'IN_MTG' ? `<span class="text-amber-400 font-bold text-[8px] bg-amber-500/10 px-1.5 py-0.5 rounded border border-amber-500/30 animate-pulse uppercase tracking-widest">⚠️ MTG</span>` : `<span class="text-slate-500 text-[8px] font-bold uppercase tracking-widest bg-slate-800/80 px-1.5 py-0.5 rounded border border-slate-700">⏳ PEND</span>`;
+                let dirText = s.direction === 'CALL' ? 'CALL ▲' : 'PUT ▼';
+                html += `<div class="bg-[#050810]/50 p-2.5 rounded-xl flex justify-between items-center text-xs border border-slate-800/80 mb-2 transition"><div class="flex items-center gap-2"><span class="text-slate-500 font-mono text-[9px] mr-1">#${idx+1}</span><span class="font-bold text-white font-mono text-[10px] cursor-pointer hover:text-yellow-400 tracking-wider transition" onclick="copyTextToClipboard('${s.pair}')">${s.pair}</span><span class="font-black text-[9px] ${s.direction === 'CALL' ? 'text-emerald-400':'text-rose-400'} ml-1">${dirText}</span></div><div class="flex items-center gap-2"><span class="text-slate-400 font-mono text-[9px] mr-1">${s.time_str}</span>${badge}</div></div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function renderFutureBatches() {
+            const container = document.getElementById('future-batches-container'); if (document.getElementById('future-batch-count')) document.getElementById('future-batch-count').innerText = futureBatches.length;
+            if (!futureBatches.length) return container.innerHTML = `<div class="text-center text-xs font-medium text-slate-500 py-10">No batches generated yet.</div>`;
+            let html = '';
+            futureBatches.forEach((b) => {
+                html += `<div class="bg-[#050810]/50 p-2 rounded-xl border border-slate-800/80 mb-2"><div class="grid grid-cols-5 gap-1.5 text-center items-center"><div class="bg-[#0a0e17] p-1.5 rounded-lg border border-slate-800 flex flex-col justify-center min-h-[45px] overflow-hidden"><span class="text-[9px] font-black text-yellow-400 uppercase tracking-widest">B#${b.batchNum}</span><span class="text-[8px] text-slate-500 font-mono mt-0.5">${b.dateStr}</span></div><div class="bg-[#0a0e17] p-1.5 rounded-lg border border-slate-800 flex flex-col justify-center min-h-[45px]"><span class="text-[8px] text-slate-500 block font-bold uppercase tracking-widest">Win</span><span class="text-xs font-black text-emerald-400 mt-0.5">${b.direct}</span></div><div class="bg-[#0a0e17] p-1.5 rounded-lg border border-slate-800 flex flex-col justify-center min-h-[45px]"><span class="text-[8px] text-slate-500 block font-bold uppercase tracking-widest">MTG</span><span class="text-xs font-black text-amber-400 mt-0.5">${b.mtg}</span></div><div class="bg-[#0a0e17] p-1.5 rounded-lg border border-slate-800 flex flex-col justify-center min-h-[45px]"><span class="text-[8px] text-slate-500 block font-bold uppercase tracking-widest">Loss</span><span class="text-xs font-black text-rose-400 mt-0.5">${b.loss}</span></div><div class="bg-[#0a0e17] p-1.5 rounded-lg border border-slate-800 flex flex-col justify-center min-h-[45px]"><span class="text-[8px] text-slate-500 block font-bold uppercase tracking-widest">Rate</span><span class="text-[10px] font-black text-yellow-400 font-mono mt-0.5">${b.winRate}</span></div></div></div>`;
+            });
+            container.innerHTML = html;
+        }
+
+        function updateBatchScoreboardStats() {
+            if (!futureBatches.length) return; const currentBatch = futureBatches[0]; let dWins = 0, mWins = 0, lCount = 0;
+            currentBatch.signals.forEach(s => { if (s.status === 'WIN') dWins++; else if (s.status === 'MTG') mWins++; else if (s.status === 'LOSS') lCount++; });
+            currentBatch.direct = dWins; currentBatch.mtg = mWins; currentBatch.loss = lCount;
+            const completed = dWins + mWins + lCount; currentBatch.winRate = completed > 0 ? (((dWins + mWins) / completed) * 100).toFixed(1) + '%' : '0.0%';
+            saveFutureBatchesToStorage(); renderFutureBatches();
+        }
+
+        function startFutureSignalsScanner() {
+            if (futureScannerInterval) clearInterval(futureScannerInterval);
+            futureScannerInterval = setInterval(async () => {
+                const nowSec = Math.floor(Date.now() / 1000); let hasPendingOrRunning = false; let stateUpdated = false;
+                for (let s of activeFutureSignals) {
+                    if (s.status === 'WIN' || s.status === 'MTG' || s.status === 'LOSS') continue; hasPendingOrRunning = true;
+                    if (nowSec >= s.target_ts && nowSec < s.target_ts + 64 && s.status === 'PENDING') { s.status = 'LIVE'; stateUpdated = true; }
+                    if (nowSec >= s.target_ts + 64 && !s.primary_checked) { s.primary_checked = true; const res = await fetchResult(s.pair_raw || s.pair, s.direction, s.target_ts, s.broker_type || currentFutureBroker, "primary", "future"); if (res.outcome === "WIN") s.status = 'WIN'; else s.status = 'IN_MTG'; stateUpdated = true; }
+                    if (nowSec >= s.target_ts + 124 && s.primary_checked && !s.mtg_checked && s.status === 'IN_MTG') { s.mtg_checked = true; const res = await fetchResult(s.pair_raw || s.pair, s.direction, s.target_ts, s.broker_type || currentFutureBroker, "mtg", "future"); if (res.outcome === "MTG") s.status = 'MTG'; else s.status = 'LOSS'; stateUpdated = true; }
+                }
+                if (stateUpdated) { saveFutureSignalsToStorage(); renderFutureSignals(); if (futureBatches.length > 0) { futureBatches[0].signals = JSON.parse(JSON.stringify(activeFutureSignals)); updateBatchScoreboardStats(); const activeMsgId = futureBatches[0].telegram_msg_id || window.currentTelegramMsgId; if (activeMsgId) { try { await fetch('/api/update-telegram-batch', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({ signals: activeFutureSignals, broker: currentFutureBroker.toUpperCase(), telegram_msg_id: activeMsgId }) }); } catch (e) {} } } }
+                if (!hasPendingOrRunning) clearInterval(futureScannerInterval);
+            }, 1000);
+        }
+
+        async function loadAnalyticsData() {
+            try {
+                const res = await fetch('/api/admin/analytics-data?t=' + Date.now(), { cache: 'no-store' }); const d = await res.json();
+                if (document.getElementById('an-auto-total')) { document.getElementById('an-auto-total').innerText = d.auto_signals; document.getElementById('an-auto-sub').innerText = `W: ${d.auto_wins} | L: ${d.auto_losses} (${d.auto_win_rate}%)`; document.getElementById('an-future-total').innerText = d.future_signals; document.getElementById('an-future-sub').innerText = `W: ${d.future_wins} | L: ${d.future_losses} (${d.future_win_rate}%)`; document.getElementById('an-overall-rate').innerText = d.overall_win_rate + '%'; document.getElementById('an-overall-total').innerText = `Total Logs: ${d.total_signals}`; document.getElementById('an-bar-wins').innerText = `W: ${d.total_wins}`; document.getElementById('an-bar-losses').innerText = `L: ${d.total_losses}`; document.getElementById('an-progress-fill').style.width = d.overall_win_rate + '%'; }
+                const pairContainer = document.getElementById('an-pairs-container'); const badgeCount = document.getElementById('an-pairs-count-badge');
+                if (pairContainer) {
+                    if (d.top_pairs && d.top_pairs.length > 0) {
+                        if (badgeCount) badgeCount.innerText = `${d.top_pairs.length} Pairs`; let html = '';
+                        d.top_pairs.forEach(([p, stats]) => { const isReal = !p.includes('(OTC)'); const borderClass = isReal ? 'border-yellow-500/40 bg-yellow-500/10 text-yellow-400' : 'border-slate-800 bg-[#0a0e17] text-slate-300'; const tagBadge = isReal ? ' <span class="text-[8px] text-yellow-400 font-bold ml-1 uppercase">LIVE</span>' : ''; html += `<div class="${borderClass} border px-3 py-2 rounded-lg text-[9px] font-mono font-bold flex items-center justify-between"><span class="truncate">${p}${tagBadge} <span class="text-slate-500 text-[8px] ml-1">(${stats.total})</span></span><span><span class="text-emerald-400 mr-1.5">✅ ${stats.wins}</span> <span class="text-rose-400">❌ ${stats.losses}</span></span></div>`; });
+                        pairContainer.innerHTML = html;
+                    } else { if (badgeCount) badgeCount.innerText = `0 Pairs`; pairContainer.innerHTML = '<span class="text-[10px] text-slate-500 text-center py-2">No data.</span>'; }
+                }
+            } catch (err) {}
+        }
+
+        async function confirmResetMode(mode) { if (confirm(`Reset ${mode} analytics?`)) { try { const res = await fetch('/api/admin/reset-analytics', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({mode: mode}) }); const d = await res.json(); if (d.status === 'success') loadAnalyticsData(); } catch (e) {} } }
+        function openCheckout(code, name, price) { selectedPlan = code; document.getElementById('modal-title').innerText = `Invoice: ${name} (${price})`; document.getElementById('checkout-modal').classList.remove('hidden'); }
+        function closeCheckout() { document.getElementById('checkout-modal').classList.add('hidden'); }
+        async function submitProof() { const tx = document.getElementById('tx-input').value.trim(); if (!tx) return alert('Enter TxID!'); try { const res = await fetch('/api/submit-payment', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({plan_code: selectedPlan, tx_id: tx}) }); const d = await res.json(); if (d.status === 'success') { closeCheckout(); document.getElementById('tx-input').value = ''; document.getElementById('payment-proof-modal').classList.remove('hidden'); } else alert(d.message); } catch (e) {} }
+        async function updateTz(offset) { await fetch('/api/set-timezone', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({offset: parseFloat(offset)}) }); location.reload(); }
+
+        window.addEventListener('DOMContentLoaded', loadSessionFromStorage);
+    </script>
+
+<!-- Telegram configuration: available only to authenticated admins -->
+{% if session.get('role') == 'admin' %}
+<div id="telegram-settings-modal" class="hidden fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4">
+  <div class="glass-card w-full max-w-md p-6 border border-sky-500/40 rounded-2xl">
+    <h3 class="text-sky-400 font-bold mb-3"><i class="fa-brands fa-telegram mr-2"></i>Telegram Auto Signal Settings</h3>
+    <p class="text-xs text-slate-400 mb-4">Bot token and Chat ID এখানে দিলেই সব নতুন সিগন্যাল অটোমেটিক পাঠানো হবে।</p>
+    <label class="block text-xs text-slate-300 mb-1">Bot Token</label>
+    <input id="tg-bot-token" type="password" autocomplete="off" placeholder="123456:ABC..." class="w-full p-3 mb-3 bg-slate-900 border border-slate-700 rounded-lg text-white" />
+    <label class="block text-xs text-slate-300 mb-1">Chat ID / @channelusername</label>
+    <input id="tg-chat-id" type="text" autocomplete="off" placeholder="-1001234567890" class="w-full p-3 mb-3 bg-slate-900 border border-slate-700 rounded-lg text-white" />
+    <p id="tg-settings-message" class="text-xs text-slate-300 mb-3" aria-live="polite"></p>
+    <label class="rg-tg-toggle"><input type="checkbox" id="tg-enabled" onchange="toggleTelegramDelivery('admin',this)" /><span>Telegram notifications ON</span></label>
+    <div class="flex flex-wrap gap-2"><button onclick="testTelegramSettings()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg">Test Telegram</button><button onclick="saveTelegramSettings()" class="bg-sky-600 text-white px-4 py-2 rounded-lg">Save & Enable</button><button onclick="document.getElementById('telegram-settings-modal').classList.add('hidden')" class="bg-slate-700 text-white px-4 py-2 rounded-lg">Close</button></div>
+  </div>
+</div>
+<script>
+async function openTelegramSettings() {
+  const modal = document.getElementById('telegram-settings-modal');
+  modal.classList.remove('hidden');
+  const msg = document.getElementById('tg-settings-message');
+  msg.textContent = 'Loading...';
+  try {
+    const res = await fetch('/api/admin/telegram-settings');
+    if (!res.ok) throw Error('Unable to load settings');
+    const data = await res.json();
+    document.getElementById('tg-chat-id').value = data.chat_id || '';
+    document.getElementById('tg-enabled').checked = data.configured && data.enabled !== false;
+    msg.textContent = data.configured ? 'Configured. Enter token again to update.' : 'Not configured yet.';
+  } catch(e) { msg.textContent = e.message; }
+}
+async function testTelegramSettings() {
+  const msg = document.getElementById('tg-settings-message');
+  msg.textContent = 'Sending test message...';
+  try {
+    const res = await fetch('/api/admin/telegram-test', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({bot_token:document.getElementById('tg-bot-token').value, chat_id:document.getElementById('tg-chat-id').value})});
+    const data = await res.json();
+    msg.textContent = data.message || 'Test failed';
+    msg.style.color = res.ok ? '#4ade80' : '#f87171';
+  } catch(e) { msg.textContent = 'Network error: ' + e.message; msg.style.color = '#f87171'; }
+}
+async function saveTelegramSettings() {
+  const msg = document.getElementById('tg-settings-message');
+  msg.textContent = 'Saving...';
+  try {
+    const res = await fetch('/api/admin/telegram-settings', {method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify({bot_token:document.getElementById('tg-bot-token').value, chat_id:document.getElementById('tg-chat-id').value})});
+    const data = await res.json();
+    msg.textContent = data.message || 'Failed';
+    msg.style.color = res.ok ? '#4ade80' : '#f87171';
+    if (res.ok) { document.getElementById('tg-bot-token').value = ''; document.getElementById('tg-enabled').checked = true; }
+  } catch(e) { msg.textContent = 'Could not save settings'; }
+}
+</script>
+{% endif %}
+
+
+<!-- Per-user Telegram configuration. Admin configuration above remains unchanged. -->
+{% if user.role != 'admin' %}
+<div id="user-telegram-modal" class="hidden fixed inset-0 z-[9999] bg-black/80 flex items-center justify-center p-4" role="dialog" aria-modal="true" aria-labelledby="user-telegram-title">
+  <div class="glass-card w-full max-w-md p-6 border border-sky-500/40 rounded-2xl">
+    <h3 id="user-telegram-title" class="text-sky-400 font-bold mb-3"><i class="fa-brands fa-telegram mr-2"></i>My Telegram Bot Settings</h3>
+    <p class="text-xs text-slate-400 mb-4">Your personal bot receives your signals, results and session reports. Admin Telegram settings are separate.</p>
+    <label for="user-tg-token" class="block text-xs text-slate-300 mb-1">Bot Token</label>
+    <input id="user-tg-token" type="password" autocomplete="new-password" placeholder="123456:ABC..." class="w-full p-3 mb-3 bg-slate-900 border border-slate-700 rounded-lg text-white" />
+    <label for="user-tg-chat" class="block text-xs text-slate-300 mb-1">Chat ID / @channelusername</label>
+    <input id="user-tg-chat" type="text" autocomplete="off" placeholder="-1001234567890" class="w-full p-3 mb-3 bg-slate-900 border border-slate-700 rounded-lg text-white" />
+    <p id="user-tg-message" class="text-xs text-slate-300 mb-3" aria-live="polite"></p>
+    <label class="rg-tg-toggle"><input type="checkbox" id="user-tg-enabled" onchange="toggleTelegramDelivery('user',this)" /><span>Telegram notifications ON</span></label>
+    <div class="flex flex-wrap gap-2">
+      <button type="button" onclick="saveUserTelegramSettings()" class="bg-sky-600 text-white px-4 py-2 rounded-lg">Save &amp; Enable</button>
+      <button type="button" onclick="testUserTelegramSettings()" class="bg-emerald-600 text-white px-4 py-2 rounded-lg">Test Saved Bot</button>
+      <button type="button" onclick="removeUserTelegramSettings()" class="bg-rose-700 text-white px-4 py-2 rounded-lg">Disconnect</button>
+      <button type="button" onclick="closeUserTelegramSettings()" class="bg-slate-700 text-white px-4 py-2 rounded-lg">Close</button>
+    </div>
+  </div>
+</div>
+<script>
+function userTelegramMessage(message, ok) {
+  const el = document.getElementById('user-tg-message');
+  el.textContent = message;
+  el.style.color = ok === true ? '#4ade80' : ok === false ? '#f87171' : '#cbd5e1';
+}
+async function userTelegramRequest(url, options) {
+  const response = await fetch(url, {credentials: 'same-origin', ...options});
+  const data = await response.json();
+  if (!response.ok || data.status !== 'success') throw new Error(data.message || 'Request failed');
+  return data;
+}
+async function openUserTelegramSettings() {
+  document.getElementById('user-telegram-modal').classList.remove('hidden');
+  document.getElementById('user-tg-token').value = '';
+  userTelegramMessage('Loading settings...');
+  try {
+    const data = await userTelegramRequest('/api/user/telegram-settings');
+    document.getElementById('user-tg-chat').value = data.chat_id || '';
+    document.getElementById('user-tg-enabled').checked = data.configured && data.enabled !== false;
+    userTelegramMessage(data.configured ? 'Connected. Leave Bot Token blank to keep your saved token.' : 'Not configured. Enter your Bot Token and Chat ID.', true);
+  } catch (error) { userTelegramMessage(error.message, false); }
+}
+function closeUserTelegramSettings() {
+  document.getElementById('user-telegram-modal').classList.add('hidden');
+  document.getElementById('user-tg-token').value = '';
+}
+async function saveUserTelegramSettings() {
+  const bot_token = document.getElementById('user-tg-token').value.trim();
+  const chat_id = document.getElementById('user-tg-chat').value.trim();
+  if (!chat_id) return userTelegramMessage('Enter a Chat ID.', false);
+  userTelegramMessage('Saving and checking Telegram connection...');
+  try {
+    const data = await userTelegramRequest('/api/user/telegram-settings', {
+      method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify({bot_token, chat_id})
+    });
+    document.getElementById('user-tg-token').value = '';
+    document.getElementById('user-tg-enabled').checked = true;
+    userTelegramMessage('Telegram connected: ' + data.chat_id, true);
+  } catch (error) { userTelegramMessage(error.message, false); }
+}
+async function testUserTelegramSettings() {
+  userTelegramMessage('Sending test to your saved bot...');
+  try {
+    const data = await userTelegramRequest('/api/user/telegram-test', {method: 'POST'});
+    userTelegramMessage(data.message || 'Test delivered.', true);
+  } catch (error) { userTelegramMessage(error.message, false); }
+}
+async function removeUserTelegramSettings() {
+  if (!confirm('Disconnect your Telegram bot?')) return;
+  try {
+    await userTelegramRequest('/api/user/telegram-settings', {method: 'DELETE'});
+    document.getElementById('user-tg-token').value = '';
+    document.getElementById('user-tg-chat').value = '';
+    document.getElementById('user-tg-enabled').checked = false;
+    userTelegramMessage('Telegram disconnected.', true);
+  } catch (error) { userTelegramMessage(error.message, false); }
+}
+</script>
+{% endif %}
+
+<script>
+(function(){
+ const manual=document.getElementById('sec-manual');
+ const signal=document.getElementById('signal-card');
+ if(manual&&signal){
+  const center=document.createElement('div');center.id='rg-result-column';
+  manual.insertBefore(center,manual.children[1]);center.appendChild(signal);
+  const empty=document.createElement('div');empty.className='glass-card rg-empty';empty.id='rg-empty-result';
+  empty.innerHTML='<i class="fa-solid fa-chart-line fa-3x" style="margin-bottom:18px"></i><strong>READY FOR SIGNAL</strong><small>Analyze Confluence to view the signal card and market chart</small>';
+  center.appendChild(empty);
+  const update=()=>{empty.style.display=signal.classList.contains('hidden')?'flex':'none'};
+  new MutationObserver(update).observe(signal,{attributes:true,attributeFilter:['class']});update();
+ }
+ const updateClock=()=>{let d=new Date();let c=document.getElementById('rg-clock'),t=document.getElementById('rg-date');if(c)c.textContent='UTC: '+d.toISOString().slice(11,19);if(t)t.textContent=d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'})};updateClock();setInterval(updateClock,1000);
+ document.querySelectorAll('#rg-sidebar button').forEach(b=>b.addEventListener('click',()=>{document.querySelectorAll('#rg-sidebar button').forEach(x=>x.classList.remove('rg-selected'));b.classList.add('rg-selected')}));
+})();
+</script>
+<script>
+async function toggleTelegramDelivery(role, checkbox) {
+  const url = role === 'admin' ? '/api/admin/telegram-settings' : '/api/user/telegram-settings';
+  const message = document.getElementById(role === 'admin' ? 'tg-settings-message' : 'user-tg-message');
+  const desired = checkbox.checked;
+  checkbox.disabled = true;
+  try {
+    const response = await fetch(url, {method:'PATCH', credentials:'same-origin', headers:{'Content-Type':'application/json'}, body:JSON.stringify({enabled:desired})});
+    const data = await response.json();
+    if (!response.ok || data.status !== 'success') throw Error(data.message || 'Could not update Telegram');
+    message.textContent = desired ? 'Telegram ON — saved credentials retained.' : 'Telegram OFF — saved credentials retained.';
+    message.style.color = '#4ade80';
+  } catch(e) {
+    checkbox.checked = !desired;
+    message.textContent = e.message;
+    message.style.color = '#f87171';
+  } finally { checkbox.disabled = false; }
+}
+</script>
+<script src="https://cdn.jsdelivr.net/npm/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js"></script>
+<script>
+(function(){
+ let chart,series,timer,loading=false,initial=true,lastKey='',assetPools={};
+ const el=id=>document.getElementById(id);
+ function start(){
+  const host=el('rg-live-chart');if(!host)return;
+  if(!window.LightweightCharts){el('rg-live-status').textContent='Chart library unavailable';return;}
+  chart=LightweightCharts.createChart(host,{width:host.clientWidth,height:host.clientHeight,layout:{background:{type:'solid',color:'#080805'},textColor:'#c9b47b'},grid:{vertLines:{color:'#241e10'},horzLines:{color:'#241e10'}},rightPriceScale:{borderColor:'#6c510e'},timeScale:{borderColor:'#6c510e',timeVisible:true,secondsVisible:false},crosshair:{mode:0},handleScroll:true,handleScale:true});
+  series=chart.addCandlestickSeries({upColor:'#24bb84',downColor:'#f05b64',borderUpColor:'#24bb84',borderDownColor:'#f05b64',wickUpColor:'#24bb84',wickDownColor:'#f05b64',priceLineVisible:true});
+  chart.subscribeCrosshairMove(p=>{const c=p.seriesData.get(series);if(c)el('rg-live-ohlc').textContent=`O ${c.open}  H ${c.high}  L ${c.low}  C ${c.close}`;});
+  new ResizeObserver(()=>chart.applyOptions({width:host.clientWidth,height:host.clientHeight})).observe(host);
+  el('rg-live-fit').addEventListener('click',()=>chart.timeScale().fitContent());
+  el('rg-live-broker').addEventListener('change',()=>{populatePairs();});
+  el('rg-live-pair').addEventListener('change',()=>{initial=true;lastKey='';series.setData([]);refresh();});
+  loadAssets();timer=setInterval(()=>{if(!document.hidden)refresh()},5000);
+ }
+ async function loadAssets(){
+  try{
+   const r=await fetch('/api/dashboard-assets',{cache:'no-store'});
+   if(!r.ok)throw Error('Cannot load market assets');
+   assetPools=await r.json();populatePairs();
+  }catch(e){el('rg-live-status').textContent=e.message;}
+ }
+ function populatePairs(){
+  const broker=el('rg-live-broker').value,select=el('rg-live-pair');
+  const assets=assetPools[broker]||[];
+  select.replaceChildren();
+  for(const a of assets){const option=document.createElement('option');option.value=a.value;option.textContent=a.label;select.appendChild(option);}
+  initial=true;lastKey='';series.setData([]);el('rg-live-price').textContent='—';
+  el('rg-live-status').textContent=assets.length?'Loading '+broker+' candles…':'No assets available';
+  if(assets.length)refresh();
+ }
+ async function refresh(){
+  if(loading||!series||!el('rg-live-pair').value)return;loading=true;
+  const broker=el('rg-live-broker').value,pair=el('rg-live-pair').value,key=broker+':'+pair;
+  try{
+   const res=await fetch(`/api/dashboard-candles?broker=${encodeURIComponent(broker)}&pair=${encodeURIComponent(pair)}`,{cache:'no-store'});
+   const d=await res.json();if(!res.ok||!d.candles?.length)throw Error(d.error||'No data');
+   if(key!==el('rg-live-broker').value+':'+el('rg-live-pair').value)return;
+   if(initial||key!==lastKey){series.setData(d.candles);chart.timeScale().fitContent();initial=false;lastKey=key;}
+   else {const old=series.data();const latest=old.length?old[old.length-1]:null;const incoming=d.candles;if(latest&&incoming.length&&incoming[0].time<=latest.time){for(const c of incoming){if(c.time>=latest.time)series.update(c);}}else series.setData(incoming);}
+   el('rg-live-price').textContent=Number(d.price).toFixed(pair.endsWith('JPY')?3:5);
+   const age=Math.max(0,Math.round(Date.now()/1000-d.as_of));
+   el('rg-live-status').textContent=(age>180?'Delayed · ':'Updated · ')+new Date(d.as_of*1000).toLocaleTimeString()+' · '+age+'s old';
+  }catch(e){if(key===el('rg-live-broker').value+':'+el('rg-live-pair').value){series.setData([]);el('rg-live-price').textContent='—';el('rg-live-status').textContent=e.message||'Data unavailable';}}finally{loading=false;if(key!==el('rg-live-broker').value+':'+el('rg-live-pair').value)refresh();}
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start);else start();
+})();
+</script>
+
+<script>
+(function(){
+  const states={manual:null,auto:null};
+  const charts={};
+  const brokerKey=b=>/pocket/i.test(b)?'pocket':/real|forex/i.test(b)?'real':'quotex';
+  const normalize=p=>String(p||'').trim().toUpperCase().replace(/(?:_OTC|-OTC|\s*\(OTC\)|OTCQ|OTCP)$/i,'').replace(/[^A-Z]/g,'');
+  function setup(which){
+    if(charts[which] || !window.LightweightCharts)return charts[which];
+    const id=which==='manual'?'autoChartImg':'loopChartImg';
+    const host=document.getElementById(id+'Live');
+    if(!host)return null;
+    const chart=LightweightCharts.createChart(host,{
+      width:host.clientWidth||370,height:205,
+      layout:{background:{type:'solid',color:'#050b08'},textColor:'#d5bb72'},
+      grid:{vertLines:{color:'#171a13'},horzLines:{color:'#171a13'}},
+      rightPriceScale:{borderColor:'#88620c',autoScale:true},
+      timeScale:{borderColor:'#88620c',timeVisible:true,secondsVisible:false,rightOffset:3},
+      handleScroll:true,handleScale:true
+    });
+    const series=chart.addCandlestickSeries({
+      upColor:'#10b981',downColor:'#ef4444',wickUpColor:'#10b981',
+      wickDownColor:'#ef4444',borderVisible:false, priceLineVisible:true,
+      autoscaleInfoProvider: original => original()
+    });
+    series.priceScale().applyOptions({autoScale:true});
+    charts[which]={chart,series,id,key:'',loaded:false};
+    if(window.ResizeObserver)new ResizeObserver(()=>chart.applyOptions({width:host.clientWidth||370})).observe(host);
+    return charts[which];
+  }
+  function markers(state,candles){
+    if(!state||!candles.length)return [];
+    // Use the exact minute candles evaluated by market_engine.py:
+    // evaluate_primary_candle(entry_dt) and evaluate_mtg_candle(entry_dt + 1 minute).
+    const byTime=new Map(candles.map(c=>[Number(c.time),c]));
+    const entryTime=Math.floor(state.entryTs/60)*60;
+    const entry=byTime.get(entryTime);
+    const result=[];
+    const call=/CALL|BUY/i.test(state.direction);
+    if(entry)result.push({time:entryTime,position:call?'belowBar':'aboveBar',
+      color:call?'#10b981':'#ef4444',shape:call?'arrowUp':'arrowDown',
+      text:call?'CALL':'PUT'});
+    if(state.status==='WIN'||state.status==='LOSS'){
+      // MTG is evaluated on the NEXT minute candle by the existing engine.
+      const resultTime=entryTime+(state.phase==='mtg'?60:0);
+      if(byTime.has(resultTime))result.push({time:resultTime,
+        position:'aboveBar',color:state.status==='WIN'?'#10b981':'#ef4444',
+        shape:'circle',text:state.status==='WIN'?'✓ WIN':'✕ LOSS'});
+    }
+    return result.sort((a,b)=>a.time-b.time);
+  }
+  async function update(which){
+    const state=states[which];if(!state||document.hidden)return;
+    const c=setup(which);if(!c)return;
+    const key=state.broker+':'+state.pair;
+    try{
+      const r=await fetch('/api/dashboard-candles?broker='+encodeURIComponent(state.broker)+'&pair='+encodeURIComponent(state.pair),{cache:'no-store'});
+      const d=await r.json();
+      if(!r.ok||!Array.isArray(d.candles)||!d.candles.length)throw Error(d.error||'No candles');
+      if(states[which]!==state)return;
+      c.series.setData(d.candles);
+      c.series.setMarkers(markers(state,d.candles));
+      // Keep the newest candle in view and let the price axis follow
+      // the visible candle range as prices move up or down.
+      c.series.priceScale().applyOptions({autoScale:true});
+      c.chart.timeScale().scrollToRealTime();
+      document.getElementById(c.id).style.display='none';
+      const host=document.getElementById(c.id+'Live');
+      host.style.display='block';
+      c.chart.applyOptions({width:host.clientWidth||370});
+      if(c.key!==key){c.chart.timeScale().fitContent();c.key=key;}
+      c.loaded=true;
+    }catch(e){
+      if(!c.loaded){document.getElementById(c.id+'Live').style.display='none';document.getElementById(c.id).style.display='block';}
+    }
+  }
+  window.signalLiveChartUpdate=function(which,pair,direction,status,entryTs,phase,broker){
+    states[which]={pair:normalize(pair),direction,status,entryTs:Number(entryTs),phase,broker:brokerKey(broker)};
+    update(which);
+  };
+  setInterval(()=>{update('manual');update('auto');},5000);
+})();
+</script>
+</body>
+</html>
